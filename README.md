@@ -16,4 +16,4 @@ From the root folder of your site, run:
 ```sh
 $ ws [port]
 ```
-The 'port' arg is optional, the default is 8000.
+The `port` arg is optional, the default is 8000.
