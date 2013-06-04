@@ -1,3 +1,4 @@
+#!/usr/bin/env node 
 var connect = require('connect');
 
 var app = connect()
