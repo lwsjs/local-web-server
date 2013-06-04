@@ -1,0 +1,12 @@
+{
+  "name": "web-server",
+  "version": "0.1.0",
+  "description": "Local web server",
+  "main": "index.js",
+  "repository": "",
+  "author": "",
+  "license": "BSD",
+  "dependencies": {
+    "connect": "~2.7.11"
+  }
+}
