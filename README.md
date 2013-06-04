@@ -1,19 +1,19 @@
 Fires up a local development server on a given port. 
 
 Install
-=======
+-------
 Install [Node.js](http://nodejs.org), then run
 
 ```sh
 $ npm install -g local-web-server
 ```
 
-*Linux/Mac users may require to run the above with `sudo`*
+*Linux/Mac users may need to run the above with `sudo`*
 
 Usage
-=====
-From the root folder of your website, run:
+-----
+From the root folder of your site, run:
 ```sh
 $ ws [port]
 ```
-The default port is 8000.
+The 'port' arg is optional, the default is 8000.
