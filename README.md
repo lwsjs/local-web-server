@@ -1,4 +1,4 @@
-Fires up a local development server on a given port. 
+Fires up a simple, static web server on a given port. Use for local web development or file sharing (directory browsing enabled). 
 
 Install
 -------
@@ -12,7 +12,7 @@ $ npm install -g local-web-server
 
 Usage
 -----
-From the root folder of your site, run:
+From the folder you wish to serve, run:
 ```sh
 $ ws [port]
 ```
