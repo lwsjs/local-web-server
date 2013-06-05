@@ -17,3 +17,5 @@ From the root folder of your site, run:
 $ ws [port]
 ```
 The `port` arg is optional, the default is 8000.
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/050b17b4263c08f12a2a9d9bbda80025 "githalytics.com")](http://githalytics.com/75lb/local-web-server)
