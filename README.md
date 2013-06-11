@@ -1,4 +1,4 @@
-Fires up a simple, static web server on a given port. Use for local web development or file sharing (directory browsing enabled). 
+Fires up a simple, static web server on a given port. Use for local web development or file sharing (directory browsing enabled).
 
 Install
 -------
