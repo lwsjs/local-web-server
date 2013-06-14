@@ -18,4 +18,23 @@ $ ws [port]
 ```
 The `port` arg is optional, the default is 8000.
 
+Use with Logstalgia
+===================
+The `default` log format is compatible with [logstalgia](http://code.google.com/p/logstalgia/).
+
+Write your log output to disk:
+```sh
+$ ws --logger default > web.log
+```
+
+Then visualise in logstalgia:
+```sh
+$ logstalgia web.log
+```
+
+Or pipe directly into logstalgia for real-time visualisation:
+```sh
+$ ws --logger default | logstalgia -
+```
+
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/050b17b4263c08f12a2a9d9bbda80025 "githalytics.com")](http://githalytics.com/75lb/local-web-server)
