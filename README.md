@@ -14,27 +14,27 @@ Usage
 -----
 From the folder you wish to serve, run:
 ```sh
-$ ws [port]
+$ ws [--port|-p <port>] [--log-format|-p dev|default|short|tiny]
 ```
-The `port` arg is optional, the default is 8000.
+The default `port` and `log-format` are `8000` and `dev`, respectively. 
 
 Use with Logstalgia
 ===================
-The `default` log format is compatible with [logstalgia](http://code.google.com/p/logstalgia/).
+The `default` log-format is compatible with [logstalgia](http://code.google.com/p/logstalgia/).
 
-Write your log output to disk:
+If you wrote your log output to disk, like so:
 ```sh
-$ ws --logger default > web.log
+$ ws --log-format default > web.log
 ```
 
-Then visualise in logstalgia:
+Then you could visualise in logstalgia:
 ```sh
 $ logstalgia web.log
 ```
 
-Or pipe directly into logstalgia for real-time visualisation:
+Alternatively, pipe directly from ws into logstalgia for real-time visualisation:
 ```sh
-$ ws --logger default | logstalgia -
+$ ws --log-format default | logstalgia -
 ```
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/050b17b4263c08f12a2a9d9bbda80025 "githalytics.com")](http://githalytics.com/75lb/local-web-server)
