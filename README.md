@@ -14,12 +14,12 @@ Usage
 -----
 From the folder you wish to serve, run:
 ```sh
-$ ws [--port|-p <port>] [--log-format|-p dev|default|short|tiny]
+$ ws [--port|-p <port>] [--log-format|-f dev|default|short|tiny]
 ```
 The default port and log-format are 8000 and "dev", respectively. 
 
 Use with Logstalgia
-===================
+-------------------
 The "default" log-format is compatible with [logstalgia](http://code.google.com/p/logstalgia/).
 
 If you wrote your log output to disk, like so:
