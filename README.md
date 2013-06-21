@@ -14,9 +14,20 @@ Usage
 -----
 From the folder you wish to serve, run:
 ```sh
-$ ws [--port|-p <port>] [--log-format|-f dev|default|short|tiny]
+$ ws
+serving at http://localhost:8000
 ```
-The default port and log-format are 8000 and "dev", respectively. 
+
+If you wish to override the default port (8000), use `--port` or `-p`: 
+```sh
+$ ws --port 9000
+serving at http://localhost:9000
+```
+
+Use a built-in or custom [Connect logger format](http://www.senchalabs.org/connect/middleware-logger.html) with `--log-format`:
+```sh
+$ ws --log-format short
+```
 
 Use with Logstalgia
 -------------------

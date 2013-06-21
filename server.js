@@ -34,5 +34,5 @@ if (!options.valid){
         .use(connect.directory(process.cwd()))
         .listen(options.port);
 
-    process.stderr.write("listening on port " + options.port + "\n");
+    process.stderr.write("listening at http://localhost:" + options.port + "\n");
 }
