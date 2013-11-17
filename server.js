@@ -2,8 +2,6 @@
 var connect = require('connect'),
     Thing = require("nature").Thing;
 
-process.argv.splice(0, 2);
-
 var usage = "usage: ws [--port|-p <port>] [--log-format|-p dev|default|short|tiny]";
 var options = new Thing()
     .define({ name: "port", alias: "p", type: "number", defaultOption: true, default: 8000 })

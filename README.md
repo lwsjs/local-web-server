@@ -52,4 +52,6 @@ $ ws --log-format default | logstalgia -
 ```
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/050b17b4263c08f12a2a9d9bbda80025 "githalytics.com")](http://githalytics.com/75lb/local-web-server)
+[![NPM](https://nodei.co/npm-dl/local-web-server.png?months=1)](https://nodei.co/npm/local-web-server/)
+
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/75lb/local-web-server/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
