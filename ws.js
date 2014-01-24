@@ -55,3 +55,6 @@ if (!options.valid){
 
     process.stderr.write("serving at http://localhost:" + options.port + "\n");
 }
+
+// open serveral sites with one command $ ws project1:8000 project2:8100
+// store port in package.json, e.g. "ws-port": 9000

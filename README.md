@@ -1,4 +1,7 @@
 [![NPM version](https://badge.fury.io/js/local-web-server.png)](http://badge.fury.io/js/local-web-server)
+[![Dependency Status](https://david-dm.org/75lb/local-web-server.png)](https://david-dm.org/75lb/local-web-server)
+![Analytics](https://ga-beacon.appspot.com/UA-27725889-12/local-web-server/README.md?pixel)
+
 local-web-server
 ================
 Fires up a simple, static web server on a given port. Use for local web development or file sharing (directory browsing enabled).
@@ -51,7 +54,4 @@ Alternatively, pipe directly from ws into logstalgia for real-time visualisation
 $ ws --log-format default | logstalgia -
 ```
 
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/050b17b4263c08f12a2a9d9bbda80025 "githalytics.com")](http://githalytics.com/75lb/local-web-server)
-[![NPM](https://nodei.co/npm-dl/local-web-server.png?months=1)](https://nodei.co/npm/local-web-server/)
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/75lb/local-web-server/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![NPM](https://nodei.co/npm-dl/local-web-server.png?months=3)](https://nodei.co/npm/local-web-server/)
