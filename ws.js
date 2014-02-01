@@ -1,20 +1,19 @@
 #!/usr/bin/env node 
 var connect = require("connect"),
     http = require("http"),
-    Thing = require("nature").Thing;
+    Thing = require("nature").Thing,
+    wodge = require("wodge");
 
-function red(txt){ return "\x1b[31m" + txt + "\x1b[0m"; }
-function green(txt){ return "\x1b[32m" + txt + "\x1b[0m"; }
 function halt(message){
-    console.log(red("Error ") + message);
+    console.log(wodge.red("Error ") + message);
     console.log(usage);
     process.exit(1);
 }
 
 var usage = "usage: ws [--port|-p <port>] [--log-format|-f dev|default|short|tiny]";
 var options = new Thing()
-    .define({ name: "port", alias: "p", type: "number", defaultOption: true, default: 8000 })
-    .define({ name: "log-format", alias: "f", type: "string", default: "dev" })
+    .define({ name: "port", alias: "p", type: "number", defaultOption: true, value: 8000 })
+    .define({ name: "log-format", alias: "f", type: "string", value: "dev" })
     .define({ name: "help", alias: "h", type: "boolean" })
     .on("error", function(err){
         halt(err.message);
@@ -56,5 +55,8 @@ if (!options.valid){
     process.stderr.write("serving at http://localhost:" + options.port + "\n");
 }
 
-// open serveral sites with one command $ ws project1:8000 project2:8100
+// open several sites with one command $ ws project1:8000 project2:8100
 // store port in package.json, e.g. "ws-port": 9000
+// ws -a to open a whole slew of sites stored in json
+// ws -o to open in default browser
+// ch, ff, op, sa, ca etc. to open in specific browser
