@@ -1,6 +1,6 @@
 {
   "name": "local-web-server",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Launch a lightweight static web server. Zero configuration.",
   "bin": {
     "ws": "./ws.js"
