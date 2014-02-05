@@ -1,8 +1,10 @@
-#!/usr/bin/env node 
+#!/usr/bin/env node
 var connect = require("connect"),
     http = require("http"),
     Thing = require("nature").Thing,
     wodge = require("wodge");
+
+var usage = "usage: ws [--port|-p <port>] [--log-format|-f dev|default|short|tiny]";
 
 function halt(message){
     console.log(wodge.red("Error ") + message);
@@ -10,7 +12,6 @@ function halt(message){
     process.exit(1);
 }
 
-var usage = "usage: ws [--port|-p <port>] [--log-format|-f dev|default|short|tiny]";
 var options = new Thing()
     .define({ name: "port", alias: "p", type: "number", defaultOption: true, value: 8000 })
     .define({ name: "log-format", alias: "f", type: "string", value: "dev" })
@@ -21,16 +22,16 @@ var options = new Thing()
     .set(process.argv);
 
 if (!options.valid){
-    halt(options.validationMessages)
+    halt(options.validationMessages);
 
 } else if (options.help){
     console.log(usage);
 
 } else {
     /**
-    customised connect.logger :date token, purely to satisfy Logstalgia. 
+    customised connect.logger :date token, purely to satisfy Logstalgia.
     */
-    connect.logger.token('date', function(req, res){ 
+    connect.logger.token("date", function(){
         var a = new Date();
         return (a.getDate() + "/" + a.getUTCMonth() + "/" + a.getFullYear() + ":" + a.toTimeString())
                 .replace("GMT", "").replace(" (BST)", "");
@@ -41,11 +42,11 @@ if (!options.valid){
         .use(connect.compress())
         .use(connect.static(process.cwd()))
         .use(connect.directory(process.cwd(), { icons: true }));
-        
+
     http.createServer(app)
         .on("error", function(err){
             if (err.code === "EADDRINUSE"){
-                halt("port " + options.port + " is already is use")
+                halt("port " + options.port + " is already is use");
             } else {
                 halt(err.message);
             }

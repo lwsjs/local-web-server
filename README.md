@@ -54,4 +54,24 @@ Alternatively, pipe directly from ws into logstalgia for real-time visualisation
 $ ws --log-format default | logstalgia -
 ```
 
+Use with glTail
+---------------
+To use with [glTail](http://www.fudgie.org), write your log to disk using the "default" format: 
+```sh
+$ ws -f default > web.log
+```
+
+Then specify this file in your glTail config: 
+
+```yaml
+servers:
+    dev:
+        host: localhost
+        source: local
+        files: /Users/Lloyd/Documents/MySite/web.log
+        parser: apache
+        color: 0.2, 0.2, 1.0, 1.0
+```
+
+
 [![NPM](https://nodei.co/npm-dl/local-web-server.png?months=3)](https://nodei.co/npm/local-web-server/)
