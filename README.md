@@ -4,7 +4,9 @@
 
 local-web-server
 ================
-Fires up a simple, static web server on a given port. Use for local web development or file sharing (directory browsing enabled).
+Fires up a simple, static web server on a given port. A pure Javascript (and more reliable) alternative to `$ python -mSimpleHTTPServer 8000`.
+
+Use for local web development or file sharing (directory browsing enabled). Plays well with Google Chrome Workspaces.
 
 Install
 -------
@@ -18,6 +20,10 @@ $ npm install -g local-web-server
 
 Usage
 -----
+```
+usage: ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]
+```
+
 From the folder you wish to serve, run:
 ```sh
 $ ws
@@ -27,9 +33,10 @@ serving at http://localhost:8000
 If you wish to serve a different directory, run:
 ```sh
 $ ws -d ~/mysite/
+serving ~/mysite at http://localhost:8000
 ```
 
-If you wish to override the default port (8000), use `--port` or `-p`: 
+If you wish to override the default port (8000), use `--port` or `-p`:
 ```sh
 $ ws --port 9000
 serving at http://localhost:9000
@@ -61,12 +68,12 @@ $ ws --log-format default | logstalgia -
 
 Use with glTail
 ---------------
-To use with [glTail](http://www.fudgie.org), write your log to disk using the "default" format: 
+To use with [glTail](http://www.fudgie.org), write your log to disk using the "default" format:
 ```sh
 $ ws -f default > web.log
 ```
 
-Then specify this file in your glTail config: 
+Then specify this file in your glTail config:
 
 ```yaml
 servers:

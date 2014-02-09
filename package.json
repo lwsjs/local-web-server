@@ -10,6 +10,6 @@
   "dependencies": {
     "connect": "~2.12.0",
     "nature": "~0.3.0",
-    "wodge": "~0.1.1"
+    "wodge": "~0.1.5"
   }
 }

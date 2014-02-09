@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 var connect = require("connect"),
     http = require("http"),
+    util = require("util"),
     Thing = require("nature").Thing,
     wodge = require("wodge");
 
@@ -59,5 +60,9 @@ if (!options.valid){
     /*
     write to stderr so not to appear in logs piped to disk ($ ws > log.txt)
     */
-    console.error("serving at http://localhost:" + options.port);
+    console.error(util.format(
+        "serving %sat %s",
+        options.directory === process.cwd() ? "" : wodge.underline(options.directory) + " ",
+        wodge.underline("http://localhost:" + options.port)
+    ));
 }
