@@ -16,7 +16,7 @@ var options = new Thing()
     .define({ name: "port", alias: "p", type: "number", defaultOption: true, value: 8000 })
     .define({ name: "log-format", alias: "f", type: "string", value: "dev" })
     .define({ name: "help", alias: "h", type: "boolean" })
-    .define({ name: "directory", alias: "d", type: "string", defaultOption: true, value: process.cwd()})
+    .define({ name: "directory", alias: "d", type: "string", value: process.cwd() })
     .on("error", function(err){
         halt(err.message);
     })
