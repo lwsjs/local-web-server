@@ -21,7 +21,7 @@ $ npm install -g local-web-server
 Usage
 -----
 ```
-usage: ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]
+ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]
 ```
 
 From the folder you wish to serve, run:
