@@ -4,7 +4,7 @@ var connect = require("connect"),
     Thing = require("nature").Thing,
     wodge = require("wodge");
 
-var usage = "usage: ws [--port|-p <port>] [--log-format|-f dev|default|short|tiny]";
+var usage = "usage: ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]";
 
 function halt(message){
     console.log(wodge.red("Error ") + message);
@@ -16,6 +16,7 @@ var options = new Thing()
     .define({ name: "port", alias: "p", type: "number", defaultOption: true, value: 8000 })
     .define({ name: "log-format", alias: "f", type: "string", value: "dev" })
     .define({ name: "help", alias: "h", type: "boolean" })
+    .define({ name: "directory", alias: "d", type: "string", defaultOption: true, value: process.cwd()})
     .on("error", function(err){
         halt(err.message);
     })
@@ -40,8 +41,8 @@ if (!options.valid){
     var app = connect()
         .use(connect.logger(options["log-format"]))
         .use(connect.compress())
-        .use(connect.static(process.cwd()))
-        .use(connect.directory(process.cwd(), { icons: true }));
+        .use(connect.static(options.directory))
+        .use(connect.directory(options.directory, { icons: true }));
 
     http.createServer(app)
         .on("error", function(err){
