@@ -21,26 +21,26 @@ $ npm install -g local-web-server
 Usage
 -----
 ```
-usage: ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]
+ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]
 ```
 
 From the folder you wish to serve, run:
-```sh
+<pre>
 $ ws
-serving at http://localhost:8000
-```
+serving at <u>http://localhost:8000</u>
+</pre>
 
 If you wish to serve a different directory, run:
-```sh
+<pre>
 $ ws -d ~/mysite/
-serving ~/mysite at http://localhost:8000
-```
+serving <u>/Users/Lloyd/mysite</u> at <u>http://localhost:8000</u>
+</pre>
 
 If you wish to override the default port (8000), use `--port` or `-p`:
-```sh
+<pre>
 $ ws --port 9000
-serving at http://localhost:9000
-```
+serving at <u>http://localhost:9000</u>
+</pre>
 
 Use a built-in or custom [Connect logger format](http://www.senchalabs.org/connect/logger.html) with `--log-format`:
 ```sh
