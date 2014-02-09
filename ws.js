@@ -6,12 +6,6 @@ var connect = require("connect"),
 
 var usage = "usage: ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]";
 
-function halt(message){
-    console.log(wodge.red("Error ") + message);
-    console.log(usage);
-    process.exit(1);
-
-
 var options = new Thing()
     .define({ name: "port", alias: "p", type: "number", defaultOption: true, value: 8000 })
     .define({ name: "log-format", alias: "f", type: "string", value: "dev" })
@@ -21,6 +15,20 @@ var options = new Thing()
         halt(err.message);
     })
     .set(process.argv);
+
+function handleServerError(err){
+    if (err.code === "EADDRINUSE"){
+        halt("port " + options.port + " is already is use");
+    } else {
+        halt(err.message);
+    }
+}
+
+function halt(message){
+    console.log(wodge.red("Error ") + message);
+    console.log(usage);
+    process.exit(1);
+}
 
 if (!options.valid){
     halt(options.validationMessages);
@@ -45,14 +53,11 @@ if (!options.valid){
         .use(connect.directory(options.directory, { icons: true }));
 
     http.createServer(app)
-        .on("error", function(err){
-            if (err.code === "EADDRINUSE"){
-                halt("port " + options.port + " is already is use");
-            } else {
-                halt(err.message);
-            }
-        })
+        .on("error", handleServerError)
         .listen(options.port);
 
-    process.stderr.write("serving at http://localhost:" + options.port + "\n");
+    /*
+    write to stderr so not to appear in logs piped to disk ($ ws > log.txt)
+    */
+    console.error("serving at http://localhost:" + options.port);
 }
