@@ -30,7 +30,7 @@ $ ws --port 9000
 serving at http://localhost:9000
 ```
 
-Use a built-in or custom [Connect logger format](http://www.senchalabs.org/connect/middleware-logger.html) with `--log-format`:
+Use a built-in or custom [Connect logger format](http://www.senchalabs.org/connect/logger.html) with `--log-format`:
 ```sh
 $ ws --log-format short
 ```

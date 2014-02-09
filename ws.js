@@ -10,7 +10,7 @@ function halt(message){
     console.log(wodge.red("Error ") + message);
     console.log(usage);
     process.exit(1);
-}
+
 
 var options = new Thing()
     .define({ name: "port", alias: "p", type: "number", defaultOption: true, value: 8000 })
@@ -55,9 +55,3 @@ if (!options.valid){
 
     process.stderr.write("serving at http://localhost:" + options.port + "\n");
 }
-
-// open several sites with one command $ ws project1:8000 project2:8100
-// store port in package.json, e.g. "ws-port": 9000
-// ws -a to open a whole slew of sites stored in json
-// ws -o to open in default browser
-// ch, ff, op, sa, ca etc. to open in specific browser
