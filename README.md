@@ -33,7 +33,7 @@ serving at http://localhost:8000
 If you wish to serve a different directory, run:
 ```sh
 $ ws -d ~/mysite/
-serving ~/mysite at http://localhost:8000
+serving /Users/Lloyd/mysite at http://localhost:8000
 ```
 
 If you wish to override the default port (8000), use `--port` or `-p`:
