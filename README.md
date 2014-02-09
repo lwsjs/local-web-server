@@ -24,6 +24,11 @@ $ ws
 serving at http://localhost:8000
 ```
 
+If you wish to serve a different directory, run:
+```sh
+$ ws -d ~/mysite/
+```
+
 If you wish to override the default port (8000), use `--port` or `-p`: 
 ```sh
 $ ws --port 9000
