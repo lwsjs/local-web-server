@@ -12,6 +12,7 @@ var options = new Thing()
     .define({ name: "log-format", alias: "f", type: "string", value: "dev" })
     .define({ name: "help", alias: "h", type: "boolean" })
     .define({ name: "directory", alias: "d", type: "string", value: process.cwd() })
+    .define({ name: "stats", alias: "s", type: "boolean" })
     .on("error", function(err){
         halt(err.message);
     })
@@ -47,18 +48,33 @@ if (!options.valid){
                 .replace("GMT", "").replace(" (BST)", "");
     });
 
-    var app = connect()
-        .use(connect.logger(options["log-format"]))
-        .use(connect.compress())
+    var app = connect();
+        
+    if(options.stats){
+        var reqCount = 0;
+        app.use(function(req, res, next){
+            if (reqCount === 0){
+                process.stdout.write("Files served: ");
+            }
+            process.stdout.write(reqCount.toString());
+            reqCount++;
+            process.stdout.write("\x1b[15G");
+            next();
+        });
+    } else {
+        app.use(connect.logger(options["log-format"]));
+    }
+    
+    app.use(connect.compress())
         .use(connect.static(options.directory))
         .use(connect.directory(options.directory, { icons: true }));
-
+    
     http.createServer(app)
         .on("error", handleServerError)
         .listen(options.port);
 
     /*
-    write to stderr so not to appear in logs piped to disk ($ ws > log.txt)
+    write to stderr so stdout can be piped to disk ($ ws > log.txt)
     */
     console.error(util.format(
         "serving %sat %s",
