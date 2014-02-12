@@ -1,13 +1,23 @@
 #!/usr/bin/env node
+"use strict";
+require("more-console");    
 var connect = require("connect"),
     http = require("http"),
     util = require("util"),
-    Thing = require("nature").Thing,
-    wodge = require("wodge");
+    Thing = require("nature").Thing;
 
 var usage = "usage: ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]";
 
-var options = new Thing()
+function halt(message){
+    console.red.log("Error: %s",  message);
+    console.log(usage);
+    process.exit(1);
+}
+
+/**
+parse command-line args
+*/
+var argv = new Thing()
     .define({ name: "port", alias: "p", type: "number", defaultOption: true, value: 8000 })
     .define({ name: "log-format", alias: "f", type: "string", value: "dev" })
     .define({ name: "help", alias: "h", type: "boolean" })
@@ -20,22 +30,22 @@ var options = new Thing()
 
 function handleServerError(err){
     if (err.code === "EADDRINUSE"){
-        halt("port " + options.port + " is already is use");
+        halt("port " + argv.port + " is already is use");
     } else {
         halt(err.message);
     }
 }
 
-function halt(message){
-    console.log(wodge.red("Error ") + message);
-    console.log(usage);
-    process.exit(1);
-}
+/**
+Die here if invalid args received
+*/
+if (!argv.valid) halt(argv.validationMessages);
 
-if (!options.valid){
-    halt(options.validationMessages);
 
-} else if (options.help){
+/**
+$ ws --help
+*/
+if (argv.help){
     console.log(usage);
 
 } else {
@@ -50,35 +60,33 @@ if (!options.valid){
 
     var app = connect();
         
-    if(options.stats){
+    if(argv.stats){
         var reqCount = 0;
         app.use(function(req, res, next){
             if (reqCount === 0){
-                process.stdout.write("Files served: ");
+                console.write("Files served: ");
             }
-            process.stdout.write(reqCount.toString());
-            reqCount++;
-            process.stdout.write("\x1b[15G");
+            console.column(15).write(reqCount++);
             next();
         });
     } else {
-        app.use(connect.logger(options["log-format"]));
+        app.use(connect.logger(argv["log-format"]));
     }
     
     app.use(connect.compress())
-        .use(connect.static(options.directory))
-        .use(connect.directory(options.directory, { icons: true }));
+        .use(connect.static(argv.directory))
+        .use(connect.directory(argv.directory, { icons: true }));
     
     http.createServer(app)
         .on("error", handleServerError)
-        .listen(options.port);
+        .listen(argv.port);
 
     /*
-    write to stderr so stdout can be piped to disk ($ ws > log.txt)
+    write status to stderr so stdout can be piped to disk ($ ws > log.txt)
     */
-    console.error(util.format(
-        "serving %sat %s",
-        options.directory === process.cwd() ? "" : wodge.underline(options.directory) + " ",
-        wodge.underline("http://localhost:" + options.port)
-    ));
+    if (argv.directory === process.cwd()){
+        console.error("serving at %u{%s}", "http://localhost:" + argv.port);
+    } else {
+        console.error("serving %u{%s} at %u{%s}", argv.directory, "http://localhost:" + argv.port);
+    }
 }
