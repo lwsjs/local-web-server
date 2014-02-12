@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 "use strict";
-require("more-console");    
+require("more-console");
 var connect = require("connect"),
     http = require("http"),
     util = require("util"),
-    Thing = require("nature").Thing;
+    Thing = require("nature").Thing,
+    w = require("wodge");
 
 var usage = "usage: ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]";
 
@@ -41,7 +42,6 @@ Die here if invalid args received
 */
 if (!argv.valid) halt(argv.validationMessages);
 
-
 /**
 $ ws --help
 */
@@ -49,6 +49,17 @@ if (argv.help){
     console.log(usage);
 
 } else {
+    var total = {
+        req: 0,
+        bytes: 0,
+        connections: 0
+    };
+
+    process.on("SIGINT", function(){
+        console.log();
+        process.exit(0);
+    });
+
     /**
     customised connect.logger :date token, purely to satisfy Logstalgia.
     */
@@ -59,25 +70,20 @@ if (argv.help){
     });
 
     var app = connect();
-        
+
     if(argv.stats){
-        var reqCount = 0;
         app.use(function(req, res, next){
-            if (reqCount === 0){
-                console.write("Files served: ");
-            }
-            console.column(15).write(reqCount++);
+            console.column(1).write(++total.req);
             next();
         });
     } else {
         app.use(connect.logger(argv["log-format"]));
     }
-    
-    app.use(connect.compress())
-        .use(connect.static(argv.directory))
+
+    app.use(connect.static(argv.directory))
         .use(connect.directory(argv.directory, { icons: true }));
-    
-    http.createServer(app)
+
+    var server = http.createServer(app)
         .on("error", handleServerError)
         .listen(argv.port);
 
@@ -88,5 +94,21 @@ if (argv.help){
         console.error("serving at %u{%s}", "http://localhost:" + argv.port);
     } else {
         console.error("serving %u{%s} at %u{%s}", argv.directory, "http://localhost:" + argv.port);
+    }
+
+    if (argv.stats){
+        console.log("%u{Requests}   %u{Data}        %u{Connections}");
+        server.on("connection", function(socket){
+            var oldWrite = socket.write;
+            socket.write = function(data) {
+                if (!Buffer.isBuffer(data)) {
+                    data = new Buffer(data);
+                }
+                oldWrite.call(this, data);
+                total.bytes += data.length;
+                console.column(12).write(w.bytesToSize(total.bytes, 2));
+            };
+            console.column(24).write(++total.connections);
+        });
     }
 }
