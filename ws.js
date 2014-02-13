@@ -110,6 +110,9 @@ if (argv.help){
                 console.column(12).write((w.bytesToSize(total.bytes, 2) + "            ").slice(0,12));
             };
             console.column(24).write(++total.connections);
+            socket.on("close", function(){
+                console.column(24).write(--total.connections);
+            });
         });
     }
 }
