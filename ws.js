@@ -20,10 +20,9 @@ parse command-line args
 */
 var argv = new Thing()
     .define({ name: "port", alias: "p", type: "number", defaultOption: true, value: 8000 })
-    .define({ name: "log-format", alias: "f", type: "string", value: "dev" })
+    .define({ name: "log-format", alias: "f", type: "string" })
     .define({ name: "help", alias: "h", type: "boolean" })
     .define({ name: "directory", alias: "d", type: "string", value: process.cwd() })
-    .define({ name: "stats", alias: "s", type: "boolean" })
     .on("error", function(err){
         halt(err.message);
     })
@@ -56,6 +55,7 @@ if (argv.help){
     };
 
     process.on("SIGINT", function(){
+        console.show();
         console.log();
         process.exit(0);
     });
@@ -71,13 +71,13 @@ if (argv.help){
 
     var app = connect();
 
-    if(argv.stats){
+    if(argv["log-format"]){
+        app.use(connect.logger(argv["log-format"]));
+    } else {
         app.use(function(req, res, next){
             console.column(1).write(++total.req);
             next();
         });
-    } else {
-        app.use(connect.logger(argv["log-format"]));
     }
 
     app.use(connect.static(argv.directory))
@@ -96,7 +96,8 @@ if (argv.help){
         console.error("serving %u{%s} at %u{%s}", argv.directory, "http://localhost:" + argv.port);
     }
 
-    if (argv.stats){
+    if (!argv["log-format"]){
+        console.hide();
         console.log("%u{Requests}   %u{Data}        %u{Connections}");
         server.on("connection", function(socket){
             var oldWrite = socket.write;
@@ -106,7 +107,7 @@ if (argv.help){
                 }
                 oldWrite.call(this, data);
                 total.bytes += data.length;
-                console.column(12).write(w.bytesToSize(total.bytes, 2));
+                console.column(12).write((w.bytesToSize(total.bytes, 2) + "            ").slice(0,12));
             };
             console.column(24).write(++total.connections);
         });
