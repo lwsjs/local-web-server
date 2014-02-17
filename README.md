@@ -21,7 +21,7 @@ $ npm install -g local-web-server
 Usage
 -----
 ```
-ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]
+ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny] [--compress|-c]
 ```
 
 From the folder you wish to serve, run:
@@ -45,6 +45,11 @@ serving at http://localhost:9000
 Use a built-in or custom [Connect logger format](http://www.senchalabs.org/connect/logger.html) with `--log-format`:
 ```sh
 $ ws --log-format short
+```
+
+To add compression, reducing bandwidth, increasing page load time (by 10-15% on my Macbook Air)
+```sh
+$ ws --compress
 ```
 
 Use with Logstalgia

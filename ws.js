@@ -23,6 +23,7 @@ var argv = new Thing()
     .define({ name: "log-format", alias: "f", type: "string" })
     .define({ name: "help", alias: "h", type: "boolean" })
     .define({ name: "directory", alias: "d", type: "string", value: process.cwd() })
+    .define({ name: "compress", alias: "c", type: "boolean" })
     .on("error", function(err){
         halt(err.message);
     })
@@ -71,6 +72,9 @@ if (argv.help){
 
     var app = connect();
 
+    /*
+    log using --log-format (if supplied), else output statics
+    */
     if(argv["log-format"]){
         app.use(connect.logger(argv["log-format"]));
     } else {
@@ -80,9 +84,20 @@ if (argv.help){
         });
     }
 
+    /**
+    --compress enables compression
+    */
+    if (argv.compress) app.use(connect.compress());
+
+    /**
+    static file server including directory browsing support
+    */
     app.use(connect.static(argv.directory))
         .use(connect.directory(argv.directory, { icons: true }));
 
+    /**
+    launch server
+    */
     var server = http.createServer(app)
         .on("error", handleServerError)
         .listen(argv.port);
@@ -96,6 +111,9 @@ if (argv.help){
         console.error("serving %u{%s} at %u{%s}", argv.directory, "http://localhost:" + argv.port);
     }
 
+    /**
+    in stats mode, monitor connections and bytes transferred
+    */
     if (!argv["log-format"]){
         console.hide();
         console.log("%u{Requests}   %u{Data}        %u{Connections}");
