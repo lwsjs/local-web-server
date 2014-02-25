@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 "use strict";
-require("more-console");
+require("console-dope");
 var connect = require("connect"),
     http = require("http"),
     util = require("util"),
@@ -56,7 +56,7 @@ if (argv.help){
     };
 
     process.on("SIGINT", function(){
-        console.show();
+        console.showCursor();
         console.log();
         process.exit(0);
     });
@@ -115,7 +115,7 @@ if (argv.help){
     in stats mode, monitor connections and bytes transferred
     */
     if (!argv["log-format"]){
-        console.hide();
+        console.hideCursor();
         console.log("%u{Requests}   %u{Data}        %u{Connections}");
         server.on("connection", function(socket){
             var oldWrite = socket.write;
@@ -129,7 +129,7 @@ if (argv.help){
             };
             console.column(24).write(++total.connections);
             socket.on("close", function(){
-                console.column(24).write(--total.connections);
+                console.column(24).write((--total.connections + "            ").slice(0,12));
             });
         });
     }
