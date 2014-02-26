@@ -52,6 +52,36 @@ To add compression, reducing bandwidth, increasing page load time (by 10-15% on 
 $ ws --compress
 ```
 
+Storing default options
+-----------------------
+To store per-project options, saving you the hassle of inputting them everytime, store them in the `local-web-server` property of your project's `package.json`:
+```json
+{
+  "name": "my-project",
+  "version": "0.11.8",
+  "local-web-server":{
+    "port": 8100
+  }
+}
+```
+
+Or in a `.local-web-server.json` file stored in the directory you want to serve (typically the root folder of your site):
+```json
+{
+  "port": 8100
+  "log-format": "tiny"
+}
+```
+
+Or store global defaults in a `.local-web-server.json` file in your home directory.
+```json
+{
+  "port": 3000
+}
+```
+
+All stored defaults are overriden by options supplied at the command line. 
+
 Use with Logstalgia
 -------------------
 The "default" log-format is compatible with [logstalgia](http://code.google.com/p/logstalgia/).
