@@ -4,8 +4,10 @@ require("console-dope");
 var connect = require("connect"),
     http = require("http"),
     util = require("util"),
+    fs = require("fs"),
     Thing = require("nature").Thing,
-    w = require("wodge");
+    w = require("wodge"),
+    path = require("path");
 
 var usage = "usage: ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]";
 
@@ -13,6 +15,14 @@ function halt(message){
     console.red.log("Error: %s",  message);
     console.log(usage);
     process.exit(1);
+}
+
+function handleServerError(err){
+    if (err.code === "EADDRINUSE"){
+        halt("port " + argv.port + " is already is use");
+    } else {
+        halt(err.message);
+    }
 }
 
 /**
@@ -29,14 +39,22 @@ var argv = new Thing()
     })
     .set(process.argv);
 
-function handleServerError(err){
-    if (err.code === "EADDRINUSE"){
-        halt("port " + argv.port + " is already is use");
-    } else {
-        halt(err.message);
-    }
+/*
+Include any options from "package.json", ".local-web-server.json" or "~/.local-web-server.json", in that order
+*/
+var pkgPath = path.join(process.cwd(), "package.json"),
+    lwsPath = path.join(process.cwd(), ".local-web-server.json"),
+    homePath = path.join(w.getHomeDir(), ".local-web-server.json");
+if (fs.existsSync(pkgPath)){
+    argv.set(require(pkgPath)["local-web-server"]);
 }
-
+if (fs.existsSync(lwsPath)){
+    argv.set(require(lwsPath));
+}
+if (fs.existsSync(homePath)){
+    argv.set(require(homePath));
+}
+    
 /**
 Die here if invalid args received
 */
