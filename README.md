@@ -68,7 +68,7 @@ To store per-project options, saving you the hassle of inputting them everytime,
 Or in a `.local-web-server.json` file stored in the directory you want to serve (typically the root folder of your site):
 ```json
 {
-  "port": 8100
+  "port": 8100,
   "log-format": "tiny"
 }
 ```
