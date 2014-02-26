@@ -36,11 +36,10 @@ var argv = new Thing()
     .define({ name: "compress", alias: "c", type: "boolean" })
     .on("error", function(err){
         halt(err.message);
-    })
-    .set(process.argv);
-
+    });
+    
 /*
-Include any options from "package.json", ".local-web-server.json" or "~/.local-web-server.json", in that order
+Set default options from "package.json", ".local-web-server.json" or "~/.local-web-server.json", in that order
 */
 var pkgPath = path.join(process.cwd(), "package.json"),
     lwsPath = path.join(process.cwd(), ".local-web-server.json"),
@@ -54,6 +53,11 @@ if (fs.existsSync(lwsPath)){
 if (fs.existsSync(homePath)){
     argv.set(require(homePath));
 }
+
+/*
+Finally, set the options from the command-line, overriding all defaults. 
+*/
+argv.set(process.argv);
     
 /**
 Die here if invalid args received
