@@ -147,11 +147,11 @@ if (argv.help){
                 }
                 oldWrite.call(this, data);
                 total.bytes += data.length;
-                console.column(12).write((w.bytesToSize(total.bytes, 2) + "            ").slice(0,12));
+                console.column(12).write(w.padRight(w.bytesToSize(total.bytes, 2), 12));
             };
             console.column(24).write(++total.connections);
             socket.on("close", function(){
-                console.column(24).write((--total.connections + "            ").slice(0,12));
+                console.column(24).write(w.padRight(--total.connections));
             });
         });
     }

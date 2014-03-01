@@ -10,7 +10,7 @@
   "dependencies": {
     "connect": "~2.13.0",
     "nature": "~0.3.0",
-    "console-dope": "~0.1.0",
-    "wodge": "~0.2.0"
+    "console-dope": "~0.2.0",
+    "wodge": "~0.3.0"
   }
 }
