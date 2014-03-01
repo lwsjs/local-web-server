@@ -128,9 +128,9 @@ if (argv.help){
     write status to stderr so stdout can be piped to disk ($ ws > log.txt)
     */
     if (argv.directory === process.cwd()){
-        console.error("serving at %u{%s}", "http://localhost:" + argv.port);
+        console.error("serving at %underline{%s}", "http://localhost:" + argv.port);
     } else {
-        console.error("serving %u{%s} at %u{%s}", argv.directory, "http://localhost:" + argv.port);
+        console.error("serving %underline{%s} at %underline{%s}", argv.directory, "http://localhost:" + argv.port);
     }
 
     /**
@@ -138,7 +138,7 @@ if (argv.help){
     */
     if (!argv["log-format"]){
         console.hideCursor();
-        console.log("%u{Requests}   %u{Data}        %u{Connections}");
+        console.log("%underline{Requests}   %underline{Data}        %underline{Connections}");
         server.on("connection", function(socket){
             var oldWrite = socket.write;
             socket.write = function(data) {
