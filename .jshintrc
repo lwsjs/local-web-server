@@ -14,5 +14,5 @@
     "quotmark": "double",
     "trailing": true,
     "undef": true,
-    "unused": "strict"
+    "unused": true
 }

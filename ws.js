@@ -3,7 +3,6 @@
 require("console-dope");
 var connect = require("connect"),
     http = require("http"),
-    util = require("util"),
     fs = require("fs"),
     Thing = require("nature").Thing,
     w = require("wodge"),
@@ -15,14 +14,6 @@ function halt(message){
     console.red.log("Error: %s",  message);
     console.log(usage);
     process.exit(1);
-}
-
-function handleServerError(err){
-    if (err.code === "EADDRINUSE"){
-        halt("port " + argv.port + " is already is use");
-    } else {
-        halt(err.message);
-    }
 }
 
 /**
@@ -37,7 +28,7 @@ var argv = new Thing()
     .on("error", function(err){
         halt(err.message);
     });
-    
+
 /*
 Set default options from "package.json", ".local-web-server.json" or "~/.local-web-server.json", in that order
 */
@@ -114,20 +105,26 @@ if (argv.help){
     /**
     static file server including directory browsing support
     */
-    app.use(connect.static(argv.directory))
-        .use(connect.directory(argv.directory, { icons: true }));
+    app.use(connect.static(path.resolve(argv.directory)))
+        .use(connect.directory(path.resolve(argv.directory), { icons: true }));
 
     /**
     launch server
     */
     var server = http.createServer(app)
-        .on("error", handleServerError)
+        .on("error", function(err){
+            if (err.code === "EADDRINUSE"){
+                halt("port " + argv.port + " is already is use");
+            } else {
+                halt(err.message);
+            }
+        })
         .listen(argv.port);
 
     /*
     write status to stderr so stdout can be piped to disk ($ ws > log.txt)
     */
-    if (argv.directory === process.cwd()){
+    if (path.resolve(argv.directory) === process.cwd()){
         console.error("serving at %underline{%s}", "http://localhost:" + argv.port);
     } else {
         console.error("serving %underline{%s} at %underline{%s}", argv.directory, "http://localhost:" + argv.port);
