@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 "use strict";
-require("console-dope");
-var connect = require("connect"),
+var dope = require("console-dope"),
+    connect = require("connect"),
     http = require("http"),
     fs = require("fs"),
     Thing = require("nature").Thing,
@@ -11,8 +11,8 @@ var connect = require("connect"),
 var usage = "usage: ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]";
 
 function halt(message){
-    console.red.log("Error: %s",  message);
-    console.log(usage);
+    dope.red.log("Error: %s",  message);
+    dope.log(usage);
     process.exit(1);
 }
 
@@ -59,7 +59,7 @@ if (!argv.valid) halt(argv.validationMessages);
 $ ws --help
 */
 if (argv.help){
-    console.log(usage);
+    dope.log(usage);
 
 } else {
     var total = {
@@ -69,8 +69,8 @@ if (argv.help){
     };
 
     process.on("SIGINT", function(){
-        console.showCursor();
-        console.log();
+        dope.showCursor();
+        dope.log();
         process.exit(0);
     });
 
@@ -92,7 +92,7 @@ if (argv.help){
         app.use(connect.logger(argv["log-format"]));
     } else {
         app.use(function(req, res, next){
-            console.column(1).write(++total.req);
+            dope.column(1).write(++total.req);
             next();
         });
     }
@@ -125,17 +125,17 @@ if (argv.help){
     write status to stderr so stdout can be piped to disk ($ ws > log.txt)
     */
     if (path.resolve(argv.directory) === process.cwd()){
-        console.error("serving at %underline{%s}", "http://localhost:" + argv.port);
+        dope.error("serving at %underline{%s}", "http://localhost:" + argv.port);
     } else {
-        console.error("serving %underline{%s} at %underline{%s}", argv.directory, "http://localhost:" + argv.port);
+        dope.error("serving %underline{%s} at %underline{%s}", argv.directory, "http://localhost:" + argv.port);
     }
 
     /**
     in stats mode, monitor connections and bytes transferred
     */
     if (!argv["log-format"]){
-        console.hideCursor();
-        console.log("%underline{Requests}   %underline{Data}        %underline{Connections}");
+        dope.hideCursor();
+        dope.log("%underline{Requests}   %underline{Data}        %underline{Connections}");
         server.on("connection", function(socket){
             var oldWrite = socket.write;
             socket.write = function(data) {
@@ -144,11 +144,11 @@ if (argv.help){
                 }
                 oldWrite.call(this, data);
                 total.bytes += data.length;
-                console.column(12).write(w.padRight(w.bytesToSize(total.bytes, 2), 12));
+                dope.column(12).write(w.padRight(w.bytesToSize(total.bytes, 2), 12));
             };
-            console.column(24).write(++total.connections);
+            dope.column(24).write(++total.connections);
             socket.on("close", function(){
-                console.column(24).write(w.padRight(--total.connections));
+                dope.column(24).write(w.padRight(--total.connections));
             });
         });
     }
