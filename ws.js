@@ -8,7 +8,7 @@ var dope = require("console-dope"),
     w = require("wodge"),
     path = require("path");
 
-var usage = "usage: ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]";
+var usage = "usage: ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny] [--compress|-c]";
 
 function halt(message){
     dope.red.log("Error: %s",  message);
