@@ -3,14 +3,25 @@
   "version": "0.3.7",
   "description": "Launch a lightweight static web server. Zero configuration.",
   "bin": {
-    "ws": "./ws.js"
+    "ws": "./bin/ws.js"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "lint": "jshint bin/ws.js; echo;"
   },
   "repository": "https://github.com/75lb/local-web-server",
   "author": "Lloyd Brookes",
   "dependencies": {
-    "connect": "~2.14.0",
-    "nature": "~0.3.0",
+    "connect": "^3.0.0",
+    "nature": "~0.4.0",
     "console-dope": "~0.3.0",
-    "wodge": "~0.3.0"
+    "wodge": "~0.5.0",
+    "config-master": "~0.0.0",
+    "morgan": "^1.0.0",
+    "serve-static": "^1.1.0",
+    "serve-index": "^1.0.2",
+    "compression": "^1.0.2"
   }
 }
