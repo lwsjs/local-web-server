@@ -100,6 +100,8 @@ Then pipe the `default` output directly into logstalgia for real-time visualisat
 $ ws -f default | logstalgia -
 ```
 
+![local-web-server with logstalgia](http://75lb.github.io/local-web-server/logstagia.gif)
+
 Use with glTail
 ---------------
 To use with [glTail](http://www.fudgie.org), write your log to disk using the "default" format:
