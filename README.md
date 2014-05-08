@@ -85,21 +85,19 @@ All stored defaults are overriden by options supplied at the command line.
 
 Use with Logstalgia
 -------------------
-The "default" log-format is compatible with [logstalgia](http://code.google.com/p/logstalgia/).
+The "default" log-format is compatible with [logstalgia](http://code.google.com/p/logstalgia/). 
 
-If you wrote your log output to disk, like so:
+###Install Logstalgia
+On MacOSX, install with [homebrew](http://brew.sh):
 ```sh
-$ ws --log-format default > web.log
+$ brew install logstalgia
 ```
 
-Then you could visualise in logstalgia with:
-```sh
-$ logstalgia web.log
-```
+Alternatively, [download a release for your system from github](https://github.com/acaudwell/Logstalgia/releases/latest).
 
-Alternatively, pipe directly from ws into logstalgia for real-time visualisation:
+Then pipe the `default` output directly into logstalgia for real-time visualisation:
 ```sh
-$ ws --log-format default | logstalgia -
+$ ws -f default | logstalgia -
 ```
 
 Use with glTail
