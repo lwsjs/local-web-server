@@ -22,7 +22,9 @@ $ npm install -g local-web-server
 Usage
 -----
 ```
-ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny] [--compress|-c]
+$ ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny] [--compress|-c]
+$ ws --config
+$ ws --help|-h
 ```
 
 From the folder you wish to serve, run:
@@ -82,6 +84,12 @@ Or store global defaults in a `.local-web-server.json` file in your home directo
 ```
 
 All stored defaults are overriden by options supplied at the command line. 
+
+To view your stored defaults, run: 
+
+```sh
+$ ws --config
+```
 
 Use with Logstalgia
 -------------------

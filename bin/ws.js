@@ -14,8 +14,8 @@ var dope = require("console-dope"),
 
 var usage =
 "usage: \n\
-$ ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]\n\
-$ ws --compress|-c \n\
+$ ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny] [--compress|-c]\n\
+$ ws --config\n\
 $ ws --help|-h";
 
 function halt(message){
