@@ -3,17 +3,20 @@
 var dope = require("console-dope"),
     connect = require("connect"),
     http = require("http"),
-    fs = require("fs"),
     Model = require("nature").Model,
     w = require("wodge"),
     path = require("path"),
     loadConfig = require("config-master"),
     morgan = require("morgan"),
     serveStatic = require("serve-static"),
-    directory = require('serve-index'),
-    compress = require('compression');
+    directory = require("serve-index"),
+    compress = require("compression");
 
-var usage = "usage: ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny] [--compress|-c]";
+var usage =
+"usage: \n\
+$ ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny]\n\
+$ ws --compress|-c \n\
+$ ws --help|-h";
 
 function halt(message){
     dope.red.log("Error: %s",  message);
@@ -27,10 +30,8 @@ var argv = new Model()
     .define({ name: "log-format", alias: "f", type: "string" })
     .define({ name: "help", alias: "h", type: "boolean" })
     .define({ name: "directory", alias: "d", type: "string", value: process.cwd() })
-    .define({ name: "compress", alias: "c", type: "boolean" })
-    .on("error", function(err){
-        halt(err.message);
-    });
+    .define({ name: "config", type: "boolean" })
+    .define({ name: "compress", alias: "c", type: "boolean" });
 
 /* Merge together options from "~/.local-web-server.json", "{cwd}/.local-web-server.json" and "{cwd}/package.json", in that order. */
 var storedConfig = loadConfig(
@@ -38,15 +39,30 @@ var storedConfig = loadConfig(
     path.join(process.cwd(), ".local-web-server.json"),
     path.join(process.cwd(), "package.json:local-web-server")
 );
-argv.set(storedConfig);
+try {
+    argv.set(storedConfig);
+} catch (err){
+    dope.red.log("Failed to set stored config, please check your config files");
+    halt(err.message);
+}
 
 /* Finally, set the options from the command-line, overriding all defaults. */
-argv.set(process.argv);
-    
+try {
+    argv.set(process.argv);
+} catch (err){
+    dope.red.log("Failed to set command line options");
+    halt(err.message);
+}
+
 /* Die here if invalid args received */
 if (!argv.valid) halt(argv.validationMessages);
 
-if (argv.help){
+if (argv.config){
+    dope.log("Stored config: ");
+    dope.log(storedConfig);
+    process.exit(0);
+
+} else if (argv.help){
     dope.log(usage);
 
 } else {
