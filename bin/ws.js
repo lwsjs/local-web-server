@@ -3,7 +3,7 @@
 var dope = require("console-dope"),
     connect = require("connect"),
     http = require("http"),
-    Model = require("nature").Model,
+    parseArgv = require("command-line-args"),
     w = require("wodge"),
     path = require("path"),
     loadConfig = require("config-master"),
@@ -14,7 +14,7 @@ var dope = require("console-dope"),
 
 var usage =
 "usage: \n\
-$ ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny] [--compress|-c]\n\
+$ ws [--directory|-d <dir>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny] [--compress|-c]\n\
 $ ws --config\n\
 $ ws --help|-h";
 
@@ -24,38 +24,31 @@ function halt(message){
     process.exit(1);
 }
 
-/* parse command-line args */
-var argv = new Model()
-    .define({ name: "port", alias: "p", type: "number", defaultOption: true, value: 8000 })
-    .define({ name: "log-format", alias: "f", type: "string" })
-    .define({ name: "help", alias: "h", type: "boolean" })
-    .define({ name: "directory", alias: "d", type: "string", value: process.cwd() })
-    .define({ name: "config", type: "boolean" })
-    .define({ name: "compress", alias: "c", type: "boolean" });
-
-/* Merge together options from "~/.local-web-server.json", "{cwd}/.local-web-server.json" and "{cwd}/package.json", in that order. */
+/* Merge together options from 
+- ~/.local-web-server.json
+- {cwd}/.local-web-server.json
+- {cwd}/package.json 
+*/
 var storedConfig = loadConfig(
     path.join(w.getHomeDir(), ".local-web-server.json"),
     path.join(process.cwd(), ".local-web-server.json"),
     path.join(process.cwd(), "package.json:local-web-server")
 );
+
+/* override stored config with values parsed from command line */
 try {
-    argv.set(storedConfig);
-} catch (err){
-    dope.red.log("Failed to set stored config, please check your config files");
+    var argv = parseArgv([
+        { name: "port", alias: "p", type: Number, defaultOption: true, value: 8000 },
+        { name: "log-format", alias: "f", type: String },
+        { name: "help", alias: "h", type: Boolean },
+        { name: "directory", alias: "d", type: String, value: process.cwd() },
+        { name: "config", type: Boolean },
+        { name: "compress", alias: "c", type: Boolean }
+    ]);
+} catch(err){
     halt(err.message);
 }
-
-/* Finally, set the options from the command-line, overriding all defaults. */
-try {
-    argv.set(process.argv);
-} catch (err){
-    dope.red.log("Failed to set command line options");
-    halt(err.message);
-}
-
-/* Die here if invalid args received */
-if (!argv.valid) halt(argv.validationMessages);
+argv = w.extend(storedConfig, argv);
 
 if (argv.config){
     dope.log("Stored config: ");
