@@ -3,7 +3,7 @@
 var dope = require("console-dope"),
     connect = require("connect"),
     http = require("http"),
-    parseArgv = require("command-line-args"),
+    cliArgs = require("command-line-args"),
     w = require("wodge"),
     path = require("path"),
     loadConfig = require("config-master"),
@@ -37,14 +37,14 @@ var storedConfig = loadConfig(
 
 /* override stored config with values parsed from command line */
 try {
-    var argv = parseArgv([
+    var argv = cliArgs([
         { name: "port", alias: "p", type: Number, defaultOption: true, value: 8000 },
         { name: "log-format", alias: "f", type: String },
         { name: "help", alias: "h", type: Boolean },
         { name: "directory", alias: "d", type: String, value: process.cwd() },
         { name: "config", type: Boolean },
         { name: "compress", alias: "c", type: Boolean }
-    ]);
+    ]).parse();
 } catch(err){
     halt(err.message);
 }
