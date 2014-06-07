@@ -14,11 +14,13 @@
   "repository": "https://github.com/75lb/local-web-server",
   "author": "Lloyd Brookes",
   "dependencies": {
+    "byte-size": "^0.1.0",
     "command-line-args": "^0.2.0",
     "compression": "^1.0.2",
     "config-master": "~0.1.0",
     "connect": "^3.0.0",
     "console-dope": "^0.3.0",
+    "home-path": "^0.1.1",
     "morgan": "^1.0.0",
     "serve-index": "^1.0.2",
     "serve-static": "^1.1.0",

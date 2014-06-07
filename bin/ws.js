@@ -10,7 +10,9 @@ var dope = require("console-dope"),
     morgan = require("morgan"),
     serveStatic = require("serve-static"),
     directory = require("serve-index"),
-    compress = require("compression");
+    compress = require("compression"),
+    homePath = require("home-path"),
+    byteSize = require("byte-size");
 
 var usage =
 "usage: \n\
@@ -30,7 +32,7 @@ function halt(message){
 - {cwd}/package.json 
 */
 var storedConfig = loadConfig(
-    path.join(w.getHomeDir(), ".local-web-server.json"),
+    path.join(homePath(), ".local-web-server.json"),
     path.join(process.cwd(), ".local-web-server.json"),
     path.join(process.cwd(), "package.json:local-web-server")
 );
@@ -127,7 +129,7 @@ if (argv.config){
                 }
                 oldWrite.call(this, data);
                 total.bytes += data.length;
-                dope.column(12).write(w.padRight(w.bytesToSize(total.bytes, 2), 12));
+                dope.column(12).write(w.padRight(byteSize(total.bytes, 2), 12));
             };
             dope.column(24).write(++total.connections);
             socket.on("close", function(){
