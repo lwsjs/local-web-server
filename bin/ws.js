@@ -4,7 +4,8 @@ var dope = require("console-dope"),
     connect = require("connect"),
     http = require("http"),
     cliArgs = require("command-line-args"),
-    w = require("wodge"),
+    o = require("object-ting"),
+    s = require("string-ting"),
     path = require("path"),
     loadConfig = require("config-master"),
     morgan = require("morgan"),
@@ -50,7 +51,7 @@ try {
 } catch(err){
     halt(err.message);
 }
-argv = w.extend(storedConfig, argv);
+argv = o.extend(storedConfig, argv);
 
 if (argv.config){
     dope.log("Stored config: ");
@@ -129,11 +130,11 @@ if (argv.config){
                 }
                 oldWrite.call(this, data);
                 total.bytes += data.length;
-                dope.column(12).write(w.padRight(byteSize(total.bytes, 2), 12));
+                dope.column(12).write(s.padRight(byteSize(total.bytes, 2), 12));
             };
             dope.column(24).write(++total.connections);
             socket.on("close", function(){
-                dope.column(24).write(w.padRight(--total.connections));
+                dope.column(24).write(s.padRight(--total.connections));
             });
         });
     }

@@ -22,8 +22,9 @@
     "console-dope": "^0.3.0",
     "home-path": "^0.1.1",
     "morgan": "^1.0.0",
+    "object-ting": "^0.1.1",
     "serve-index": "^1.0.2",
     "serve-static": "^1.1.0",
-    "wodge": "^0.7.0"
+    "string-ting": "0.0.1"
   }
 }
