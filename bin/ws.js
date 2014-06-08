@@ -27,6 +27,13 @@ function halt(message){
     process.exit(1);
 }
 
+/* customised logger :date token, purely to satisfy Logstalgia. */
+morgan.token("date", function(){
+    var a = new Date();
+    return (a.getDate() + "/" + a.getUTCMonth() + "/" + a.getFullYear() + ":" + a.toTimeString())
+            .replace("GMT", "").replace(" (BST)", "");
+});
+
 /* Merge together options from 
 - ~/.local-web-server.json
 - {cwd}/.local-web-server.json
@@ -72,13 +79,6 @@ if (argv.config){
         dope.showCursor();
         dope.log();
         process.exit(0);
-    });
-
-    /* customised logger :date token, purely to satisfy Logstalgia. */
-    morgan.token("date", function(){
-        var a = new Date();
-        return (a.getDate() + "/" + a.getUTCMonth() + "/" + a.getFullYear() + ":" + a.toTimeString())
-                .replace("GMT", "").replace(" (BST)", "");
     });
 
     var app = connect();
