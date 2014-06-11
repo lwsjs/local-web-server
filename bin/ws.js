@@ -27,13 +27,6 @@ function halt(message){
     process.exit(1);
 }
 
-/* customised logger :date token, purely to satisfy Logstalgia. */
-morgan.token("date", function(){
-    var a = new Date();
-    return (a.getDate() + "/" + a.getUTCMonth() + "/" + a.getFullYear() + ":" + a.toTimeString())
-            .replace("GMT", "").replace(" (BST)", "");
-});
-
 /* Merge together options from 
 - ~/.local-web-server.json
 - {cwd}/.local-web-server.json
@@ -53,12 +46,22 @@ try {
         { name: "help", alias: "h", type: Boolean },
         { name: "directory", alias: "d", type: String, value: process.cwd() },
         { name: "config", type: Boolean },
+        { name: "logstalgia", type: Boolean },
         { name: "compress", alias: "c", type: Boolean }
     ]).parse();
 } catch(err){
     halt(err.message);
 }
 argv = o.extend(storedConfig, argv);
+
+if (argv.logstalgia){
+    /* customised logger :date token, purely to satisfy Logstalgia. */
+    morgan.token("date", function(){
+        var a = new Date();
+        return (a.getDate() + "/" + a.getUTCMonth() + "/" + a.getFullYear() + ":" + a.toTimeString())
+                .replace("GMT", "").replace(" (BST)", "");
+    });
+}
 
 if (argv.config){
     dope.log("Stored config: ");
