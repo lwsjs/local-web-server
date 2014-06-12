@@ -13,7 +13,9 @@ var dope = require("console-dope"),
     directory = require("serve-index"),
     compress = require("compression"),
     homePath = require("home-path"),
-    byteSize = require("byte-size");
+    byteSize = require("byte-size"),
+    clf = require("common-log-format"),
+    logStats = require("stream-log-stats");
 
 var usage =
 "usage: \n\
@@ -86,14 +88,13 @@ if (argv.config){
 
     var app = connect();
 
-    /* log using --log-format (if supplied), else output statics */
-    if(argv["log-format"]){
+    /* log using --log-format (if supplied) */
+    if(argv["log-format"]) {
         app.use(morgan(argv["log-format"]));
     } else {
-        app.use(function(req, res, next){
-            dope.column(1).write(++total.req);
-            next();
-        });
+        var statStream = clf();
+        statStream.pipe(logStats());
+        app.use(morgan({ stream: statStream }));
     }
 
     /* --compress enables compression */
@@ -119,26 +120,5 @@ if (argv.config){
         dope.error("serving at %underline{%s}", "http://localhost:" + argv.port);
     } else {
         dope.error("serving %underline{%s} at %underline{%s}", argv.directory, "http://localhost:" + argv.port);
-    }
-
-    /* in stats mode, monitor connections and bytes transferred */
-    if (!argv["log-format"]){
-        dope.hideCursor();
-        dope.log("%underline{Requests}   %underline{Data}        %underline{Connections}");
-        server.on("connection", function(socket){
-            var oldWrite = socket.write;
-            socket.write = function(data) {
-                if (!Buffer.isBuffer(data)) {
-                    data = new Buffer(data);
-                }
-                oldWrite.call(this, data);
-                total.bytes += data.length;
-                dope.column(12).write(s.padRight(byteSize(total.bytes, 2), 12));
-            };
-            dope.column(24).write(++total.connections);
-            socket.on("close", function(){
-                dope.column(24).write(s.padRight(--total.connections));
-            });
-        });
     }
 }
