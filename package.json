@@ -27,6 +27,6 @@
     "serve-index": "^1.0.2",
     "serve-static": "^1.2.2",
     "stream-log-stats": "^0.1.0",
-    "string-ting": "^0.1.0"
+    "string-tools": "^0.1.4"
   }
 }
