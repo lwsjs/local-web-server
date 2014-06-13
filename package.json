@@ -23,7 +23,7 @@
     "console-dope": "^0.3.0",
     "home-path": "^0.1.1",
     "morgan": "^1.0.0",
-    "object-ting": "^1.0.0",
+    "object-tools": "^1.0.3",
     "serve-index": "^1.0.2",
     "serve-static": "^1.2.2",
     "stream-log-stats": "^0.1.0",
