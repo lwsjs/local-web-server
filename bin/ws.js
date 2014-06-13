@@ -37,7 +37,7 @@ function halt(message){
 var storedConfig = loadConfig(
     path.join(homePath(), ".local-web-server.json"),
     path.join(process.cwd(), ".local-web-server.json"),
-    path.join(process.cwd(), "package.json:local-web-server")
+    { jsonPath: path.join(process.cwd(), "package.json"), configProperty: "local-web-server" }
 );
 
 /* override stored config with values parsed from command line */

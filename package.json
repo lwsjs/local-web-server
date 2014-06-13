@@ -18,7 +18,7 @@
     "command-line-args": "^0.2.0",
     "common-log-format": "^0.1.2",
     "compression": "^1.0.2",
-    "config-master": "~0.1.0",
+    "config-master": "~0.2.0",
     "connect": "^3.0.0",
     "console-dope": "^0.3.0",
     "home-path": "^0.1.1",
