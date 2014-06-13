@@ -22,7 +22,7 @@ $ npm install -g local-web-server
 Usage
 -----
 ```
-$ ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny] [--compress|-c]
+$ ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny|logstalgia] [--compress|-c]
 $ ws --config
 $ ws --help|-h
 ```
@@ -103,9 +103,9 @@ $ brew install logstalgia
 
 Alternatively, [download a release for your system from github](https://github.com/acaudwell/Logstalgia/releases/latest).
 
-Then pipe the `default` output directly into logstalgia for real-time visualisation:
+Then pipe the `logstalgia` output format directly into logstalgia for real-time visualisation:
 ```sh
-$ ws -f default | logstalgia -
+$ ws -f logstalgia | logstalgia -
 ```
 
 ![local-web-server with logstalgia](http://75lb.github.io/local-web-server/logstagia.gif)

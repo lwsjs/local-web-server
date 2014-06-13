@@ -19,7 +19,7 @@ var dope = require("console-dope"),
 
 var usage =
 "usage: \n\
-$ ws [--directory|-d <dir>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny] [--compress|-c]\n\
+$ ws [--directory|-d <dir>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny|logstalgia] [--compress|-c]\n\
 $ ws --config\n\
 $ ws --help|-h";
 
@@ -48,22 +48,12 @@ try {
         { name: "help", alias: "h", type: Boolean },
         { name: "directory", alias: "d", type: String, value: process.cwd() },
         { name: "config", type: Boolean },
-        { name: "logstalgia", type: Boolean },
         { name: "compress", alias: "c", type: Boolean }
     ]).parse();
 } catch(err){
     halt(err.message);
 }
 argv = o.extend(storedConfig, argv);
-
-if (argv.logstalgia){
-    /* customised logger :date token, purely to satisfy Logstalgia. */
-    morgan.token("date", function(){
-        var a = new Date();
-        return (a.getDate() + "/" + a.getUTCMonth() + "/" + a.getFullYear() + ":" + a.toTimeString())
-                .replace("GMT", "").replace(" (BST)", "");
-    });
-}
 
 if (argv.config){
     dope.log("Stored config: ");
@@ -90,6 +80,16 @@ if (argv.config){
 
     /* log using --log-format (if supplied) */
     if(argv["log-format"]) {
+        if (argv["log-format"] === "logstalgia"){
+            /* customised logger :date token, purely to satisfy Logstalgia. */
+            morgan.token("date", function(){
+                var a = new Date();
+                return (a.getDate() + "/" + a.getUTCMonth() + "/" + a.getFullYear() + ":" + a.toTimeString())
+                        .replace("GMT", "").replace(" (BST)", "");
+            });
+            argv["log-format"] = "default";
+        }
+        
         app.use(morgan(argv["log-format"]));
     } else {
         var statStream = clf();
