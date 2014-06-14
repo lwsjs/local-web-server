@@ -14,7 +14,6 @@ var dope = require("console-dope"),
     compress = require("compression"),
     homePath = require("home-path"),
     byteSize = require("byte-size"),
-    clf = require("common-log-format"),
     logStats = require("stream-log-stats");
 
 var usage =
@@ -91,10 +90,11 @@ if (argv.config){
         }
         
         app.use(morgan(argv["log-format"]));
+        
+    /* if no specific `--log-format` required, pipe the default web log output
+    into `log-stats`, which prints statistics to the console */
     } else {
-        var statStream = clf();
-        statStream.pipe(logStats());
-        app.use(morgan({ stream: statStream }));
+        app.use(morgan({ stream: logStats() }));
     }
 
     /* --compress enables compression */
@@ -115,7 +115,7 @@ if (argv.config){
         })
         .listen(argv.port);
 
-    /* write status to stderr so stdout can be piped to disk ($ ws > log.txt) */
+    /* write status to stderr (stdout is reserved for web log output) */
     if (path.resolve(argv.directory) === process.cwd()){
         dope.error("serving at %underline{%s}", "http://localhost:" + argv.port);
     } else {

@@ -16,7 +16,6 @@
   "dependencies": {
     "byte-size": "^0.1.0",
     "command-line-args": "^0.2.0",
-    "common-log-format": "^0.1.2",
     "compression": "^1.0.2",
     "config-master": "~0.2.0",
     "connect": "^3.0.0",
