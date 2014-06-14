@@ -43,7 +43,7 @@ var storedConfig = loadConfig(
 /* override stored config with values parsed from command line */
 try {
     var argv = cliArgs([
-        { name: "port", alias: "p", type: Number, defaultOption: true, value: 8000 },
+        { name: "port", alias: "p", type: Number, defaultOption: true },
         { name: "log-format", alias: "f", type: String },
         { name: "help", alias: "h", type: Boolean },
         { name: "directory", alias: "d", type: String, value: process.cwd() },
@@ -53,7 +53,7 @@ try {
 } catch(err){
     halt(err.message);
 }
-argv = o.extend(storedConfig, argv);
+argv = o.extend({ port: 8000 }, storedConfig, argv);
 
 if (argv.config){
     dope.log("Stored config: ");
