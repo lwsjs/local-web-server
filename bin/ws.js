@@ -16,7 +16,7 @@ var dope = require("console-dope"),
 
 var usage =
 "usage: \n\
-$ ws [--directory|-d <dir>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny|logstalgia] [--compress|-c]\n\
+$ ws [--directory|-d <dir>] [--port|-p <port>] [--log-format|-f node|dev|default|short|tiny|logstalgia] [--compress|-c]\n\
 $ ws --config\n\
 $ ws --help|-h";
 
@@ -78,17 +78,21 @@ if (argv.config){
 
     /* log using --log-format (if supplied) */
     if(argv["log-format"]) {
-        if (argv["log-format"] === "logstalgia"){
-            /* customised logger :date token, purely to satisfy Logstalgia. */
-            morgan.token("date", function(){
-                var a = new Date();
-                return (a.getDate() + "/" + a.getUTCMonth() + "/" + a.getFullYear() + ":" + a.toTimeString())
-                        .replace("GMT", "").replace(" (BST)", "");
-            });
-            argv["log-format"] = "default";
-        }
+        if (argv["log-format"] === "none"){
+            // do nothing, no logging required
+        } else {
+            if (argv["log-format"] === "logstalgia"){
+                /* customised logger :date token, purely to satisfy Logstalgia. */
+                morgan.token("date", function(){
+                    var a = new Date();
+                    return (a.getDate() + "/" + a.getUTCMonth() + "/" + a.getFullYear() + ":" + a.toTimeString())
+                            .replace("GMT", "").replace(" (BST)", "");
+                });
+                argv["log-format"] = "default";
+            }
 
-        app.use(morgan(argv["log-format"]));
+            app.use(morgan(argv["log-format"]));
+        }        
 
     /* if no specific `--log-format` required, pipe the default web log output
     into `log-stats`, which prints statistics to the console */
