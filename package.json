@@ -14,7 +14,6 @@
   "repository": "https://github.com/75lb/local-web-server",
   "author": "Lloyd Brookes",
   "dependencies": {
-    "byte-size": "^0.1.0",
     "command-line-args": "^0.2.0",
     "compression": "^1.0.2",
     "config-master": "~0.2.0",
@@ -25,7 +24,6 @@
     "object-tools": "^1.0.3",
     "serve-index": "^1.0.2",
     "serve-static": "^1.2.2",
-    "stream-log-stats": "^0.1.0",
-    "string-tools": "^0.1.4"
+    "stream-log-stats": "^0.1.0"
   }
 }

@@ -5,7 +5,6 @@ var dope = require("console-dope"),
     http = require("http"),
     cliArgs = require("command-line-args"),
     o = require("object-tools"),
-    s = require("string-tools"),
     path = require("path"),
     loadConfig = require("config-master"),
     morgan = require("morgan"),
@@ -13,7 +12,6 @@ var dope = require("console-dope"),
     directory = require("serve-index"),
     compress = require("compression"),
     homePath = require("home-path"),
-    byteSize = require("byte-size"),
     logStats = require("stream-log-stats");
 
 var usage =
@@ -28,10 +26,10 @@ function halt(message){
     process.exit(1);
 }
 
-/* Merge together options from 
+/* Load and merge together options from
 - ~/.local-web-server.json
 - {cwd}/.local-web-server.json
-- {cwd}/package.json 
+- the `local-web-server` property of {cwd}/package.json
 */
 var storedConfig = loadConfig(
     path.join(homePath(), ".local-web-server.json"),
@@ -39,20 +37,27 @@ var storedConfig = loadConfig(
     { jsonPath: path.join(process.cwd(), "package.json"), configProperty: "local-web-server" }
 );
 
-/* override stored config with values parsed from command line */
+/* parse command line args */
 try {
     var argv = cliArgs([
         { name: "port", alias: "p", type: Number, defaultOption: true },
         { name: "log-format", alias: "f", type: String },
         { name: "help", alias: "h", type: Boolean },
-        { name: "directory", alias: "d", type: String, value: process.cwd() },
+        { name: "directory", alias: "d", type: String },
         { name: "config", type: Boolean },
-        { name: "compress", alias: "c", type: Boolean }
+        { name: "compress", alias: "c", type: Boolean },
+        { name: "refreshRate", alias: "r", type: Number }
     ]).parse();
 } catch(err){
     halt(err.message);
 }
-argv = o.extend({ port: 8000 }, storedConfig, argv);
+
+/* override built-in defaults with stored config then command line args */
+argv = o.extend({
+    port: 8000,
+    directory: process.cwd(),
+    refreshRate: 500
+}, storedConfig, argv);
 
 if (argv.config){
     dope.log("Stored config: ");
@@ -63,12 +68,6 @@ if (argv.config){
     dope.log(usage);
 
 } else {
-    var total = {
-        req: 0,
-        bytes: 0,
-        connections: 0
-    };
-
     process.on("SIGINT", function(){
         dope.showCursor();
         dope.log();
@@ -88,13 +87,13 @@ if (argv.config){
             });
             argv["log-format"] = "default";
         }
-        
+
         app.use(morgan(argv["log-format"]));
-        
+
     /* if no specific `--log-format` required, pipe the default web log output
     into `log-stats`, which prints statistics to the console */
     } else {
-        app.use(morgan({ stream: logStats() }));
+        app.use(morgan({ stream: logStats({ refreshRate: argv.refreshRate }) }));
     }
 
     /* --compress enables compression */
@@ -105,7 +104,7 @@ if (argv.config){
         .use(directory(path.resolve(argv.directory), { icons: true }));
 
     /* launch server */
-    var server = http.createServer(app)
+    http.createServer(app)
         .on("error", function(err){
             if (err.code === "EADDRINUSE"){
                 halt("port " + argv.port + " is already is use");
