@@ -5,9 +5,7 @@
 
 local-web-server
 ================
-Fires up a simple, static web server on a given port. A pure Javascript (and more reliable) alternative to `$ python -mSimpleHTTPServer 8000`.
-
-Use for local web development or file sharing (directory browsing enabled). Plays well with Google Chrome Workspaces.
+Fires up a simple, static web server on a given port. Use for local web development or file sharing (directory browsing enabled).
 
 Install
 -------
@@ -30,7 +28,7 @@ $ ws --help
 Server
 -p, --port <number>         Web server port
 -f, --log-format <string>   Access log format, written to stdout. Use one of
-                          'none', 'dev', 'default', 'short', 'tiny' or 'logstalgia'
+                            'none', 'dev', 'default', 'short', 'tiny' or 'logstalgia'
 -d, --directory <string>    Root directory, defaults to the current directory
 -c, --compress              Enables compression
 -r, --refreshRate <number>  Statistics view refresh rate in ms. Defaults to 500.
@@ -106,7 +104,7 @@ $ ws --config
 
 Use with Logstalgia
 -------------------
-The "default" log-format is compatible with [logstalgia](http://code.google.com/p/logstalgia/). 
+local-web-server is compatible with [logstalgia](http://code.google.com/p/logstalgia/). 
 
 ###Install Logstalgia
 On MacOSX, install with [homebrew](http://brew.sh):
