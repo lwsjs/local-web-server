@@ -22,9 +22,22 @@ $ npm install -g local-web-server
 Usage
 -----
 ```
-$ ws [--directory|-d <directory>] [--port|-p <port>] [--log-format|-f dev|default|short|tiny|logstalgia] [--compress|-c]
+Usage
+$ ws <server options>
 $ ws --config
-$ ws --help|-h
+$ ws --help
+
+Server
+-p, --port <number>         Web server port
+-f, --log-format <string>   Access log format, written to stdout. Use one of
+                          'none', 'dev', 'default', 'short', 'tiny' or 'logstalgia'
+-d, --directory <string>    Root directory, defaults to the current directory
+-c, --compress              Enables compression
+-r, --refreshRate <number>  Statistics view refresh rate in ms. Defaults to 500.
+
+Misc
+-h, --help                  Print these usage instructions
+--config                    Prints the stored config
 ```
 
 From the folder you wish to serve, run:
