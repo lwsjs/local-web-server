@@ -35,7 +35,7 @@ Server
 
 Misc
 -h, --help                  Print these usage instructions
---config                    Prints the stored config
+--config                    Print the stored config
 ```
 
 From the folder you wish to serve, run:
