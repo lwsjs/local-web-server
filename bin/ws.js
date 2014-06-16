@@ -12,18 +12,23 @@ var dope = require("console-dope"),
     morgan = require("morgan"),
     serveStatic = require("serve-static"),
     directory = require("serve-index"),
-    compress = require("compression");
+    compress = require("compression"),
+    cliOptions = require("../lib/cli-options");
 
-var usage =
-"usage: \n\
-$ ws [--directory|-d <dir>] [--port|-p <port>] [--log-format|-f node|dev|default|short|tiny|logstalgia] [--compress|-c]\n\
-$ ws --config\n\
-$ ws --help|-h";
+var cli = cliArgs(cliOptions);
+var usage = cli.usage({
+    forms: [ 
+        "$ ws <server options>",  
+        "$ ws --config",
+        "$ ws --help"
+    ]
+});
 
-function halt(message){
-    dope.red.log("Error: %s",  message);
-    dope.log(usage);
-    process.exit(1);
+/* parse command line args */
+try {
+    var argv = cli.parse();
+} catch(err){
+    halt(err.message);
 }
 
 /* Load and merge together options from
@@ -37,21 +42,6 @@ var storedConfig = loadConfig(
     { jsonPath: path.join(process.cwd(), "package.json"), configProperty: "local-web-server" }
 );
 
-/* parse command line args */
-try {
-    var argv = cliArgs([
-        { name: "port", alias: "p", type: Number, defaultOption: true },
-        { name: "log-format", alias: "f", type: String },
-        { name: "help", alias: "h", type: Boolean },
-        { name: "directory", alias: "d", type: String },
-        { name: "config", type: Boolean },
-        { name: "compress", alias: "c", type: Boolean },
-        { name: "refreshRate", alias: "r", type: Number }
-    ]).parse();
-} catch(err){
-    halt(err.message);
-}
-
 var builtInDefaults = {
     port: 8000,
     directory: process.cwd(),
@@ -59,14 +49,14 @@ var builtInDefaults = {
 };
 
 /* override built-in defaults with stored config and then command line args */
-argv = o.extend(builtInDefaults, storedConfig, argv);
+argv.Server = o.extend(builtInDefaults, storedConfig, argv.Server);
 
-if (argv.config){
+if (argv.Misc.config){
     dope.log("Stored config: ");
     dope.log(storedConfig);
     process.exit(0);
 
-} else if (argv.help){
+} else if (argv.Misc.help){
     dope.log(usage);
 
 } else {
@@ -79,7 +69,7 @@ if (argv.config){
     var app = connect();
 
     /* log using --log-format (if supplied) */
-    var logFormat = argv["log-format"];
+    var logFormat = argv.Server["log-format"];
     if(logFormat) {
         if (logFormat === "none"){
             // do nothing, no logging required
@@ -100,31 +90,37 @@ if (argv.config){
     /* if no `--log-format` was specified, pipe the default format output
     into `log-stats`, which prints statistics to the console */
     } else {
-        app.use(morgan({ stream: logStats({ refreshRate: argv.refreshRate }) }));
+        app.use(morgan({ stream: logStats({ refreshRate: argv.Server.refreshRate }) }));
     }
 
     /* --compress enables compression */
-    if (argv.compress) app.use(compress());
+    if (argv.Server.compress) app.use(compress());
 
     /* static file server including directory browsing support */
-    app.use(serveStatic(path.resolve(argv.directory)))
-        .use(directory(path.resolve(argv.directory), { icons: true }));
+    app.use(serveStatic(path.resolve(argv.Server.directory)))
+        .use(directory(path.resolve(argv.Server.directory), { icons: true }));
 
     /* launch server */
     http.createServer(app)
         .on("error", function(err){
             if (err.code === "EADDRINUSE"){
-                halt("port " + argv.port + " is already is use");
+                halt("port " + argv.Server.port + " is already is use");
             } else {
                 halt(err.message);
             }
         })
-        .listen(argv.port);
+        .listen(argv.Server.port);
 
     /* write launch information to stderr (stdout is reserved for web log output) */
-    if (path.resolve(argv.directory) === process.cwd()){
-        dope.error("serving at %underline{%s}", "http://localhost:" + argv.port);
+    if (path.resolve(argv.Server.directory) === process.cwd()){
+        dope.error("serving at %underline{%s}", "http://localhost:" + argv.Server.port);
     } else {
-        dope.error("serving %underline{%s} at %underline{%s}", argv.directory, "http://localhost:" + argv.port);
+        dope.error("serving %underline{%s} at %underline{%s}", argv.Server.directory, "http://localhost:" + argv.Server.port);
     }
+}
+
+function halt(message){
+    dope.red.log("Error: %s",  message);
+    dope.log(usage);
+    process.exit(1);
 }
