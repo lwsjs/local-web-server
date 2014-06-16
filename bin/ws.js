@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 "use strict";
 var dope = require("console-dope"),
-    connect = require("connect"),
     http = require("http"),
     cliArgs = require("command-line-args"),
     o = require("object-tools"),
     path = require("path"),
     loadConfig = require("config-master"),
+    homePath = require("home-path"),
+    logStats = require("stream-log-stats"),
+    connect = require("connect"),
     morgan = require("morgan"),
     serveStatic = require("serve-static"),
     directory = require("serve-index"),
-    compress = require("compression"),
-    homePath = require("home-path"),
-    logStats = require("stream-log-stats");
+    compress = require("compression");
 
 var usage =
 "usage: \n\
@@ -52,12 +52,14 @@ try {
     halt(err.message);
 }
 
-/* override built-in defaults with stored config then command line args */
-argv = o.extend({
+var builtInDefaults = {
     port: 8000,
     directory: process.cwd(),
     refreshRate: 500
-}, storedConfig, argv);
+};
+
+/* override built-in defaults with stored config and then command line args */
+argv = o.extend(builtInDefaults, storedConfig, argv);
 
 if (argv.config){
     dope.log("Stored config: ");
@@ -77,24 +79,25 @@ if (argv.config){
     var app = connect();
 
     /* log using --log-format (if supplied) */
-    if(argv["log-format"]) {
-        if (argv["log-format"] === "none"){
+    var logFormat = argv["log-format"];
+    if(logFormat) {
+        if (logFormat === "none"){
             // do nothing, no logging required
         } else {
-            if (argv["log-format"] === "logstalgia"){
+            if (logFormat === "logstalgia"){
                 /* customised logger :date token, purely to satisfy Logstalgia. */
                 morgan.token("date", function(){
                     var a = new Date();
                     return (a.getDate() + "/" + a.getUTCMonth() + "/" + a.getFullYear() + ":" + a.toTimeString())
                             .replace("GMT", "").replace(" (BST)", "");
                 });
-                argv["log-format"] = "default";
+                logFormat = "default";
             }
 
-            app.use(morgan(argv["log-format"]));
+            app.use(morgan(logFormat));
         }        
 
-    /* if no specific `--log-format` required, pipe the default web log output
+    /* if no `--log-format` was specified, pipe the default format output
     into `log-stats`, which prints statistics to the console */
     } else {
         app.use(morgan({ stream: logStats({ refreshRate: argv.refreshRate }) }));
@@ -118,7 +121,7 @@ if (argv.config){
         })
         .listen(argv.port);
 
-    /* write status to stderr (stdout is reserved for web log output) */
+    /* write launch information to stderr (stdout is reserved for web log output) */
     if (path.resolve(argv.directory) === process.cwd()){
         dope.error("serving at %underline{%s}", "http://localhost:" + argv.port);
     } else {
