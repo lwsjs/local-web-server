@@ -11,13 +11,37 @@ Fires up a simple, static web server on a given port. Use for local web developm
 
 Install
 -------
-Install [Node.js](http://nodejs.org), then run
+Ensure [node.js](http://nodejs.org) is installed first. Linux/Mac users may need to run the following commands with `sudo`.
 
+##As a global command
 ```sh
 $ npm install -g local-web-server
 ```
 
-*Linux/Mac users may need to run the above with `sudo`*
+##As a server deployed with your project
+```sh
+$ npm install local-web-server --save-dev
+```
+
+Then add an `npm start` script to your `package.json`, the standard npm approach: 
+```json
+  "scripts": {
+    "start": "ws"
+  }
+```
+This simplifies a set of rather specific looking install instructions like: 
+
+```sh
+$ npm install
+$ npm install -g local-web-server 
+$ ws
+```
+
+to the following, server implementation and launch details abstracted away:
+```sh
+$ npm install
+$ npm start
+```
 
 Usage
 -----
@@ -120,8 +144,16 @@ To view your stored defaults, run:
 $ ws --config
 ```
 
-Use with Logstalgia
--------------------
+##Deploy the web server with your project
+It's quite common to see a set of installation instructions like this: 
+
+```sh
+$ npm install 
+$ npm install -g 
+```
+
+
+##Use with Logstalgia
 local-web-server is compatible with [logstalgia](http://code.google.com/p/logstalgia/). 
 
 ###Install Logstalgia
