@@ -27,8 +27,9 @@ $ ws --help
 
 Server
 -p, --port <number>         Web server port
--f, --log-format <string>   Access log format, written to stdout. Use one of
-                            'none', 'dev', 'default', 'short', 'tiny' or 'logstalgia'
+-f, --log-format <string>   If a format is supplied an access log is written to stdout. If not,
+                            a statistics view is displayed. Format options: 'none', 'dev',
+                            'default', 'short', 'tiny' or 'logstalgia'.
 -d, --directory <string>    Root directory, defaults to the current directory
 -c, --compress              Enables compression
 -r, --refreshRate <number>  Statistics view refresh rate in ms. Defaults to 500.

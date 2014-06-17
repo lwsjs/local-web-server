@@ -15,6 +15,7 @@ var dope = require("console-dope"),
     compress = require("compression"),
     cliOptions = require("../lib/cli-options");
 
+/* specify the command line arg definitions and usage forms */
 var cli = cliArgs(cliOptions);
 var usage = cli.usage({
     forms: [ 
@@ -96,7 +97,7 @@ if (argv.Misc.config){
     /* --compress enables compression */
     if (argv.Server.compress) app.use(compress());
 
-    /* static file server including directory browsing support */
+    /* enable static file server, including directory browsing support */
     app.use(serveStatic(path.resolve(argv.Server.directory)))
         .use(directory(path.resolve(argv.Server.directory), { icons: true }));
 
