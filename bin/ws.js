@@ -66,8 +66,14 @@ if (argv.Misc.config){
         dope.log();
         process.exit(0);
     });
-
+    
     var app = connect();
+
+    /* enable cross-origin requests on all resources */
+    app.use(function(req, res, next){
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        next();
+    });
 
     /* log using --log-format (if supplied) */
     var logFormat = argv.Server["log-format"];
@@ -91,6 +97,7 @@ if (argv.Misc.config){
     /* if no `--log-format` was specified, pipe the default format output
     into `log-stats`, which prints statistics to the console */
     } else {
+        dope.hideCursor();
         app.use(morgan({ stream: logStats({ refreshRate: argv.Server.refreshRate }) }));
     }
 
