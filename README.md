@@ -29,8 +29,9 @@ Then add an `start` script to your `package.json` (the standard npm approach):
   "scripts": {
     "start": "ws"
   }
+}
 ```
-This simplifies a rather specific looking instruction set like:
+This simplifies a rather specific-looking instruction set like:
 
 ```sh
 $ npm install
