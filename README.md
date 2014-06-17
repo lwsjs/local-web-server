@@ -5,7 +5,7 @@
 
 local-web-server
 ================
-Fires up a simple, static web server on a given port. Use for local web development or file sharing (directory browsing enabled).
+Fires up a simple, CORS-enabled, static web server on a given port. Use for local web development or file sharing (directory browsing enabled).
 
 ![local-web-server](http://75lb.github.io/local-web-server/ws.gif)
 
@@ -13,27 +13,30 @@ Install
 -------
 Ensure [node.js](http://nodejs.org) is installed first. Linux/Mac users may need to run the following commands with `sudo`.
 
-##As a global command
+##Globally
 ```sh
 $ npm install -g local-web-server
 ```
 
-##As a server deployed with your project
+##Deployed with your project
 ```sh
 $ npm install local-web-server --save-dev
 ```
 
-Then add an `npm start` script to your `package.json`, the standard npm approach: 
+Then add an `start` script to your `package.json` (the standard npm approach):
 ```json
+{
+  "name": "my-web-app",
+  "version": "1.0.0",
   "scripts": {
     "start": "ws"
   }
 ```
-This simplifies a set of rather specific looking install instructions like: 
+This simplifies a rather specific looking instruction set like:
 
 ```sh
 $ npm install
-$ npm install -g local-web-server 
+$ npm install -g local-web-server
 $ ws
 ```
 
@@ -102,7 +105,7 @@ Or a custom [morgan](https://github.com/expressjs/morgan) log format:
 $ ws -f ':method -> :url'
 ```
 
-Or silence: 
+Or silence:
 ```sh
 $ ws -f none
 ```
@@ -136,25 +139,25 @@ Or store global defaults in a `.local-web-server.json` file in your home directo
 }
 ```
 
-All stored defaults are overriden by options supplied at the command line. 
+All stored defaults are overriden by options supplied at the command line.
 
-To view your stored defaults, run: 
+To view your stored defaults, run:
 
 ```sh
 $ ws --config
 ```
 
 ##Deploy the web server with your project
-It's quite common to see a set of installation instructions like this: 
+It's quite common to see a set of installation instructions like this:
 
 ```sh
-$ npm install 
-$ npm install -g 
+$ npm install
+$ npm install -g
 ```
 
 
 ##Use with Logstalgia
-local-web-server is compatible with [logstalgia](http://code.google.com/p/logstalgia/). 
+local-web-server is compatible with [logstalgia](http://code.google.com/p/logstalgia/).
 
 ###Install Logstalgia
 On MacOSX, install with [homebrew](http://brew.sh):
