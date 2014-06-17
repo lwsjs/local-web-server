@@ -28,17 +28,18 @@ $ ws --config
 $ ws --help
 
 Server
--p, --port <number>         Web server port
--f, --log-format <string>   If a format is supplied an access log is written to stdout. If not,
-                            a statistics view is displayed. Format options: 'none', 'dev',
-                            'default', 'short', 'tiny' or 'logstalgia'.
--d, --directory <string>    Root directory, defaults to the current directory
--c, --compress              Enables compression
--r, --refreshRate <number>  Statistics view refresh rate in ms. Defaults to 500.
+-p, --port <number>          Web server port
+-f, --log-format <string>    If a format is supplied an access log is written to stdout. If not,
+                             a statistics view is displayed. Use a preset ('none', 'dev',
+                             'default', 'short', 'tiny' or 'logstalgia') or supply a custom format
+                             (e.g. ':method -> :url').
+-d, --directory <string>     Root directory, defaults to the current directory
+-c, --compress               Enables compression
+-r, --refresh-rate <number>  Statistics view refresh rate in ms. Defaults to 500.
 
 Misc
--h, --help                  Print these usage instructions
---config                    Print the stored config
+-h, --help                   Print these usage instructions
+--config                     Print the stored config
 ```
 
 From the folder you wish to serve, run:
@@ -59,14 +60,27 @@ $ ws --port 9000
 serving at http://localhost:9000
 ```
 
-Use a built-in or custom [Connect logger format](http://www.senchalabs.org/connect/logger.html) with `--log-format`:
+To add compression, reducing bandwidth, increasing page load time (by 10-15% on my Macbook Air)
+```sh
+$ ws --compress
+```
+
+###Logging
+Passing a value to `--log-format` will write an access log to `stdout`.
+
+Either use a built-in [morgan](https://github.com/expressjs/morgan) logger preset:
 ```sh
 $ ws --log-format short
 ```
 
-To add compression, reducing bandwidth, increasing page load time (by 10-15% on my Macbook Air)
+Or a custom [morgan](https://github.com/expressjs/morgan) log format:
 ```sh
-$ ws --compress
+$ ws -f ':method -> :url'
+```
+
+Or silence: 
+```sh
+$ ws -f none
 ```
 
 Storing default options
@@ -93,7 +107,8 @@ Or in a `.local-web-server.json` file stored in the directory you want to serve 
 Or store global defaults in a `.local-web-server.json` file in your home directory.
 ```json
 {
-  "port": 3000
+  "port": 3000,
+  "refresh-rate": 1000
 }
 ```
 

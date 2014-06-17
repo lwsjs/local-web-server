@@ -4,6 +4,7 @@ var dope = require("console-dope"),
     http = require("http"),
     cliArgs = require("command-line-args"),
     o = require("object-tools"),
+    t = require("typical"),
     path = require("path"),
     loadConfig = require("config-master"),
     homePath = require("home-path"),
@@ -46,11 +47,17 @@ var storedConfig = loadConfig(
 var builtInDefaults = {
     port: 8000,
     directory: process.cwd(),
-    refreshRate: 500
+    "refresh-rate": 500
 };
 
 /* override built-in defaults with stored config and then command line args */
 argv.Server = o.extend(builtInDefaults, storedConfig, argv.Server);
+
+/* user input validation */
+var logFormat = argv.Server["log-format"];
+if (!t.isNumber(argv.Server.port)) {
+    halt("please supply a numeric port value");
+}
 
 if (argv.Misc.config){
     dope.log("Stored config: ");
@@ -76,7 +83,6 @@ if (argv.Misc.config){
     });
 
     /* log using --log-format (if supplied) */
-    var logFormat = argv.Server["log-format"];
     if(logFormat) {
         if (logFormat === "none"){
             // do nothing, no logging required
@@ -98,7 +104,7 @@ if (argv.Misc.config){
     into `log-stats`, which prints statistics to the console */
     } else {
         dope.hideCursor();
-        app.use(morgan({ stream: logStats({ refreshRate: argv.Server.refreshRate }) }));
+        app.use(morgan({ stream: logStats({ refreshRate: argv.Server["refresh-rate"] }) }));
     }
 
     /* --compress enables compression */
