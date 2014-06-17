@@ -16,7 +16,7 @@ Ensure [node.js](http://nodejs.org) is installed first. Linux/Mac users may need
 $ npm install -g local-web-server
 ```
 
-###Deployed with your project
+###Bundled with your project
 ```sh
 $ npm install local-web-server --save-dev
 ```
