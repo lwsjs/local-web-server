@@ -7,6 +7,8 @@ local-web-server
 ================
 Fires up a simple, static web server on a given port. Use for local web development or file sharing (directory browsing enabled).
 
+![local-web-server](http://75lb.github.io/local-web-server/ws.gif)
+
 Install
 -------
 Install [Node.js](http://nodejs.org), then run
