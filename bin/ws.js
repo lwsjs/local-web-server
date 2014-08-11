@@ -18,7 +18,7 @@ var dope = require("console-dope"),
 
 /* specify the command line arg definitions and usage forms */
 var cli = cliArgs(cliOptions);
-var usage = cli.usage({
+var usage = cli.getUsage({
     forms: [ 
         "$ ws <server options>",  
         "$ ws --config",
@@ -94,7 +94,7 @@ if (argv.Misc.config){
                     return (a.getDate() + "/" + a.getUTCMonth() + "/" + a.getFullYear() + ":" + a.toTimeString())
                             .replace("GMT", "").replace(" (BST)", "");
                 });
-                logFormat = "default";
+                logFormat = "combined";
             }
 
             app.use(morgan(logFormat));
@@ -104,7 +104,7 @@ if (argv.Misc.config){
     into `log-stats`, which prints statistics to the console */
     } else {
         dope.hideCursor();
-        app.use(morgan({ stream: logStats({ refreshRate: argv.Server["refresh-rate"] }) }));
+        app.use(morgan("common", { stream: logStats({ refreshRate: argv.Server["refresh-rate"] }) }));
     }
 
     /* --compress enables compression */
