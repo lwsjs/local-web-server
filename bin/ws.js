@@ -47,7 +47,8 @@ var storedConfig = loadConfig(
 var builtInDefaults = {
     port: 8000,
     directory: process.cwd(),
-    "refresh-rate": 500
+    "refresh-rate": 500,
+    mime: {}
 };
 
 /* override built-in defaults with stored config and then command line args */
@@ -98,7 +99,7 @@ if (argv.Misc.config){
             }
 
             app.use(morgan(logFormat));
-        }        
+        }
 
     /* if no `--log-format` was specified, pipe the default format output
     into `log-stats`, which prints statistics to the console */
@@ -109,6 +110,9 @@ if (argv.Misc.config){
 
     /* --compress enables compression */
     if (argv.Server.compress) app.use(compress());
+
+    /* set the mime-type overrides specified in the config */
+    serveStatic.mime.define(argv.Server.mime);
 
     /* enable static file server, including directory browsing support */
     app.use(serveStatic(path.resolve(argv.Server.directory)))

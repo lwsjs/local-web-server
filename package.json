@@ -26,5 +26,10 @@
     "serve-static": "^1.2.2",
     "stream-log-stats": "^0.1.0",
     "typical": "^1.0.0"
+  },
+  "local-web-server": {
+      "mime": {
+          "text/plain": ["php"]
+      }
   }
 }

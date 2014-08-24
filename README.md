@@ -56,7 +56,7 @@ Server
 -p, --port <number>          Web server port
 -f, --log-format <string>    If a format is supplied an access log is written to stdout. If not,
                              a statistics view is displayed. Use a preset ('none', 'dev',
-                             'default', 'short', 'tiny' or 'logstalgia') or supply a custom format
+                             'combined', 'short', 'tiny' or 'logstalgia') or supply a custom format
                              (e.g. ':method -> :url').
 -d, --directory <string>     Root directory, defaults to the current directory
 -c, --compress               Enables compression
@@ -142,6 +142,17 @@ To view your stored defaults, run:
 
 ```sh
 $ ws --config
+```
+
+##mime-types
+You can set additional mime-type/extension mappings, or override the defaults by setting a `mime` value in your local config. This value is passed directly to [mime.define()](https://github.com/broofa/node-mime#mimedefine). Example: 
+
+```json
+{
+    "mime": {
+        "text/plain": [ "php", "pl" ]
+    }
+}
 ```
 
 ##Use with Logstalgia
