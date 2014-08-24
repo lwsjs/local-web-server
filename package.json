@@ -1,6 +1,6 @@
 {
   "name": "local-web-server",
-  "version": "0.5.13",
+  "version": "0.5.14",
   "description": "Lightweight static web server, zero configuration. Perfect for front-end devs.",
   "bin": {
     "ws": "./bin/ws.js"
@@ -28,8 +28,10 @@
     "typical": "^1.0.0"
   },
   "local-web-server": {
-      "mime": {
-          "text/plain": ["php"]
-      }
+    "mime": {
+      "text/plain": [
+        "php"
+      ]
+    }
   }
 }
