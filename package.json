@@ -1,6 +1,6 @@
 {
   "name": "local-web-server",
-  "version": "0.5.15",
+  "version": "0.5.16",
   "description": "Lightweight static web server, zero configuration. Perfect for front-end devs.",
   "bin": {
     "ws": "./bin/ws.js"
