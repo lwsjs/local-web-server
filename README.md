@@ -3,20 +3,20 @@
 [![Dependency Status](https://david-dm.org/75lb/local-web-server.svg)](https://david-dm.org/75lb/local-web-server)
 ![Analytics](https://ga-beacon.appspot.com/UA-27725889-12/local-web-server/README.md?pixel)
 
-#local-web-server
+# local-web-server
 Fires up a simple, CORS-enabled, static web server on a given port. Use for local web development or file sharing (directory browsing enabled).
 
 ![local-web-server](http://75lb.github.io/local-web-server/ws.gif)
 
-##Install
+## Install
 Ensure [node.js](http://nodejs.org) is installed first. Linux/Mac users may need to run the following commands with `sudo`.
 
-###Globally
+### Globally
 ```sh
 $ npm install -g local-web-server
 ```
 
-###Bundled with your project
+### Bundled with your project
 ```sh
 $ npm install local-web-server --save-dev
 ```
@@ -45,7 +45,7 @@ $ npm install
 $ npm start
 ```
 
-##Usage
+## Usage
 ```
 Usage
 $ ws <server options>
@@ -90,7 +90,7 @@ To add compression, reducing bandwidth, increasing page load time (by 10-15% on 
 $ ws --compress
 ```
 
-###Logging
+### Logging
 Passing a value to `--log-format` will write an access log to `stdout`.
 
 Either use a built-in [morgan](https://github.com/expressjs/morgan) logger preset:
@@ -108,7 +108,7 @@ Or silence:
 $ ws -f none
 ```
 
-##Storing default options
+## Storing default options
 To store per-project options, saving you the hassle of inputting them everytime, store them in the `local-web-server` property of your project's `package.json`:
 ```json
 {
@@ -144,7 +144,7 @@ To view your stored defaults, run:
 $ ws --config
 ```
 
-##mime-types
+## mime-types
 You can set additional mime-type/extension mappings, or override the defaults by setting a `mime` value in your local config. This value is passed directly to [mime.define()](https://github.com/broofa/node-mime#mimedefine). Example: 
 
 ```json
@@ -155,10 +155,10 @@ You can set additional mime-type/extension mappings, or override the defaults by
 }
 ```
 
-##Use with Logstalgia
+## Use with Logstalgia
 local-web-server is compatible with [logstalgia](http://code.google.com/p/logstalgia/).
 
-###Install Logstalgia
+### Install Logstalgia
 On MacOSX, install with [homebrew](http://brew.sh):
 ```sh
 $ brew install logstalgia
@@ -173,7 +173,7 @@ $ ws -f logstalgia | logstalgia -
 
 ![local-web-server with logstalgia](http://75lb.github.io/local-web-server/logstagia.gif)
 
-##Use with glTail
+## Use with glTail
 To use with [glTail](http://www.fudgie.org), write your log to disk using the "default" format:
 ```sh
 $ ws -f default > web.log
@@ -190,3 +190,5 @@ servers:
         parser: apache
         color: 0.2, 0.2, 1.0, 1.0
 ```
+
+&copy; 2015 Lloyd Brookes <75pound@gmail.com>
