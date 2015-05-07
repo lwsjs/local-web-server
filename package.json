@@ -25,7 +25,7 @@
     "object-tools": "^1.0.3",
     "serve-index": "^1.6.3",
     "serve-static": "^1.8",
-    "stream-log-stats": "~0.1.0",
+    "stream-log-stats": "^1",
     "typical": "^1.0.0"
   },
   "local-web-server": {
