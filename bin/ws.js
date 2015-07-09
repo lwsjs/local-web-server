@@ -20,7 +20,7 @@ var cliOptions = require("../lib/cli-options");
 var cli = cliArgs(cliOptions);
 var usage = cli.getUsage({
     title: "local-web-server",
-    header: "Lightweight static web server, zero configuration.",
+    description: "Lightweight static web server, zero configuration.",
     footer: "Project home: https://github.com/75lb/local-web-server",
     forms: [ 
         "$ ws <server options>",  
@@ -29,7 +29,7 @@ var usage = cli.getUsage({
     ],
     groups: {
         server: "Server",
-        misc: "Server"
+        misc: "Misc"
     }
 });
 
