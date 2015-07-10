@@ -47,24 +47,28 @@ $ npm start
 
 ## Usage
 ```
-Usage
-$ ws <server options>
-$ ws --config
-$ ws --help
+  local-web-server
+  Lightweight static web server, zero configuration.
 
-Server
--p, --port <number>          Web server port
--f, --log-format <string>    If a format is supplied an access log is written to stdout. If not,
-                             a statistics view is displayed. Use a preset ('none', 'dev',
-                             'combined', 'short', 'tiny' or 'logstalgia') or supply a custom format
-                             (e.g. ':method -> :url').
--d, --directory <string>     Root directory, defaults to the current directory
--c, --compress               Enables compression
--r, --refresh-rate <number>  Statistics view refresh rate in ms. Defaults to 500.
+  Usage
+  $ ws <server options>
+  $ ws --config
+  $ ws --help
 
-Misc
--h, --help                   Print these usage instructions
---config                     Print the stored config
+  Server
+  -p, --port <number>           Web server port
+  -f, --log-format <string>     If a format is supplied an access log is written to stdout. If not, a statistics view is displayed. Use a
+                                preset ('none', 'dev','combined', 'short', 'tiny' or 'logstalgia') or supply a custom format (e.g. ':method ->
+                                :url').
+  -d, --directory <string>      Root directory, defaults to the current directory
+  -c, --compress                Enable gzip compression, reduces bandwidth.
+  -r, --refresh-rate <number>   Statistics view refresh rate in ms. Defaults to 500.
+
+  Misc
+  -h, --help                    Print these usage instructions
+  --config                      Print the stored config
+
+  Project home: https://github.com/75lb/local-web-server
 ```
 
 From the folder you wish to serve, run:
