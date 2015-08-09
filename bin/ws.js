@@ -22,7 +22,7 @@ var cli = cliArgs(cliOptions);
 var usage = cli.getUsage({
     title: "[bold]{local-web-server}",
     description: "Lightweight static web server, zero configuration.",
-    footer: "Project home: https://github.com/75lb/local-web-server",
+    footer: "Project home: [underline]{https://github.com/75lb/local-web-server}",
     usage: {
         title: "[bold]{Usage}",
         forms: [ 
