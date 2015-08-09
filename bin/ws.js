@@ -15,27 +15,31 @@ var serveStatic = require("serve-static");
 var directory = require("serve-index");
 var compress = require("compression");
 var cliOptions = require("../lib/cli-options");
+var url = require("url");
 
 /* specify the command line arg definitions and usage forms */
 var cli = cliArgs(cliOptions);
 var usage = cli.getUsage({
-    title: "local-web-server",
+    title: "[bold]{local-web-server}",
     description: "Lightweight static web server, zero configuration.",
     footer: "Project home: https://github.com/75lb/local-web-server",
-    forms: [ 
-        "$ ws <server options>",  
-        "$ ws --config",
-        "$ ws --help"
-    ],
+    usage: {
+        title: "[bold]{Usage}",
+        forms: [ 
+            "$ ws <server options>",  
+            "$ ws --config",
+            "$ ws --help"
+        ]
+    },
     groups: {
-        server: "Server",
-        misc: "Misc"
+        server: "[bold]{Server}",
+        misc: "[bold]{Misc}"
     }
 });
 
 /* parse command line args */
 try {
-    var argv = cli.parse();
+    var wsOptions = cli.parse();
 } catch(err){
     halt(err.message);
 }
@@ -59,20 +63,19 @@ var builtInDefaults = {
 };
 
 /* override built-in defaults with stored config and then command line args */
-argv.server = o.extend(builtInDefaults, storedConfig, argv.server);
+wsOptions.server = o.extend(builtInDefaults, storedConfig, wsOptions.server);
 
 /* user input validation */
-var logFormat = argv.server["log-format"];
-if (!t.isNumber(argv.server.port)) {
+if (!t.isNumber(wsOptions.server.port)) {
     halt("please supply a numeric port value");
 }
 
-if (argv.misc.config){
+if (wsOptions.misc.config){
     dope.log("Stored config: ");
     dope.log(storedConfig);
     process.exit(0);
 
-} else if (argv.misc.help){
+} else if (wsOptions.misc.help){
     dope.log(usage);
 
 } else {
@@ -82,6 +85,24 @@ if (argv.misc.config){
         process.exit(0);
     });
     
+    dope.hideCursor();
+    launchServer();
+
+    /* write launch information to stderr (stdout is reserved for web log output) */
+    if (path.resolve(wsOptions.server.directory) === process.cwd()){
+        dope.error("serving at %underline{%s}", "http://localhost:" + wsOptions.server.port);
+    } else {
+        dope.error("serving %underline{%s} at %underline{%s}", wsOptions.server.directory, "http://localhost:" + wsOptions.server.port);
+    }
+}
+
+function halt(message){
+    dope.red.log("Error: %s",  message);
+    dope.log(usage);
+    process.exit(1);
+}
+
+function launchServer(){
     var app = connect();
 
     /* enable cross-origin requests on all resources */
@@ -90,7 +111,33 @@ if (argv.misc.config){
         next();
     });
 
+    app.use(getLogger());
+
+    /* --compress enables compression */
+    if (wsOptions.server.compress) app.use(compress());
+
+    /* set the mime-type overrides specified in the config */
+    serveStatic.mime.define(wsOptions.server.mime);
+
+    /* enable static file server, including directory browsing support */
+    app.use(serveStatic(path.resolve(wsOptions.server.directory)))
+        .use(directory(path.resolve(wsOptions.server.directory), { icons: true }));
+        
+    /* launch server */
+    http.createServer(app)
+        .on("error", function(err){
+            if (err.code === "EADDRINUSE"){
+                halt("port " + wsOptions.server.port + " is already is use");
+            } else {
+                halt(err.message);
+            }
+        })
+        .listen(wsOptions.server.port);
+}
+
+function getLogger(){
     /* log using --log-format (if supplied) */
+    var logFormat = wsOptions.server["log-format"];
     if(logFormat) {
         if (logFormat === "none"){
             // do nothing, no logging required
@@ -98,54 +145,19 @@ if (argv.misc.config){
             if (logFormat === "logstalgia"){
                 /* customised logger :date token, purely to satisfy Logstalgia. */
                 morgan.token("date", function(){
-                    var a = new Date();
-                    return (a.getDate() + "/" + a.getUTCMonth() + "/" + a.getFullYear() + ":" + a.toTimeString())
+                    var d = new Date();
+                    return (d.getDate() + "/" + d.getUTCMonth() + "/" + d.getFullYear() + ":" + d.toTimeString())
                             .replace("GMT", "").replace(" (BST)", "");
                 });
                 logFormat = "combined";
             }
 
-            app.use(morgan(logFormat));
+            return morgan(logFormat);
         }
 
     /* if no `--log-format` was specified, pipe the default format output
     into `log-stats`, which prints statistics to the console */
     } else {
-        dope.hideCursor();
-        app.use(morgan("common", { stream: logStats({ refreshRate: argv.server["refresh-rate"] }) }));
+        return morgan("common", { stream: logStats({ refreshRate: wsOptions.server["refresh-rate"] }) });
     }
-
-    /* --compress enables compression */
-    if (argv.server.compress) app.use(compress());
-
-    /* set the mime-type overrides specified in the config */
-    serveStatic.mime.define(argv.server.mime);
-
-    /* enable static file server, including directory browsing support */
-    app.use(serveStatic(path.resolve(argv.server.directory)))
-        .use(directory(path.resolve(argv.server.directory), { icons: true }));
-
-    /* launch server */
-    http.createServer(app)
-        .on("error", function(err){
-            if (err.code === "EADDRINUSE"){
-                halt("port " + argv.server.port + " is already is use");
-            } else {
-                halt(err.message);
-            }
-        })
-        .listen(argv.server.port);
-
-    /* write launch information to stderr (stdout is reserved for web log output) */
-    if (path.resolve(argv.server.directory) === process.cwd()){
-        dope.error("serving at %underline{%s}", "http://localhost:" + argv.server.port);
-    } else {
-        dope.error("serving %underline{%s} at %underline{%s}", argv.server.directory, "http://localhost:" + argv.server.port);
-    }
-}
-
-function halt(message){
-    dope.red.log("Error: %s",  message);
-    dope.log(usage);
-    process.exit(1);
 }
