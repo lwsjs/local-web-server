@@ -20,11 +20,10 @@ var url = require("url");
 /* specify the command line arg definitions and usage forms */
 var cli = cliArgs(cliOptions);
 var usage = cli.getUsage({
-    title: "[bold]{local-web-server}",
+    title: "local-web-server",
     description: "Lightweight static web server, zero configuration.",
     footer: "Project home: [underline]{https://github.com/75lb/local-web-server}",
     usage: {
-        title: "[bold]{Usage}",
         forms: [ 
             "$ ws <server options>",  
             "$ ws --config",
@@ -32,8 +31,8 @@ var usage = cli.getUsage({
         ]
     },
     groups: {
-        server: "[bold]{Server}",
-        misc: "[bold]{Misc}"
+        server: "Server",
+        misc: "Misc"
     }
 });
 
