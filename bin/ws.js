@@ -110,7 +110,7 @@ function launchServer(){
         next();
     });
 
-    app.use(getLogger());
+    if (wsOptions.server["log-format"] !== "none") app.use(getLogger());
 
     /* --compress enables compression */
     if (wsOptions.server.compress) app.use(compress());
@@ -138,21 +138,17 @@ function getLogger(){
     /* log using --log-format (if supplied) */
     var logFormat = wsOptions.server["log-format"];
     if(logFormat) {
-        if (logFormat === "none"){
-            // do nothing, no logging required
-        } else {
-            if (logFormat === "logstalgia"){
-                /* customised logger :date token, purely to satisfy Logstalgia. */
-                morgan.token("date", function(){
-                    var d = new Date();
-                    return (d.getDate() + "/" + d.getUTCMonth() + "/" + d.getFullYear() + ":" + d.toTimeString())
-                            .replace("GMT", "").replace(" (BST)", "");
-                });
-                logFormat = "combined";
-            }
-
-            return morgan(logFormat);
+        if (logFormat === "logstalgia"){
+            /* customised logger :date token, purely to satisfy Logstalgia. */
+            morgan.token("date", function(){
+                var d = new Date();
+                return (d.getDate() + "/" + d.getUTCMonth() + "/" + d.getFullYear() + ":" + d.toTimeString())
+                        .replace("GMT", "").replace(" (BST)", "");
+            });
+            logFormat = "combined";
         }
+
+        return morgan(logFormat);
 
     /* if no `--log-format` was specified, pipe the default format output
     into `log-stats`, which prints statistics to the console */
