@@ -1,7 +1,7 @@
 [![view on npm](http://img.shields.io/npm/v/local-web-server.svg)](https://www.npmjs.org/package/local-web-server)
 [![npm module downloads per month](http://img.shields.io/npm/dm/local-web-server.svg)](https://www.npmjs.org/package/local-web-server)
 [![Dependency Status](https://david-dm.org/75lb/local-web-server.svg)](https://david-dm.org/75lb/local-web-server)
-![Analytics](https://ga-beacon.appspot.com/UA-27725889-12/local-web-server/README.md?pixel)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 # local-web-server
 Fires up a simple, CORS-enabled, static web server on a given port. Use for local web development or file sharing (directory browsing enabled).
@@ -144,7 +144,7 @@ $ ws --config
 ```
 
 ## mime-types
-You can set additional mime-type/extension mappings, or override the defaults by setting a `mime` value in your local config. This value is passed directly to [mime.define()](https://github.com/broofa/node-mime#mimedefine). Example: 
+You can set additional mime-type/extension mappings, or override the defaults by setting a `mime` value in your local config. This value is passed directly to [mime.define()](https://github.com/broofa/node-mime#mimedefine). Example:
 
 ```json
 {
