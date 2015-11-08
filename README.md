@@ -190,4 +190,6 @@ servers:
         color: 0.2, 0.2, 1.0, 1.0
 ```
 
+* * *
+
 &copy; 2015 Lloyd Brookes <75pound@gmail.com>
