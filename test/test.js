@@ -3,6 +3,7 @@ const test = require('tape')
 const request = require('req-then')
 const localWebServer = require('../')
 const http = require('http')
+const PassThrough = require('stream').PassThrough
 
 test('static', function (t) {
   t.plan(1)
@@ -40,5 +41,28 @@ test('serve-index', function (t) {
       t.ok(/listing directory/.test(response.data))
       t.ok(/class="icon/.test(response.data))
     })
+    .then(() => server.close())
+})
+
+test('log: common', function (t) {
+  t.plan(1)
+  const stream = PassThrough()
+
+  stream.on('readable', () => {
+    let chunk = stream.read()
+    if (chunk) t.ok(/GET/.test(chunk.toString()))
+  })
+
+  const app = localWebServer({
+    logger: {
+      format: 'common',
+      options: {
+        stream: stream
+      }
+    }
+  })
+  const server = http.createServer(app.callback())
+  server.listen(8100)
+  request('http://localhost:8100/')
     .then(() => server.close())
 })

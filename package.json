@@ -51,6 +51,7 @@
     }
   },
   "devDependencies": {
+    "collect-all": "^0.1.0",
     "tape": "^4.2.2"
   }
 }
