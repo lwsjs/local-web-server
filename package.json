@@ -19,7 +19,7 @@
   "dependencies": {
     "command-line-args": "^2.0.2",
     "compression": "^1.0.2",
-    "config-master": "^1",
+    "config-master": "^2",
     "console-dope": "~0.3.0",
     "deep-extend": "^0.4.0",
     "express": "^4.13.3",
