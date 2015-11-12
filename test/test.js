@@ -66,3 +66,16 @@ test('log: common', function (t) {
   request('http://localhost:8100/')
     .then(() => server.close())
 })
+
+test('compress', function(t){
+  const app = localWebServer({ compress: true })
+
+})
+
+function launchServer (app, onSuccess) {
+  const server = http.createServer(app.callback())
+  server.listen(8100)
+  const req = request('http://localhost:8100/')
+  if (onSuccess) req.then(onSuccess)
+  req.then(() => server.close())
+}

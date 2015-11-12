@@ -27,6 +27,7 @@
     "kcors": "^1.0.1",
     "koa": "^2.0.0-alpha.3",
     "koa-charset": "^1.1.4",
+    "koa-compress": "^1.0.8",
     "koa-convert": "^1.1.0",
     "koa-json": "^1.1.1",
     "koa-morgan": "^0.4.0",

@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 'use strict'
 const localWebServer = require('../')
-const streamLogStats = require('stream-log-stats')
 const commandLineArgs = require('command-line-args')
 const ansi = require('ansi-escape-sequences')
 const cliOptions = require('../lib/cli-options')
@@ -34,23 +33,11 @@ options.cli.server = Object.assign(options.builtIn, options.stored, options.cli.
 if (options.cli.misc.help) return console.log(usage)
 if (options.cli.misc.config) return console.log(JSON.stringify(options.stored, null, '  '))
 
-let log = {
-  format: options.cli.server['log-format']
-}
-
-if (log.format === 'none'){
-  log.format = undefined
-} else if (log.format){
-  log.stream = process.stdout
-} else {
-  log.format = 'common'
-  log.stream = streamLogStats({ refreshRate: 100 })
-}
-
 localWebServer({
   static: { root: options.cli.server.directory },
   serveIndex: { path: options.cli.server.directory, options: { icons: true } },
-  logger: { format: log.format, options: { stream: log.stream } }
+  logger: { format: options.cli.server['log-format'] },
+  compress: options.cli.server.compress
 }).listen(options.cli.server.port, serverUp)
 
 function halt (message) {
@@ -64,6 +51,6 @@ function serverUp () {
   if (path.resolve(options.cli.server.directory) === process.cwd()) {
     console.error(ansi.format(`serving at [underline]{http://localhost:${options.cli.server.port}}`))
   } else {
-    console.error(ansi.format(`serving [underline]{options.cli.server.directory} at [underline]{http://localhost:${options.cli.server.port}}`))
+    console.error(ansi.format(`serving [underline]{${options.cli.server.directory}} at [underline]{http://localhost:${options.cli.server.port}}`))
   }
 }
