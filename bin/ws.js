@@ -23,7 +23,6 @@ options.stored = loadConfig('local-web-server')
 options.builtIn = {
   port: 8000,
   directory: process.cwd(),
-  'refresh-rate': 500,
   mime: {}
 }
 
@@ -36,7 +35,7 @@ if (options.cli.misc.config) return console.log(JSON.stringify(options.stored, n
 localWebServer({
   static: { root: options.cli.server.directory },
   serveIndex: { path: options.cli.server.directory, options: { icons: true } },
-  logger: { format: options.cli.server['log-format'] },
+  log: { format: options.cli.server['log-format'] },
   compress: options.cli.server.compress
 }).listen(options.cli.server.port, serverUp)
 

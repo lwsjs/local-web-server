@@ -5,45 +5,6 @@ const localWebServer = require('../')
 const http = require('http')
 const PassThrough = require('stream').PassThrough
 
-test('static', function (t) {
-  t.plan(1)
-  const app = localWebServer({
-    static: {
-      root: __dirname + '/static',
-      options: {
-        index: 'file.txt'
-      }
-    }
-  })
-  const server = http.createServer(app.callback())
-  server.listen(8100)
-  request('http://localhost:8100')
-    .then(response => {
-      t.strictEqual(response.data, 'test\n')
-    })
-    .then(() => server.close())
-})
-
-test('serve-index', function (t) {
-  t.plan(2)
-  const app = localWebServer({
-    serveIndex: {
-      path: __dirname + '/static',
-      options: {
-        icons: true
-      }
-    }
-  })
-  const server = http.createServer(app.callback())
-  server.listen(8100)
-  request('http://localhost:8100/')
-    .then(response => {
-      t.ok(/listing directory/.test(response.data))
-      t.ok(/class="icon/.test(response.data))
-    })
-    .then(() => server.close())
-})
-
 test('log: common', function (t) {
   t.plan(1)
   const stream = PassThrough()
@@ -54,28 +15,68 @@ test('log: common', function (t) {
   })
 
   const app = localWebServer({
-    logger: {
+    log: {
       format: 'common',
       options: {
         stream: stream
       }
     }
   })
-  const server = http.createServer(app.callback())
-  server.listen(8100)
-  request('http://localhost:8100/')
-    .then(() => server.close())
+  launchServer(app)
+})
+
+test('static', function (t) {
+  t.plan(1)
+  const app = localWebServer({
+    log: { format: 'none' },
+    static: {
+      root: __dirname + '/static',
+      options: {
+        index: 'file.txt'
+      }
+    }
+  })
+  launchServer(app, null, '/', response => {
+    t.strictEqual(response.data, 'test\n')
+  })
+})
+
+test('serve-index', function (t) {
+  t.plan(2)
+  const app = localWebServer({
+    log: { format: 'none' },
+    serveIndex: {
+      path: __dirname + '/static',
+      options: {
+        icons: true
+      }
+    }
+  })
+  launchServer(app, null, null, response => {
+    t.ok(/listing directory/.test(response.data))
+    t.ok(/class="icon/.test(response.data))
+  })
 })
 
 test('compress', function(t){
-  const app = localWebServer({ compress: true })
-
+  t.plan(1)
+  const app = localWebServer({
+    compress: true,
+    log: { format: 'none' },
+    static: { root: __dirname + '/static' }
+  })
+  launchServer(app, { headers: { 'Accept-Encoding': 'gzip' } }, '/big-file.txt', response => {
+    t.strictEqual(response.res.headers['content-encoding'], 'gzip')
+  })
 })
 
-function launchServer (app, onSuccess) {
+function launchServer (app, reqOptions, path, onSuccess) {
+  path = `http://localhost:8100${path || '/'}`
   const server = http.createServer(app.callback())
-  server.listen(8100)
-  const req = request('http://localhost:8100/')
-  if (onSuccess) req.then(onSuccess)
-  req.then(() => server.close())
+  server.listen(8100, () => {
+    const req = request(path, reqOptions)
+    if (onSuccess) req.then(onSuccess)
+    req.then(() => server.close())
+    req.catch(err => console.error('LAUNCH ERROR', err.stack))
+  })
 }
