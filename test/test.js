@@ -41,7 +41,7 @@ test('static', function (t) {
   const app = localWebServer({
     log: { format: 'none' },
     static: {
-      root: __dirname + '/static',
+      root: __dirname + '/fixture',
       options: {
         index: 'file.txt'
       }
@@ -57,7 +57,7 @@ test('serve-index', function (t) {
   const app = localWebServer({
     log: { format: 'none' },
     serveIndex: {
-      path: __dirname + '/static',
+      path: __dirname + '/fixture',
       options: {
         icons: true
       }
@@ -74,7 +74,7 @@ test('compress', function(t){
   const app = localWebServer({
     compress: true,
     log: { format: 'none' },
-    static: { root: __dirname + '/static' }
+    static: { root: __dirname + '/fixture' }
   })
   launchServer(app, { headers: { 'Accept-Encoding': 'gzip' } }, '/big-file.txt', response => {
     t.strictEqual(response.res.headers['content-encoding'], 'gzip')
@@ -85,7 +85,7 @@ test('mime', function(t){
   t.plan(1)
   const app = localWebServer({
     log: { format: 'none' },
-    static: { root: __dirname + '/static' },
+    static: { root: __dirname + '/fixture' },
     mime: { 'text/plain': [ 'php' ]}
   })
   launchServer(app, null, '/something.php', response => {
