@@ -4,7 +4,7 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 # local-web-server
-Fires up a simple, CORS-enabled, static web server on a given port. Use for local web development or file sharing (directory browsing enabled).
+Fires up a simple, CORS-enabled, static web server on a given port. Use for local web development or file sharing (directory browsing enabled). **Requires node v4.0.0 or higher**.
 
 ![local-web-server](http://75lb.github.io/local-web-server/ws.gif)
 
