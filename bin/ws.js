@@ -22,8 +22,7 @@ try {
 options.stored = loadConfig('local-web-server')
 options.builtIn = {
   port: 8000,
-  directory: process.cwd(),
-  mime: {}
+  directory: process.cwd()
 }
 
 /* override built-in defaults with stored config and then command line args */
@@ -36,8 +35,9 @@ localWebServer({
   static: { root: options.cli.server.directory },
   serveIndex: { path: options.cli.server.directory, options: { icons: true } },
   log: { format: options.cli.server['log-format'] },
-  compress: options.cli.server.compress
-}).listen(options.cli.server.port, serverUp)
+  compress: options.cli.server.compress,
+  mime: options.stored.mime
+}).listen(options.cli.server.port, onServerUp)
 
 function halt (message) {
   console.log(ansi.format(`Error: ${message}`, 'red'))
@@ -45,11 +45,10 @@ function halt (message) {
   process.exit(1)
 }
 
-function serverUp () {
-  /* write launch information to stderr (stdout is reserved for web log output) */
-  if (path.resolve(options.cli.server.directory) === process.cwd()) {
-    console.error(ansi.format(`serving at [underline]{http://localhost:${options.cli.server.port}}`))
-  } else {
-    console.error(ansi.format(`serving [underline]{${options.cli.server.directory}} at [underline]{http://localhost:${options.cli.server.port}}`))
-  }
+function onServerUp () {
+  console.error(ansi.format(
+    path.resolve(options.cli.server.directory) === process.cwd()
+      ? `serving at [underline]{http://localhost:${options.cli.server.port}}`
+      : `serving [underline]{${options.cli.server.directory}} at [underline]{http://localhost:${options.cli.server.port}}`
+  ))
 }

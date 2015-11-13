@@ -5,6 +5,17 @@ const localWebServer = require('../')
 const http = require('http')
 const PassThrough = require('stream').PassThrough
 
+function launchServer (app, reqOptions, path, onSuccess) {
+  path = `http://localhost:8100${path || '/'}`
+  const server = http.createServer(app.callback())
+  server.listen(8100, () => {
+    const req = request(path, reqOptions)
+    if (onSuccess) req.then(onSuccess)
+    req.then(() => server.close())
+    req.catch(err => console.error('LAUNCH ERROR', err.stack))
+  })
+}
+
 test('log: common', function (t) {
   t.plan(1)
   const stream = PassThrough()
@@ -70,13 +81,14 @@ test('compress', function(t){
   })
 })
 
-function launchServer (app, reqOptions, path, onSuccess) {
-  path = `http://localhost:8100${path || '/'}`
-  const server = http.createServer(app.callback())
-  server.listen(8100, () => {
-    const req = request(path, reqOptions)
-    if (onSuccess) req.then(onSuccess)
-    req.then(() => server.close())
-    req.catch(err => console.error('LAUNCH ERROR', err.stack))
+test('mime', function(t){
+  t.plan(1)
+  const app = localWebServer({
+    log: { format: 'none' },
+    static: { root: __dirname + '/static' },
+    mime: { 'text/plain': [ 'php' ]}
   })
-}
+  launchServer(app, null, '/something.php', response => {
+    t.ok(/text\/plain/.test(response.res.headers['content-type']))
+  })
+})

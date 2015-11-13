@@ -7,15 +7,15 @@
   },
   "main": "lib/local-web-server.js",
   "license": "MIT",
+  "keywords": [ "dev", "server", "web", "tool", "front-end", "development", "cors", "mime", "rest" ],
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4.0.0"
   },
   "scripts": {
-    "lint": "jshint bin/ws.js; echo;",
     "test": "tape test/*.js"
   },
   "repository": "https://github.com/75lb/local-web-server",
-  "author": "Lloyd Brookes",
+  "author": "Lloyd Brookes <75pound@gmail.com>",
   "dependencies": {
     "command-line-args": "^2.0.2",
     "compression": "^1.0.2",
@@ -44,15 +44,7 @@
     "stream-log-stats": "^1",
     "typical": "^2.0.0"
   },
-  "local-web-server": {
-    "mime": {
-      "text/plain": [
-        "php"
-      ]
-    }
-  },
   "devDependencies": {
-    "collect-all": "^0.1.0",
     "tape": "^4.2.2"
   }
 }
