@@ -22,7 +22,8 @@ try {
 options.stored = loadConfig('local-web-server')
 options.builtIn = {
   port: 8000,
-  directory: process.cwd()
+  directory: process.cwd(),
+  blacklist: []
 }
 
 /* override built-in defaults with stored config and then command line args */
@@ -36,7 +37,8 @@ localWebServer({
   serveIndex: { path: options.cli.server.directory, options: { icons: true } },
   log: { format: options.cli.server['log-format'] },
   compress: options.cli.server.compress,
-  mime: options.stored.mime
+  mime: options.stored.mime,
+  blacklist: options.stored.blacklist.map(regexp => RegExp(regexp, "i"))
 }).listen(options.cli.server.port, onServerUp)
 
 function halt (message) {

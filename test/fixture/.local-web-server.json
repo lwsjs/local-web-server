@@ -1,5 +1,8 @@
 {
     "mime": {
         "text/plain": [ "php" ]
-    }
+    },
+    "blacklist": [
+      "php$"
+    ]
 }

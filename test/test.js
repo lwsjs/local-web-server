@@ -5,13 +5,14 @@ const localWebServer = require('../')
 const http = require('http')
 const PassThrough = require('stream').PassThrough
 
-function launchServer (app, reqOptions, path, onSuccess) {
-  path = `http://localhost:8100${path || '/'}`
+function launchServer (app, options) {
+  options = options || {}
+  const path = `http://localhost:8100${options.path || '/'}`
   const server = http.createServer(app.callback())
-  server.listen(8100, () => {
-    const req = request(path, reqOptions)
-    if (onSuccess) req.then(onSuccess)
-    req.then(() => server.close())
+  return server.listen(8100, () => {
+    const req = request(path, options.reqOptions)
+    if (options.onSuccess) req.then(options.onSuccess)
+    if (!options.leaveOpen) req.then(() => server.close())
     req.catch(err => console.error('LAUNCH ERROR', err.stack))
   })
 }
@@ -47,9 +48,9 @@ test('static', function (t) {
       }
     }
   })
-  launchServer(app, null, '/', response => {
+  launchServer(app, { onSuccess: response => {
     t.strictEqual(response.data, 'test\n')
-  })
+  }})
 })
 
 test('serve-index', function (t) {
@@ -63,10 +64,10 @@ test('serve-index', function (t) {
       }
     }
   })
-  launchServer(app, null, null, response => {
+  launchServer(app, { onSuccess: response => {
     t.ok(/listing directory/.test(response.data))
     t.ok(/class="icon/.test(response.data))
-  })
+  }})
 })
 
 test('compress', function(t){
@@ -76,9 +77,16 @@ test('compress', function(t){
     log: { format: 'none' },
     static: { root: __dirname + '/fixture' }
   })
-  launchServer(app, { headers: { 'Accept-Encoding': 'gzip' } }, '/big-file.txt', response => {
-    t.strictEqual(response.res.headers['content-encoding'], 'gzip')
-  })
+  launchServer(
+    app,
+    {
+      reqOptions: { headers: { 'Accept-Encoding': 'gzip' } },
+      path: '/big-file.txt',
+      onSuccess: response => {
+        t.strictEqual(response.res.headers['content-encoding'], 'gzip')
+      }
+    }
+  )
 })
 
 test('mime', function(t){
@@ -88,7 +96,26 @@ test('mime', function(t){
     static: { root: __dirname + '/fixture' },
     mime: { 'text/plain': [ 'php' ]}
   })
-  launchServer(app, null, '/something.php', response => {
+  launchServer(app, { path: '/something.php', onSuccess: response => {
     t.ok(/text\/plain/.test(response.res.headers['content-type']))
+  }})
+})
+
+test('blacklist', function (t) {
+  t.plan(2)
+  const app = localWebServer({
+    log: { format: 'none' },
+    static: { root: __dirname + '/fixture' },
+    blacklist: [ /php$/, /html$/ ]
   })
+  const server = launchServer(app, { leaveOpen: true })
+  request('http://localhost:8100/something.php')
+    .then(response => {
+      t.strictEqual(response.res.statusCode, 403)
+      request('http://localhost:8100/ajax.html')
+        .then(response => {
+          t.strictEqual(response.res.statusCode, 403)
+          server.close()
+        })
+    })
 })
