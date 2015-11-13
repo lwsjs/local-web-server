@@ -19,11 +19,13 @@ try {
   halt(err.message)
 }
 
-options.stored = loadConfig('local-web-server')
+options.stored = Object.assign({
+  blacklist: []
+}, loadConfig('local-web-server'))
+
 options.builtIn = {
   port: 8000,
-  directory: process.cwd(),
-  blacklist: []
+  directory: process.cwd()
 }
 
 /* override built-in defaults with stored config and then command line args */

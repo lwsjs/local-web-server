@@ -28,12 +28,7 @@
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "dependencies": {
     "command-line-args": "^2.0.2",
-    "compression": "^1.0.2",
     "config-master": "^2",
-    "console-dope": "~0.3.0",
-    "deep-extend": "^0.4.0",
-    "express": "^4.13.3",
-    "home-path": "^1",
     "kcors": "^1.0.1",
     "koa": "^2.0.0-alpha.3",
     "koa-charset": "^1.1.4",
@@ -41,20 +36,14 @@
     "koa-conditional-get": "^1.0.3",
     "koa-convert": "^1.1.0",
     "koa-etag": "^2.1.0",
-    "koa-json": "^1.1.1",
     "koa-morgan": "^0.4.0",
     "koa-rewrite": "^1.1.1",
     "koa-route": "^2.4.2",
     "koa-serve-index": "^1.1.0",
     "koa-static": "^1.5.2",
     "morgan": "^1.0.0",
-    "object-tools": "^2",
-    "proxy-middleware": "^0.13.1",
     "req-then": "^0.2.2",
-    "serve-index": "^1.6.3",
-    "serve-static": "^1.8",
-    "stream-log-stats": "^1",
-    "typical": "^2.0.0"
+    "stream-log-stats": "^1"
   },
   "devDependencies": {
     "tape": "^4.2.2"
