@@ -7,7 +7,17 @@
   },
   "main": "lib/local-web-server.js",
   "license": "MIT",
-  "keywords": [ "dev", "server", "web", "tool", "front-end", "development", "cors", "mime", "rest" ],
+  "keywords": [
+    "dev",
+    "server",
+    "web",
+    "tool",
+    "front-end",
+    "development",
+    "cors",
+    "mime",
+    "rest"
+  ],
   "engines": {
     "node": ">=4.0.0"
   },
@@ -28,7 +38,9 @@
     "koa": "^2.0.0-alpha.3",
     "koa-charset": "^1.1.4",
     "koa-compress": "^1.0.8",
+    "koa-conditional-get": "^1.0.3",
     "koa-convert": "^1.1.0",
+    "koa-etag": "^2.1.0",
     "koa-json": "^1.1.1",
     "koa-morgan": "^0.4.0",
     "koa-rewrite": "^1.1.1",
