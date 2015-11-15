@@ -40,14 +40,14 @@ localWebServer({
   log: { format: options.server['log-format'] },
   compress: options.server.compress,
   mime: options.server.mime,
-  blacklist: options.server.blacklist.map(regexp => RegExp(regexp, "i")),
+  forbid: options.server.forbid.map(regexp => RegExp(regexp, "i")),
   proxyRoutes: options.server.proxyRoutes,
   spa: options.server.spa,
   'no-cache': options.server['no-cache']
 }).listen(options.server.port, onServerUp)
 
 function halt (err) {
-  console.log(ansi.format(`Error: ${err.stack}`, 'red'))
+  console.log(ansi.format(`Error: ${err.message}`, 'red'))
   console.log(usage)
   process.exit(1)
 }
@@ -77,7 +77,7 @@ function collectOptions () {
     root: process.cwd(), // root dir when using multiple static dirs
     directory: process.cwd(),
     proxyRoutes: [],
-    blacklist: []
+    forbid: []
   }
 
   /* override built-in defaults with stored config and then command line args */

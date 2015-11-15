@@ -5,44 +5,42 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 # local-web-server
-A static web-server for productive front-end development.
+A simple web-server for productive front-end development.
 
 **Requires node v4.0.0 or higher**.
 
 ## Synopsis
 
-From the folder you wish to serve, run:
+Serve a directory on the default port:
 ```sh
 $ ws
 serving at http://localhost:8000
 ```
 
-If you wish to serve a different directory, run:
+Blacklist certain paths, for example config files:
 ```sh
-$ ws -d ~/mysite/
-serving /Users/Lloyd/mysite at http://localhost:8000
+$ ws --forbid .json .yml
+serving at http://localhost:8000
 ```
 
-If you wish to override the default port (8000), use `--port` or `-p`:
-```sh
-$ ws --port 9000
-serving at http://localhost:9000
-```
-
-To add compression, reducing bandwidth, increasing page load time (by 10-15% on my Macbook Air)
+Reduce bandwidth with gzip compression:
 ```sh
 $ ws --compress
+```
+
+Specify a Single Page Application:
+```sh
+$ ws --spa index.html
 ```
 
 ## Install
 Ensure [node.js](http://nodejs.org) is installed first. Linux/Mac users may need to run the following commands with `sudo`.
 
-### Globally
 ```sh
 $ npm install -g local-web-server
 ```
 
-### Bundled with your project
+## Distribute with your project
 ```sh
 $ npm install local-web-server --save-dev
 ```
@@ -69,24 +67,6 @@ to the following, server implementation and launch details abstracted away:
 ```sh
 $ npm install
 $ npm start
-```
-
-### Logging
-Passing a value to `--log-format` will write an access log to `stdout`.
-
-Either use a built-in [morgan](https://github.com/expressjs/morgan) logger preset:
-```sh
-$ ws --log-format short
-```
-
-Or a custom [morgan](https://github.com/expressjs/morgan) log format:
-```sh
-$ ws -f ':method -> :url'
-```
-
-Or silence:
-```sh
-$ ws -f none
 ```
 
 ## Storing default options
@@ -139,7 +119,7 @@ You can set additional mime-type/extension mappings, or override the defaults by
 ## Log Visualisation
 Instructions for how to visualise log output using goaccess, logstalgia or gltail [here](https://github.com/75lb/local-web-server/wiki/Log-visualisation).
 
-# API Reference
+## API Reference
 
 {{>main}}
 
