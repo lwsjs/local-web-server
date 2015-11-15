@@ -22,7 +22,8 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "tape test/*.js"
+    "test": "tape test/*.js",
+    "docs": "jsdoc2md -t jsdoc2md/README.hbs lib/*.js > README.md; echo"
   },
   "repository": "https://github.com/75lb/local-web-server",
   "author": "Lloyd Brookes <75pound@gmail.com>",

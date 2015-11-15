@@ -9,49 +9,45 @@ const cliOptions = require('../lib/cli-options')
 const loadConfig = require('config-master')
 const path = require('path')
 
-const options = {}
-
-/* parse command line args */
 const cli = commandLineArgs(cliOptions.definitions)
 const usage = cli.getUsage(cliOptions.usageData)
+const stored = loadConfig('local-web-server')
+const options = collectOptions()
 
-try {
-  options.cli = cli.parse()
-} catch (err) {
-  halt(err.message)
+if (options.misc.help) {
+  console.log(usage)
+  process.exit(0)
 }
-
-options.stored = loadConfig('local-web-server')
-
-
-options.builtIn = {
-  port: 8000,
-  root: process.cwd(), // root dir when using multiple static dirs
-  directory: process.cwd(),
-  proxyRoutes: [],
-  blacklist: []
+if (options.misc.config) {
+  console.log(JSON.stringify(stored, null, '  '))
+  process.exit(0)
 }
-
-/* override built-in defaults with stored config and then command line args */
-options.cli.server = Object.assign(options.builtIn, options.stored, options.cli.server)
-
-if (options.cli.misc.help) return console.log(usage)
-if (options.cli.misc.config) return console.log(JSON.stringify(options.stored, null, '  '))
 
 localWebServer({
-  static: { root: options.cli.server.directory },
-  serveIndex: { path: options.cli.server.directory, options: { icons: true } },
-  log: { format: options.cli.server['log-format'] },
-  compress: options.cli.server.compress,
-  mime: options.cli.server.mime,
-  blacklist: options.cli.server.blacklist.map(regexp => RegExp(regexp, "i")),
-  proxyRoutes: options.cli.server.proxyRoutes,
-  spa: options.cli.server.spa,
-  'no-cache': options.cli.server['no-cache']
-}).listen(options.cli.server.port, onServerUp)
+  static: {
+    root: options.server.directory,
+    options: {
+      hidden: true
+    }
+  },
+  serveIndex: {
+    path: options.server.directory,
+    options: {
+      icons: true,
+      hidden: true
+    }
+  },
+  log: { format: options.server['log-format'] },
+  compress: options.server.compress,
+  mime: options.server.mime,
+  blacklist: options.server.blacklist.map(regexp => RegExp(regexp, "i")),
+  proxyRoutes: options.server.proxyRoutes,
+  spa: options.server.spa,
+  'no-cache': options.server['no-cache']
+}).listen(options.server.port, onServerUp)
 
-function halt (message) {
-  console.log(ansi.format(`Error: ${message}`, 'red'))
+function halt (err) {
+  console.log(ansi.format(`Error: ${err.stack}`, 'red'))
   console.log(usage)
   process.exit(1)
 }
@@ -60,8 +56,31 @@ function onServerUp () {
   const e = Date.now()
   const time = `${e-s}ms`
   console.error(ansi.format(
-    path.resolve(options.cli.server.directory) === process.cwd()
-      ? `serving at [underline]{http://localhost:${options.cli.server.port}} ${time}`
-      : `serving [underline]{${options.cli.server.directory}} at [underline]{http://localhost:${options.cli.server.port}} ${time}`
+    path.resolve(options.server.directory) === process.cwd()
+      ? `serving at [underline]{http://localhost:${options.server.port}} ${time}`
+      : `serving [underline]{${options.server.directory}} at [underline]{http://localhost:${options.server.port}} ${time}`
   ))
+}
+
+function collectOptions () {
+  let options = {}
+
+  /* parse command line args */
+  try {
+    options = cli.parse()
+  } catch (err) {
+    halt(err)
+  }
+
+  const builtIn = {
+    port: 8000,
+    root: process.cwd(), // root dir when using multiple static dirs
+    directory: process.cwd(),
+    proxyRoutes: [],
+    blacklist: []
+  }
+
+  /* override built-in defaults with stored config and then command line args */
+  options.server = Object.assign(builtIn, stored, options.server)
+  return options
 }
