@@ -46,7 +46,8 @@ localWebServer({
   mime: options.cli.server.mime,
   blacklist: options.cli.server.blacklist.map(regexp => RegExp(regexp, "i")),
   proxyRoutes: options.cli.server.proxyRoutes,
-  spa: options.cli.server.spa
+  spa: options.cli.server.spa,
+  'no-cache': options.cli.server['no-cache']
 }).listen(options.cli.server.port, onServerUp)
 
 function halt (message) {
