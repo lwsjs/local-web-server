@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 'use strict'
+const s = Date.now()
+
 const localWebServer = require('../')
 const commandLineArgs = require('command-line-args')
 const ansi = require('ansi-escape-sequences')
@@ -43,7 +45,8 @@ localWebServer({
   compress: options.cli.server.compress,
   mime: options.cli.server.mime,
   blacklist: options.cli.server.blacklist.map(regexp => RegExp(regexp, "i")),
-  proxyRoutes: options.cli.server.proxyRoutes
+  proxyRoutes: options.cli.server.proxyRoutes,
+  spa: options.cli.server.spa
 }).listen(options.cli.server.port, onServerUp)
 
 function halt (message) {
@@ -53,9 +56,11 @@ function halt (message) {
 }
 
 function onServerUp () {
+  const e = Date.now()
+  const time = `${e-s}ms`
   console.error(ansi.format(
     path.resolve(options.cli.server.directory) === process.cwd()
-      ? `serving at [underline]{http://localhost:${options.cli.server.port}}`
-      : `serving [underline]{${options.cli.server.directory}} at [underline]{http://localhost:${options.cli.server.port}}`
+      ? `serving at [underline]{http://localhost:${options.cli.server.port}} ${time}`
+      : `serving [underline]{${options.cli.server.directory}} at [underline]{http://localhost:${options.cli.server.port}} ${time}`
   ))
 }
