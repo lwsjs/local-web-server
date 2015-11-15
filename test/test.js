@@ -119,3 +119,27 @@ test('blacklist', function (t) {
         })
     })
 })
+
+test.skip('directories: should serve index and static files', function(t){
+  t.plan(1)
+  const app = localWebServer({
+    log: { format: 'none' },
+    directories: [
+      __dirname + '/fixture/one'
+    ]
+  })
+  launchServer(app, { path: '/something.php', onSuccess: response => {
+    t.ok(/text\/plain/.test(response.res.headers['content-type']))
+  }})
+})
+
+test('proxy', function(t){
+  t.plan(1)
+  const app = localWebServer({
+    log: { format: 'none' },
+    proxy: []
+  })
+  launchServer(app, { path: '/something.php', onSuccess: response => {
+    t.ok(/text\/plain/.test(response.res.headers['content-type']))
+  }})
+})

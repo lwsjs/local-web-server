@@ -4,9 +4,9 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 # local-web-server
-Fires up a simple, CORS-enabled, static web server on a given port. Use for local web development or file sharing (directory browsing enabled). **Requires node v4.0.0 or higher**.
+A static web-server for productive front-end development.
 
-![local-web-server](http://75lb.github.io/local-web-server/ws.gif)
+**Requires node v4.0.0 or higher**.
 
 ## Install
 Ensure [node.js](http://nodejs.org) is installed first. Linux/Mac users may need to run the following commands with `sudo`.

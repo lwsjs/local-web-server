@@ -19,13 +19,15 @@ try {
   halt(err.message)
 }
 
-options.stored = Object.assign({
-  blacklist: []
-}, loadConfig('local-web-server'))
+options.stored = loadConfig('local-web-server')
+
 
 options.builtIn = {
   port: 8000,
-  directory: process.cwd()
+  root: process.cwd(), // root dir when using multiple static dirs
+  directory: process.cwd(),
+  proxyRoutes: [],
+  blacklist: []
 }
 
 /* override built-in defaults with stored config and then command line args */
@@ -39,8 +41,9 @@ localWebServer({
   serveIndex: { path: options.cli.server.directory, options: { icons: true } },
   log: { format: options.cli.server['log-format'] },
   compress: options.cli.server.compress,
-  mime: options.stored.mime,
-  blacklist: options.stored.blacklist.map(regexp => RegExp(regexp, "i"))
+  mime: options.cli.server.mime,
+  blacklist: options.cli.server.blacklist.map(regexp => RegExp(regexp, "i")),
+  proxyRoutes: options.cli.server.proxyRoutes
 }).listen(options.cli.server.port, onServerUp)
 
 function halt (message) {
