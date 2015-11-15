@@ -101,12 +101,12 @@ test('mime', function(t){
   }})
 })
 
-test('blacklist', function (t) {
+test('forbid', function (t) {
   t.plan(2)
   const app = localWebServer({
     log: { format: 'none' },
     static: { root: __dirname + '/fixture' },
-    blacklist: [ /php$/, /html$/ ]
+    forbid: [ /php$/, /html$/ ]
   })
   const server = launchServer(app, { leaveOpen: true })
   request('http://localhost:8100/something.php')

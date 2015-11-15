@@ -10,12 +10,30 @@ A simple web-server for productive front-end development.
 **Requires node v4.0.0 or higher**.
 
 ## Synopsis
+Some typical use cases..
 
-Serve a directory on the default port:
+### Static site
+Fire up your site on the default port:
 ```sh
+$ tree
+.
+├── css
+│   └── style.css
+└── index.html
+
 $ ws
 serving at http://localhost:8000
 ```
+
+### Single Page Application
+
+Mark `index.html` as an SPA with client-side routing.
+```sh
+$ ws --spa index.html
+```
+
+With this option, routes with existing files (e.g. `/css/style.css`) will be served normally as static assets. Routes without an existing file (e.g. `/user/1`, `/login` etc.) are passed directly to your SPA. Without this option they would 404.
+
 
 Blacklist certain paths, for example config files:
 ```sh
@@ -28,10 +46,16 @@ Reduce bandwidth with gzip compression:
 $ ws --compress
 ```
 
-Specify a Single Page Application:
+When urls don't map to your directory structure, rewrite:
 ```sh
-$ ws --spa index.html
+$ ws --rewrite /css=>/build/css
 ```
+
+Rewrite to remote servers:
+```sh
+$ ws --rewrite /api=>http://api.example.com/api /npm=>http://registry.npmjs.com
+```
+
 
 ## Install
 Ensure [node.js](http://nodejs.org) is installed first. Linux/Mac users may need to run the following commands with `sudo`.
@@ -115,6 +139,9 @@ You can set additional mime-type/extension mappings, or override the defaults by
     }
 }
 ```
+
+## Use with Google DevTools Workspaces
+
 
 ## Log Visualisation
 Instructions for how to visualise log output using goaccess, logstalgia or gltail [here](https://github.com/75lb/local-web-server/wiki/Log-visualisation).
