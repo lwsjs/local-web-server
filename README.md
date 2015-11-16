@@ -10,52 +10,77 @@ A simple web-server for productive front-end development.
 **Requires node v4.0.0 or higher**.
 
 ## Synopsis
-Some typical use cases..
+Some typical use cases. For these examples, assume we're in our site directory, which looks like:
 
-### Static site
-Fire up your site on the default port:
 ```sh
 $ tree
 .
 ├── css
 │   └── style.css
-└── index.html
+├── index.html
+└── package.json
+```
 
+### Static site
+
+Fire up your static site on the default port:
+```sh
 $ ws
 serving at http://localhost:8000
 ```
 
 ### Single Page Application
 
-Mark `index.html` as an SPA with client-side routing.
+You're building a web app with client-side routing, so mark `index.html` as the SPA.
 ```sh
 $ ws --spa index.html
 ```
 
 With this option, routes with existing files (e.g. `/css/style.css`) will be served normally as static assets. Routes without an existing file (e.g. `/user/1`, `/login` etc.) are passed directly to your SPA. Without this option they would 404.
 
+### Access Control
 
-Blacklist certain paths, for example config files:
+Access to all files is allowed, beside those you forbid (e.g. config files):
 ```sh
 $ ws --forbid .json .yml
 serving at http://localhost:8000
 ```
 
-Reduce bandwidth with gzip compression:
-```sh
-$ ws --compress
-```
+### URL rewriting
 
 When urls don't map to your directory structure, rewrite:
 ```sh
 $ ws --rewrite /css=>/build/css
 ```
 
-Rewrite to remote servers:
+Rewrite to remote servers (proxy):
 ```sh
-$ ws --rewrite /api=>http://api.example.com/api /npm=>http://registry.npmjs.com
+$ ws --rewrite "/api => http://api.example.com/api" \
+               "/npm => http://registry.npmjs.com" \
+               "/user/:project/repo -> https://api.github.com/repos/:project"
 ```
 
+### Mock Responses
+
+### Stored config
+
+Always use this port and blacklist? Persist it to the config:
+```json
+{
+  "name": "example",
+  "version": "1.0.0",
+  etc,
+  etc,
+  "local-web-server": {
+    "port": 8100,
+    "forbid": "\\.json$"
+  }
+}
+```
+
+### Other features
+
+Compression, caching, simple statistics view, log, override mime types.
 
 ## Install
 Ensure [node.js](http://nodejs.org) is installed first. Linux/Mac users may need to run the following commands with `sudo`.
