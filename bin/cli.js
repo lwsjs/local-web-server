@@ -43,7 +43,8 @@ localWebServer({
   forbid: options.server.forbid.map(regexp => RegExp(regexp, "i")),
   proxyRoutes: options.server.proxyRoutes,
   spa: options.server.spa,
-  'no-cache': options.server['no-cache']
+  'no-cache': options.server['no-cache'],
+  rewrite: options.server.rewrite
 }).listen(options.server.port, onServerUp)
 
 function halt (err) {
@@ -74,10 +75,9 @@ function collectOptions () {
 
   const builtIn = {
     port: 8000,
-    root: process.cwd(), // root dir when using multiple static dirs
     directory: process.cwd(),
-    proxyRoutes: [],
-    forbid: []
+    forbid: [],
+    proxyRoutes: []
   }
 
   /* override built-in defaults with stored config and then command line args */

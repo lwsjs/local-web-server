@@ -1,0 +1,5 @@
+{
+    "rewrite": [
+      { "from": "/css/*", "to": "/styles/$1" }
+    ]
+}

@@ -37,11 +37,11 @@ $ ws --spa index.html
 
 By default, typical SPA urls (e.g. `/user/1`, `/login`) would return `404 Not Found` as there is no file at that location on disk. By marking `index.html` as the SPA you create this rule:
 
-*if a file with that url exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then pass it to the SPA.*
+*if a static file at the requested path exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then serve the SPA.*
 
 ### Access Control
 
-Access to all files is allowed, beside those you forbid (e.g. config files):
+Access to all files is allowed, beside those in the forbidden list (e.g. config files):
 ```sh
 $ ws --forbid .json .yml
 serving at http://localhost:8000
@@ -54,15 +54,14 @@ When urls don't map to your directory structure, rewrite:
 $ ws --rewrite /css=>/build/css
 ```
 
+### Proxy
+
 Rewrite to remote servers (proxy):
 ```sh
 $ ws --rewrite "/api => http://api.example.com/api" \
                "/npm => http://registry.npmjs.com" \
                "/user/:project/repo -> https://api.github.com/repos/:project"
 ```
-
-### Mock Responses
-*Coming soon*.
 
 ### Stored config
 
@@ -86,6 +85,9 @@ $ ws --log-format combined
 serving at http://localhost:8000
 ::1 - - [16/Nov/2015:11:16:52 +0000] "GET / HTTP/1.1" 200 12290 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2562.0 Safari/537.36"
 ```
+
+### Mock Responses
+*Coming soon*.
 
 ### Other features
 
@@ -208,6 +210,7 @@ Returns a Koa application
 **Example**  
 ```js
 const localWebServer = require('local-web-server')
+localWebServer().listen(8000)
 ```
 
 ## Composition
