@@ -1,8 +1,0 @@
-{
-    "mime": {
-        "text/plain": [ "php" ]
-    },
-    "forbid": [
-      "php$"
-    ]
-}

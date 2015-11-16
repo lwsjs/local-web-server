@@ -1,11 +1,9 @@
 #!/usr/bin/env node
 'use strict'
-const s = Date.now()
-
 const localWebServer = require('../')
+const cliOptions = require('../lib/cli-options')
 const commandLineArgs = require('command-line-args')
 const ansi = require('ansi-escape-sequences')
-const cliOptions = require('../lib/cli-options')
 const loadConfig = require('config-master')
 const path = require('path')
 
@@ -37,14 +35,15 @@ localWebServer({
       hidden: true
     }
   },
-  log: { format: options.server['log-format'] },
+  log: {
+    format: options.server['log-format']
+  },
   compress: options.server.compress,
   mime: options.server.mime,
   forbid: options.server.forbid.map(regexp => RegExp(regexp, 'i')),
-  proxyRoutes: options.server.proxyRoutes,
   spa: options.server.spa,
   'no-cache': options.server['no-cache'],
-  rewrite: options.server.rewrite
+  rewrite: parseRewriteRules(options.server.rewrite)
 }).listen(options.server.port, onServerUp)
 
 function halt (err) {
@@ -54,12 +53,10 @@ function halt (err) {
 }
 
 function onServerUp () {
-  const e = Date.now()
-  const time = `${e - s}ms`
   console.error(ansi.format(
     path.resolve(options.server.directory) === process.cwd()
-      ? `serving at [underline]{http://localhost:${options.server.port}} ${time}`
-      : `serving [underline]{${options.server.directory}} at [underline]{http://localhost:${options.server.port}} ${time}`
+      ? `serving at [underline]{http://localhost:${options.server.port}}`
+      : `serving [underline]{${options.server.directory}} at [underline]{http://localhost:${options.server.port}}`
   ))
 }
 
@@ -83,4 +80,14 @@ function collectOptions () {
   /* override built-in defaults with stored config and then command line args */
   options.server = Object.assign(builtIn, stored, options.server)
   return options
+}
+
+function parseRewriteRules (rules) {
+  return rules.map(rule => {
+    const matches = rule.match(/(\S*)\s*->\s*(\S*)/)
+    return {
+      from: matches[1],
+      to: matches[2]
+    }
+  })
 }
