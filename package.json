@@ -1,7 +1,7 @@
 {
   "name": "local-web-server",
   "version": "0.5.23",
-  "description": "Lightweight static web server, zero configuration. Perfect for front-end devs.",
+  "description": "A simple web-server for productive front-end development",
   "bin": {
     "ws": "./bin/cli.js"
   },

@@ -10,10 +10,9 @@ A simple web-server for productive front-end development.
 **Requires node v4.0.0 or higher**.
 
 ## Synopsis
-Some typical use cases. For these examples, assume we're in our site directory, which looks like:
+Some typical use cases. For these examples, assume we're in a site directory looking like this:
 
 ```sh
-$ tree
 .
 ├── css
 │   └── style.css
@@ -36,7 +35,7 @@ You're building a web app with client-side routing, so mark `index.html` as the 
 $ ws --spa index.html
 ```
 
-With this option, routes with existing files (e.g. `/css/style.css`) will be served normally as static assets. Routes without an existing file (e.g. `/user/1`, `/login` etc.) are passed directly to your SPA. Without this option they would 404.
+By default, typical SPA urls (e.g. `/user/1`, `/login`) would return `404 Not Found`. By marking `index.html` as the SPA you create this rule: *if a file with that url exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then pass it to the SPA*.
 
 ### Access Control
 
@@ -69,8 +68,6 @@ Always use this port and blacklist? Persist it to the config:
 {
   "name": "example",
   "version": "1.0.0",
-  etc,
-  etc,
   "local-web-server": {
     "port": 8100,
     "forbid": "\\.json$"
@@ -90,29 +87,32 @@ $ npm install -g local-web-server
 ```
 
 ## Distribute with your project
+The standard convention with client-server applications is to add an `npm start` command to launch the server component.
+
+1. Install the server as a dev dependency
+
 ```sh
 $ npm install local-web-server --save-dev
 ```
 
-Then add an `start` script to your `package.json` (the standard npm approach):
+2. Add a `start` command to your `package.json`:
+
 ```json
 {
-  "name": "my-web-app",
+  "name": "example",
   "version": "1.0.0",
+  "local-web-server": {
+    "port": 8100,
+    "forbid": "\\.json$"
+  },
   "scripts": {
     "start": "ws"
   }
 }
 ```
-This simplifies a rather specific-looking instruction set like:
 
-```sh
-$ npm install
-$ npm install -g local-web-server
-$ ws
-```
+3. Document how to build and launch your site
 
-to the following, server implementation and launch details abstracted away:
 ```sh
 $ npm install
 $ npm start
