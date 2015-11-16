@@ -40,7 +40,7 @@ localWebServer({
   log: { format: options.server['log-format'] },
   compress: options.server.compress,
   mime: options.server.mime,
-  forbid: options.server.forbid.map(regexp => RegExp(regexp, "i")),
+  forbid: options.server.forbid.map(regexp => RegExp(regexp, 'i')),
   proxyRoutes: options.server.proxyRoutes,
   spa: options.server.spa,
   'no-cache': options.server['no-cache'],
@@ -55,7 +55,7 @@ function halt (err) {
 
 function onServerUp () {
   const e = Date.now()
-  const time = `${e-s}ms`
+  const time = `${e - s}ms`
   console.error(ansi.format(
     path.resolve(options.server.directory) === process.cwd()
       ? `serving at [underline]{http://localhost:${options.server.port}} ${time}`

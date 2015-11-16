@@ -1,7 +1,4 @@
 body {
-  background-color: #AA3939;
-  color: #FFE2E2
-}
-svg {
-  fill: #000
+  font-family: monospace;
+  font-size: 1.3em;
 }

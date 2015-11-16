@@ -1,5 +1,7 @@
 {
-    "rewrite": [
-      { "from": "/css/*", "to": "/styles/$1" }
-    ]
+  "rewrite": [
+    { "from": "/css/*", "to": "/styles/$1" },
+    { "from": "/npm/*", "to": "http://registry.npmjs.org/$1" },
+    { "from": "/gh/:user/repo/:name", "to": "https://api.github.com/repos/:user/:name" }
+  ]
 }

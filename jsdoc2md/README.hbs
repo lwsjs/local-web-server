@@ -35,9 +35,9 @@ You're building a web app with client-side routing, so mark `index.html` as the 
 $ ws --spa index.html
 ```
 
-By default, typical SPA urls (e.g. `/user/1`, `/login`) would return `404 Not Found` as there is no file at that location on disk. By marking `index.html` as the SPA you create this rule:
+By default, typical SPA urls (e.g. `/user/1`, `/login`) would return `404 Not Found` as a file does not exist with that path. By marking `index.html` as the SPA you create this rule:
 
-*if a static file at the requested path exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then serve the SPA.*
+*If a static file at the requested path exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then serve the SPA for client-side processing.*
 
 ### Access Control
 
@@ -54,7 +54,7 @@ When urls don't map to your directory structure, rewrite:
 $ ws --rewrite /css=>/build/css
 ```
 
-### Proxy
+### Proxy to external services
 
 Rewrite to remote servers (proxy):
 ```sh
