@@ -1,0 +1,195 @@
+[![view on npm](http://img.shields.io/npm/v/local-web-server.svg)](https://www.npmjs.org/package/local-web-server)
+[![npm module downloads per month](http://img.shields.io/npm/dm/local-web-server.svg)](https://www.npmjs.org/package/local-web-server)
+[![Dependency Status](https://david-dm.org/75lb/local-web-server.svg)](https://david-dm.org/75lb/local-web-server)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
+
+# local-web-server
+Fires up a simple, CORS-enabled, static web server on a given port. Use for local web development or file sharing (directory browsing enabled).
+
+![local-web-server](http://75lb.github.io/local-web-server/ws.gif)
+
+## Install
+Ensure [node.js](http://nodejs.org) is installed first. Linux/Mac users may need to run the following commands with `sudo`.
+
+### Globally
+```sh
+$ npm install -g local-web-server
+```
+
+### Bundled with your project
+```sh
+$ npm install local-web-server --save-dev
+```
+
+Then add an `start` script to your `package.json` (the standard npm approach):
+```json
+{
+  "name": "my-web-app",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "ws"
+  }
+}
+```
+This simplifies a rather specific-looking instruction set like:
+
+```sh
+$ npm install
+$ npm install -g local-web-server
+$ ws
+```
+
+to the following, server implementation and launch details abstracted away:
+```sh
+$ npm install
+$ npm start
+```
+
+## Usage
+```
+Usage
+$ ws <server options>
+$ ws --config
+$ ws --help
+
+Server
+-p, --port <number>           Web server port
+-f, --log-format <string>     If a format is supplied an access log is written to stdout. If not, a statistics view is displayed. Use a
+                              preset ('none', 'dev','combined', 'short', 'tiny' or 'logstalgia') or supply a custom format (e.g. ':method ->
+                              :url').
+-d, --directory <string>      Root directory, defaults to the current directory
+-c, --compress                Enable gzip compression, reduces bandwidth.
+-r, --refresh-rate <number>   Statistics view refresh rate in ms. Defaults to 500.
+
+Misc
+-h, --help                    Print these usage instructions
+--config                      Print the stored config
+```
+
+From the folder you wish to serve, run:
+```sh
+$ ws
+serving at http://localhost:8000
+```
+
+If you wish to serve a different directory, run:
+```sh
+$ ws -d ~/mysite/
+serving /Users/Lloyd/mysite at http://localhost:8000
+```
+
+If you wish to override the default port (8000), use `--port` or `-p`:
+```sh
+$ ws --port 9000
+serving at http://localhost:9000
+```
+
+To add compression, reducing bandwidth, increasing page load time (by 10-15% on my Macbook Air)
+```sh
+$ ws --compress
+```
+
+### Logging
+Passing a value to `--log-format` will write an access log to `stdout`.
+
+Either use a built-in [morgan](https://github.com/expressjs/morgan) logger preset:
+```sh
+$ ws --log-format short
+```
+
+Or a custom [morgan](https://github.com/expressjs/morgan) log format:
+```sh
+$ ws -f ':method -> :url'
+```
+
+Or silence:
+```sh
+$ ws -f none
+```
+
+## Storing default options
+To store per-project options, saving you the hassle of inputting them everytime, store them in the `local-web-server` property of your project's `package.json`:
+```json
+{
+  "name": "my-project",
+  "version": "0.11.8",
+  "local-web-server":{
+    "port": 8100
+  }
+}
+```
+
+Or in a `.local-web-server.json` file stored in the directory you want to serve (typically the root folder of your site):
+```json
+{
+  "port": 8100,
+  "log-format": "tiny"
+}
+```
+
+Or store global defaults in a `.local-web-server.json` file in your home directory.
+```json
+{
+  "port": 3000,
+  "refresh-rate": 1000
+}
+```
+
+All stored defaults are overriden by options supplied at the command line.
+
+To view your stored defaults, run:
+
+```sh
+$ ws --config
+```
+
+## mime-types
+You can set additional mime-type/extension mappings, or override the defaults by setting a `mime` value in your local config. This value is passed directly to [mime.define()](https://github.com/broofa/node-mime#mimedefine). Example:
+
+```json
+{
+    "mime": {
+        "text/plain": [ "php", "pl" ]
+    }
+}
+```
+
+## Use with Logstalgia
+local-web-server is compatible with [logstalgia](http://code.google.com/p/logstalgia/).
+
+### Install Logstalgia
+On MacOSX, install with [homebrew](http://brew.sh):
+```sh
+$ brew install logstalgia
+```
+
+Alternatively, [download a release for your system from github](https://github.com/acaudwell/Logstalgia/releases/latest).
+
+Then pipe the `logstalgia` output format directly into logstalgia for real-time visualisation:
+```sh
+$ ws -f logstalgia | logstalgia -
+```
+
+![local-web-server with logstalgia](http://75lb.github.io/local-web-server/logstagia.gif)
+
+## Use with glTail
+To use with [glTail](http://www.fudgie.org), write your log to disk using the "default" format:
+```sh
+$ ws -f default > web.log
+```
+
+Then specify this file in your glTail config:
+
+```yaml
+servers:
+    dev:
+        host: localhost
+        source: local
+        files: /Users/Lloyd/Documents/MySite/web.log
+        parser: apache
+        color: 0.2, 0.2, 1.0, 1.0
+```
+
+* * *
+
+&copy; 2015 Lloyd Brookes <75pound@gmail.com>

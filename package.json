@@ -1,39 +1,54 @@
 {
   "name": "local-web-server",
   "version": "0.5.23",
-  "description": "Lightweight static web server, zero configuration. Perfect for front-end devs.",
+  "description": "A simple web-server for productive front-end development",
   "bin": {
-    "ws": "./bin/ws.js"
+    "ws": "./bin/cli.js"
   },
+  "main": "lib/local-web-server.js",
   "license": "MIT",
+  "keywords": [
+    "dev",
+    "server",
+    "web",
+    "tool",
+    "front-end",
+    "development",
+    "cors",
+    "mime",
+    "rest"
+  ],
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4.0.0"
   },
   "scripts": {
-    "lint": "jshint bin/ws.js; echo;"
+    "test": "tape test/*.js",
+    "docs": "jsdoc2md -t jsdoc2md/README.hbs -p list lib/*.js > README.md; echo",
+    "cover": "istanbul cover ./node_modules/.bin/tape test/*.js && cat coverage/lcov.info | coveralls && rm -rf coverage; echo"
   },
   "repository": "https://github.com/75lb/local-web-server",
-  "author": "Lloyd Brookes",
+  "author": "Lloyd Brookes <75pound@gmail.com>",
   "dependencies": {
-    "command-line-args": "^1.0.0",
-    "compression": "^1.0.2",
-    "config-master": "^1",
-    "connect": "^3.0.0",
-    "console-dope": "~0.3.0",
-    "home-path": "^1",
-    "morgan": "^1.0.0",
-    "object-tools": "^2",
-    "proxy-middleware": "^0.13.0",
-    "serve-index": "^1.6.3",
-    "serve-static": "^1.8",
-    "stream-log-stats": "^1",
-    "typical": "^2.0.0"
+    "command-line-args": "^2.0.2",
+    "config-master": "^2",
+    "http-proxy": "^1.12.0",
+    "kcors": "^1.0.1",
+    "koa": "^2.0.0-alpha.3",
+    "koa-compress": "^1.0.8",
+    "koa-conditional-get": "^1.0.3",
+    "koa-convert": "^1.1.0",
+    "koa-etag": "^2.1.0",
+    "koa-morgan": "^0.4.0",
+    "koa-rewrite": "^1.1.1",
+    "koa-route": "^3",
+    "koa-send": "^3.1.0",
+    "koa-serve-index": "^1.1.0",
+    "koa-static": "^1.5.2",
+    "path-to-regexp": "^1.2.1",
+    "stream-log-stats": "^v1.1.0-0"
   },
-  "local-web-server": {
-    "mime": {
-      "text/plain": [
-        "php"
-      ]
-    }
+  "devDependencies": {
+    "req-then": "^0.2.2",
+    "tape": "^4.2.2"
   }
 }

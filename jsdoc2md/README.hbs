@@ -203,28 +203,7 @@ serving at http://localhost:8100
 
 ## API Reference
 
-<a name="module_local-web-server"></a>
-## local-web-server
-<a name="exp_module_local-web-server--localWebServer"></a>
-### localWebServer([options]) ⏏
-Returns a Koa application
-
-**Kind**: Exported function  
-**Params**
-- [options] <code>object</code> - options
-  - [.static] <code>object</code> - koajs/static config
-    - [.root] <code>string</code> - root directory
-    - [.options] <code>string</code> - options
-  - [.serveIndex] <code>object</code> - koa-serve-index config
-    - [.path] <code>string</code> - root directory
-    - [.options] <code>string</code> - options
-  - [.forbid] <code>Array.&lt;string&gt;</code> - a list of forbidden routes.
-
-**Example**  
-```js
-const localWebServer = require('local-web-server')
-localWebServer().listen(8000)
-```
+{{>main}}
 
 * * *
 

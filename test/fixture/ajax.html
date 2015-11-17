@@ -9,7 +9,7 @@
   <script>
   var $ = document.querySelector.bind(document);
   var req = new XMLHttpRequest();
-  req.open("get", "http://localhost:8000/README.md", true);
+  req.open("get", "http://localhost:8000/big-file.txt", true);
   req.onload = function(){
     $("#readme").textContent = this.responseText;
   }

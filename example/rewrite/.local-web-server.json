@@ -1,0 +1,7 @@
+{
+  "rewrite": [
+    { "from": "/css/*", "to": "/build/styles/$1" },
+    { "from": "/npm/*", "to": "http://registry.npmjs.org/$1" },
+    { "from": "/:user/repos/:name", "to": "https://api.github.com/repos/:user/:name" }
+  ]
+}
