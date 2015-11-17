@@ -12,6 +12,9 @@ const usage = cli.getUsage(cliOptions.usageData)
 const stored = loadConfig('local-web-server')
 const options = collectOptions()
 
+// TODO --config show the merged options
+// TODO summary line on server launch
+
 if (options.misc.help) {
   console.log(usage)
   process.exit(0)
@@ -40,10 +43,10 @@ localWebServer({
   },
   compress: options.server.compress,
   mime: options.server.mime,
-  forbid: options.server.forbid.map(regexp => RegExp(regexp, 'i')),
+  forbid: options.server.forbid,
   spa: options.server.spa,
   'no-cache': options.server['no-cache'],
-  rewrite: parseRewriteRules(options.server.rewrite)
+  rewrite: options.server.rewrite
 }).listen(options.server.port, onServerUp)
 
 function halt (err) {
@@ -74,7 +77,11 @@ function collectOptions () {
     port: 8000,
     directory: process.cwd(),
     forbid: [],
-    proxyRoutes: []
+    rewrite: []
+  }
+
+  if (options.server.rewrite) {
+    options.server.rewrite = parseRewriteRules(options.server.rewrite)
   }
 
   /* override built-in defaults with stored config and then command line args */
@@ -83,7 +90,7 @@ function collectOptions () {
 }
 
 function parseRewriteRules (rules) {
-  return rules.map(rule => {
+  return rules && rules.map(rule => {
     const matches = rule.match(/(\S*)\s*->\s*(\S*)/)
     return {
       from: matches[1],

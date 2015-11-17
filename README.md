@@ -37,24 +37,42 @@ $ ws --spa index.html
 
 By default, typical SPA urls (e.g. `/user/1`, `/login`) would return `404 Not Found` as a file does not exist with that path. By marking `index.html` as the SPA you create this rule:
 
-*If a static file at the requested path exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then serve the SPA for client-side processing.*
+*If a static file at the requested path exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then serve the SPA and handle the route client-side.*
 
 ### Access Control
 
-Access to all files is allowed, beside those in the forbidden list (e.g. config files):
+By default, access to all files is allowed (including dot files). Use `--forbid` to establish a blacklist:
 ```sh
 $ ws --forbid .json .yml
 serving at http://localhost:8000
 ```
 
+[Path syntax](http://expressjs.com/guide/routing.html#route-paths)
+
 ### URL rewriting
 
-When urls don't map to your directory structure, rewrite:
+Your application requested `/css/style.css` but it's stored at `/build/css/style.css`. Create a rewrite rule:
+
 ```sh
-$ ws --rewrite /css=>/build/css
+$ ws --rewrite "/css/style.css -> /build/css/style.css"
 ```
 
-Rewrite to remote servers (proxy):
+Or, more generally (matching any stylesheet path under `/css`):
+
+```sh
+$ ws --rewrite "/css/:stylesheet -> /build/css/:stylesheet"
+```
+
+If a deep structure is involved it may be easier to mount the entire contents of `/build/css` to the `/css` path: (matches any stylesheet path under `/css`, `/css/a`, `/css/a/b` etc.)
+
+```sh
+$ ws --rewrite "/css/* -> /build/css/$1"
+```
+
+
+#### Proxied rewrite
+
+If the `to` address contains a hostname local-web-server will act as a proxy - the remote resource will be fetched and returned
 ```sh
 $ ws --rewrite "/api => http://api.example.com/api" \
                "/npm => http://registry.npmjs.com" \
