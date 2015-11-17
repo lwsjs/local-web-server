@@ -37,13 +37,13 @@ $ ws --spa index.html
 
 By default, typical SPA urls (e.g. `/user/1`, `/login`) would return `404 Not Found` as a file does not exist with that path. By marking `index.html` as the SPA you create this rule:
 
-*If a static file at the requested path exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then serve the SPA and handle the route client-side.*
+*If a static file at the requested path exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then serve the specified SPA and handle the route client-side.*
 
 ### Access Control
 
 By default, access to all files is allowed (including dot files). Use `--forbid` to establish a blacklist:
 ```sh
-$ ws --forbid .json .yml
+$ ws --forbid '*.json' '*.yml'
 serving at http://localhost:8000
 ```
 
@@ -51,47 +51,64 @@ serving at http://localhost:8000
 
 ### URL rewriting
 
-Your application requested `/css/style.css` but it's stored at `/build/css/style.css`. Create a rewrite rule:
+Your application requested `/css/style.css` but it's stored at `/build/css/style.css`. To avoid a 404 you need a rewrite rule:
 
 ```sh
-$ ws --rewrite "/css/style.css -> /build/css/style.css"
+$ ws --rewrite '/css/style.css -> /build/css/style.css'
 ```
 
-Or, more generally (matching any stylesheet path under `/css`):
+Or, more generally (matching any stylesheet under `/css`):
 
 ```sh
-$ ws --rewrite "/css/:stylesheet -> /build/css/:stylesheet"
+$ ws --rewrite '/css/:stylesheet -> /build/css/:stylesheet'
 ```
 
-If a deep structure is involved it may be easier to mount the entire contents of `/build/css` to the `/css` path: (matches any stylesheet path under `/css`, `/css/a`, `/css/a/b` etc.)
+With a deep CSS directory structure it may be easier to mount the entire contents of `/build/css` to the `/css` path:
 
 ```sh
-$ ws --rewrite "/css/* -> /build/css/$1"
+$ ws --rewrite '/css/* -> /build/css/$1'
 ```
 
+this rewrites `/css/a` as `/build/css/a`, `/css/a/b/c` as `/build/css/a/b/c` etc.
 
-#### Proxied rewrite
 
-If the `to` address contains a hostname local-web-server will act as a proxy - the remote resource will be fetched and returned
+#### Proxied requests
+
+If the `to` URL contains a remote host, local-web-server will act as a proxy - fetching and responding with the remote resource.
+
+Mount the npm registry locally:
 ```sh
-$ ws --rewrite "/api => http://api.example.com/api" \
-               "/npm => http://registry.npmjs.com" \
-               "/user/:project/repo -> https://api.github.com/repos/:project"
+$ ws --rewrite '/npm/* -> http://registry.npmjs.org/$1'
+```
+
+Map local requests for repo data to the Github API:
+```sh
+$ ws --rewrite '/projects/:user/repos/:name -> https://api.github.com/repos/:user/:name'
 ```
 
 ### Stored config
 
-Always use this port and blacklist? Persist it to the config:
+Always use this port and blacklist? Persist it to `package.json`:
 ```json
 {
   "name": "example",
   "version": "1.0.0",
   "local-web-server": {
     "port": 8100,
-    "forbid": "\\.json$"
+    "forbid": "*.json"
   }
 }
 ```
+
+.. or `.local-web-server.json`
+```json
+{
+  "port": 8100,
+  "forbid": "*.json"
+}
+```
+
+
 
 ### Logging
 By default, local-web-server outputs a simple, dynamic statistics view. To see traditional web server logs, use `--log-format`:
@@ -101,6 +118,8 @@ $ ws --log-format combined
 serving at http://localhost:8000
 ::1 - - [16/Nov/2015:11:16:52 +0000] "GET / HTTP/1.1" 200 12290 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2562.0 Safari/537.36"
 ```
+
+[morgan](https://github.com/expressjs/morgan)
 
 ### Mock Responses
 *Coming soon*.

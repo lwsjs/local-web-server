@@ -40,7 +40,7 @@
     "koa-etag": "^2.1.0",
     "koa-morgan": "^0.4.0",
     "koa-rewrite": "^1.1.1",
-    "koa-route": "^2.4.2",
+    "koa-route": "^3",
     "koa-send": "^3.1.0",
     "koa-serve-index": "^1.1.0",
     "koa-static": "^1.5.2",

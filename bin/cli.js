@@ -12,7 +12,6 @@ const usage = cli.getUsage(cliOptions.usageData)
 const stored = loadConfig('local-web-server')
 const options = collectOptions()
 
-// TODO --config show the merged options
 // TODO summary line on server launch
 
 if (options.misc.help) {
@@ -20,7 +19,7 @@ if (options.misc.help) {
   process.exit(0)
 }
 if (options.misc.config) {
-  console.log(JSON.stringify(stored, null, '  '))
+  console.log(JSON.stringify(options.server, null, '  '))
   process.exit(0)
 }
 
