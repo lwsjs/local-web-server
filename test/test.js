@@ -50,6 +50,25 @@ test('serve-index', function (t) {
   }})
 })
 
+test('single page app', function(t){
+  t.plan(4)
+  const app = localWebServer({
+    log: { format: 'none' },
+    static: { root: __dirname + '/fixture/spa' },
+    spa: 'one.txt'
+  })
+  const server = launchServer(app, { leaveOpen: true })
+  request('http://localhost:8100/test').then(response => {
+    t.strictEqual(response.res.statusCode, 200)
+    t.strictEqual(response.data, 'one\n')
+    request('http://localhost:8100/two.txt').then(response => {
+      t.strictEqual(response.res.statusCode, 200)
+      t.strictEqual(response.data, 'two\n')
+      server.close()
+    })
+  })
+})
+
 test('log: common', function (t) {
   t.plan(1)
   const stream = PassThrough()
