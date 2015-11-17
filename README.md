@@ -88,7 +88,7 @@ $ ws --rewrite '/projects/:user/repos/:name -> https://api.github.com/repos/:use
 
 ### Stored config
 
-Always use this port and blacklist? Persist it to `package.json`:
+Use the same port and blacklist every time? Persist it to `package.json`:
 ```json
 {
   "name": "example",
@@ -108,7 +108,12 @@ Always use this port and blacklist? Persist it to `package.json`:
 }
 ```
 
+local-web-server will merge and use all config found, searching from the current directory upward. In the case both `package.json` and `.local-web-server.json` config is found in the same directory, `.local-web-server.json` will take precedence. Command-line options take precedence over all.
 
+To inspect stored config, run:
+```sh
+$ ws --config
+```
 
 ### Logging
 By default, local-web-server outputs a simple, dynamic statistics view. To see traditional web server logs, use `--log-format`:
@@ -119,22 +124,37 @@ serving at http://localhost:8000
 ::1 - - [16/Nov/2015:11:16:52 +0000] "GET / HTTP/1.1" 200 12290 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2562.0 Safari/537.36"
 ```
 
-[morgan](https://github.com/expressjs/morgan)
+The format value supplied is passed directly to [morgan](https://github.com/expressjs/morgan). The exception is `--log-format none` which disables all output.
 
-### Other features
+### Other usage
+
+#### Compression
 
 Serve gzip-compressed resources, where applicable
 ```sh
 $ ws --compress
 ```
 
+#### Disable caching
+
 Disable etag-based caching
 ```sh
 $ ws --no-cache
 ```
 
-### Log Visualisation
-Instructions for how to visualise log output using goaccess, logstalgia or gltail [here](https://github.com/75lb/local-web-server/wiki/Log-visualisation).
+#### mime-types
+You can set additional mime-type/extension mappings, or override the defaults by setting a `mime` value in the stored config. This value is passed directly to [mime.define()](https://github.com/broofa/node-mime#mimedefine). Example:
+
+```json
+{
+    "mime": {
+        "text/plain": [ "php", "pl" ]
+    }
+}
+```
+
+#### Log Visualisation
+Instructions for how to visualise log output using goaccess, logstalgia or gltail [here](https://github.com/75lb/local-web-server/blob/master/doc/visualisation.md).
 
 ## Install
 Ensure [node.js](http://nodejs.org) is installed first. Linux/Mac users may need to run the following commands with `sudo`.
@@ -179,17 +199,6 @@ $ npm install local-web-server --save-dev
 $ npm install
 $ npm start
 serving at http://localhost:8100
-```
-
-## mime-types
-You can set additional mime-type/extension mappings, or override the defaults by setting a `mime` value in your local config. This value is passed directly to [mime.define()](https://github.com/broofa/node-mime#mimedefine). Example:
-
-```json
-{
-    "mime": {
-        "text/plain": [ "php", "pl" ]
-    }
-}
 ```
 
 ## API Reference
