@@ -6,6 +6,7 @@ const commandLineArgs = require('command-line-args')
 const ansi = require('ansi-escape-sequences')
 const loadConfig = require('config-master')
 const path = require('path')
+const s = require('string-tools')
 
 const cli = commandLineArgs(cliOptions.definitions)
 const usage = cli.getUsage(cliOptions.usageData)
@@ -23,7 +24,7 @@ if (options.misc.config) {
   process.exit(0)
 }
 
-localWebServer({
+const app = localWebServer({
   static: {
     root: options.server.directory,
     options: {
@@ -45,8 +46,15 @@ localWebServer({
   forbid: options.server.forbid,
   spa: options.server.spa,
   'no-cache': options.server['no-cache'],
-  rewrite: options.server.rewrite
-}).listen(options.server.port, onServerUp)
+  rewrite: options.server.rewrite,
+  verbose: options.server.verbose
+})
+
+app
+  .on('verbose', (category, message) => {
+    console.error(ansi.format(s.padRight(category, 14), 'bold'), message)
+  })
+  .listen(options.server.port, onServerUp)
 
 function halt (err) {
   console.log(ansi.format(`Error: ${err.message}`, 'red'))

@@ -45,7 +45,8 @@
     "koa-serve-index": "^1.1.0",
     "koa-static": "^1.5.2",
     "path-to-regexp": "^1.2.1",
-    "stream-log-stats": "^v1.1.0-0"
+    "stream-log-stats": "^v1.1.0-0",
+    "string-tools": "^1.0.0"
   },
   "devDependencies": {
     "req-then": "^0.2.2",

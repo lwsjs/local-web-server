@@ -128,6 +128,13 @@ The format value supplied is passed directly to [morgan](https://github.com/expr
 
 ### Other usage
 
+#### Debugging
+
+Prints information about loaded middleware, arguments, remote proxy fetches etc.
+```sh
+$ ws --verbose
+```
+
 #### Compression
 
 Serve gzip-compressed resources, where applicable
