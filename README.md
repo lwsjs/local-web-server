@@ -10,7 +10,7 @@ A simple web-server for productive front-end development.
 **Requires node v4.0.0 or higher**.
 
 ## Synopsis
-For the examples below, assume we're in a project directory looking like this:
+For the examples below, and we assume we're in a project directory looking like this:
 
 ```sh
 .
@@ -19,6 +19,8 @@ For the examples below, assume we're in a project directory looking like this:
 ├── index.html
 └── package.json
 ```
+
+All paths/routes are specified using [express syntax](http://expressjs.com/guide/routing.html#route-paths).
 
 ### Static site
 
@@ -46,8 +48,6 @@ By default, access to all files is allowed (including dot files). Use `--forbid`
 $ ws --forbid '*.json' '*.yml'
 serving at http://localhost:8000
 ```
-
-[Path syntax](http://expressjs.com/guide/routing.html#route-paths)
 
 ### URL rewriting
 
@@ -137,7 +137,7 @@ $ ws --compress
 
 #### Disable caching
 
-Disable etag-based caching
+Disable etag response headers, forcing resources to be served in full every time.
 ```sh
 $ ws --no-cache
 ```
@@ -147,9 +147,9 @@ You can set additional mime-type/extension mappings, or override the defaults by
 
 ```json
 {
-    "mime": {
-        "text/plain": [ "php", "pl" ]
-    }
+  "mime": {
+    "text/plain": [ "php", "pl" ]
+  }
 }
 ```
 
