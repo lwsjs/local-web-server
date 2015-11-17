@@ -1,4 +1,23 @@
 ## Goaccess
+To get live statistics in [goaccess](http://goaccess.io/), first create this config file at `~/.goaccessrc`:
+
+```
+time-format %T
+date-format %d/%b/%Y
+log-format %h %^[%d:%t %^] "%r" %s %b "%R" "%u"
+```
+
+Then, start the server, outputting `combined` format logs to disk:
+
+```sh
+$ ws -f combined > web.log
+```
+
+In a separate tab, point goaccess at `web.log` and it will display statistics in real time:
+
+```
+$ goaccess -p ~/.goaccessrc -f web.log
+```
 
 ## Logstalgia
 local-web-server is compatible with [logstalgia](http://code.google.com/p/logstalgia/).
