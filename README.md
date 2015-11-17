@@ -203,8 +203,6 @@ serving at http://localhost:8100
 
 ## API Reference
 
-<a name="module_local-web-server"></a>
-## local-web-server
 <a name="exp_module_local-web-server--localWebServer"></a>
 ### localWebServer([options]) ⏏
 Returns a Koa application
