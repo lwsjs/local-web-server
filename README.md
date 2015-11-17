@@ -121,16 +121,17 @@ serving at http://localhost:8000
 
 [morgan](https://github.com/expressjs/morgan)
 
-### Mock Responses
-*Coming soon*.
-
 ### Other features
 
-Compression, caching, simple statistics view, log, override mime types.
+Serve gzip-compressed resources, where applicable
+```sh
+$ ws --compress
+```
 
-## Tips
-
-### Use with Google DevTools Workspaces
+Disable etag-based caching
+```sh
+$ ws --no-cache
+```
 
 ### Log Visualisation
 Instructions for how to visualise log output using goaccess, logstalgia or gltail [here](https://github.com/75lb/local-web-server/wiki/Log-visualisation).
@@ -180,42 +181,6 @@ $ npm start
 serving at http://localhost:8100
 ```
 
-## Storing default options
-To store per-project options, saving you the hassle of inputting them everytime, store them in the `local-web-server` property of your project's `package.json`:
-```json
-{
-  "name": "my-project",
-  "version": "0.11.8",
-  "local-web-server":{
-    "port": 8100
-  }
-}
-```
-
-Or in a `.local-web-server.json` file stored in the directory you want to serve (typically the root folder of your site):
-```json
-{
-  "port": 8100,
-  "log-format": "tiny"
-}
-```
-
-Or store global defaults in a `.local-web-server.json` file in your home directory.
-```json
-{
-  "port": 3000,
-  "refresh-rate": 1000
-}
-```
-
-All stored defaults are overriden by options supplied at the command line.
-
-To view your stored defaults, run:
-
-```sh
-$ ws --config
-```
-
 ## mime-types
 You can set additional mime-type/extension mappings, or override the defaults by setting a `mime` value in your local config. This value is passed directly to [mime.define()](https://github.com/broofa/node-mime#mimedefine). Example:
 
@@ -247,8 +212,6 @@ Returns a Koa application
 const localWebServer = require('local-web-server')
 localWebServer().listen(8000)
 ```
-
-## Composition
 
 * * *
 
