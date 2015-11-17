@@ -10,7 +10,7 @@ A simple web-server for productive front-end development.
 **Requires node v4.0.0 or higher**.
 
 ## Synopsis
-For the examples below, and we assume we're in a project directory looking like this:
+For the examples below, we assume we're in a project directory looking like this:
 
 ```sh
 .
@@ -83,7 +83,7 @@ $ ws --rewrite '/npm/* -> http://registry.npmjs.org/$1'
 
 Map local requests for repo data to the Github API:
 ```sh
-$ ws --rewrite '/projects/:user/repos/:name -> https://api.github.com/repos/:user/:name'
+$ ws --rewrite '/:user/repos/:name -> https://api.github.com/repos/:user/:name'
 ```
 
 ### Stored config
@@ -100,7 +100,7 @@ Use the same port and blacklist every time? Persist it to `package.json`:
 }
 ```
 
-.. or `.local-web-server.json`
+or `.local-web-server.json`
 ```json
 {
   "port": 8100,
@@ -210,11 +210,15 @@ serving at http://localhost:8100
 Returns a Koa application
 
 **Kind**: Exported function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [options] | <code>object</code> | options |
-| [options.forbid] | <code>Array.&lt;regexp&gt;</code> | a list of forbidden routes. |
+**Params**
+- [options] <code>object</code> - options
+  - [.static] <code>object</code> - koajs/static config
+    - [.root] <code>string</code> - root directory
+    - [.options] <code>string</code> - options
+  - [.serveIndex] <code>object</code> - koa-serve-index config
+    - [.path] <code>string</code> - root directory
+    - [.options] <code>string</code> - options
+  - [.forbid] <code>Array.&lt;string&gt;</code> - a list of forbidden routes.
 
 **Example**  
 ```js

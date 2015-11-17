@@ -7,9 +7,9 @@
 <pre><code>
 {
   "rewrite": [
-    { "from": "/css/*", "to": "/styles/$1" },
+    { "from": "/css/*", "to": "/build/styles/$1" },
     { "from": "/npm/*", "to": "http://registry.npmjs.org/$1" },
-    { "from": "/gh/:user/repo/:name", "to": "https://api.github.com/repos/:user/:name" }
+    { "from": "/:user/repos/:name", "to": "https://api.github.com/repos/:user/:name" }
   ]
 }
 </code></pre>
@@ -18,5 +18,5 @@
 <ul>
   <li><a href="/css/style.css">/css/style.css</li>
   <li><a href="/npm/local-web-server">/npm/local-web-server</a></li>
-  <li><a href="/gh/75lb/repo/work">/gh/75lb/repo/work</a></li>
+  <li><a href="/75lb/repos/work">/75lb/repos/work</a></li>
 </ul>

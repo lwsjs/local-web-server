@@ -23,7 +23,7 @@
   },
   "scripts": {
     "test": "tape test/*.js",
-    "docs": "jsdoc2md -t jsdoc2md/README.hbs lib/*.js > README.md; echo",
+    "docs": "jsdoc2md -t jsdoc2md/README.hbs -p list lib/*.js > README.md; echo",
     "cover": "istanbul cover ./node_modules/.bin/tape test/*.js && cat coverage/lcov.info | coveralls && rm -rf coverage; echo"
   },
   "repository": "https://github.com/75lb/local-web-server",

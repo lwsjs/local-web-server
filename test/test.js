@@ -17,26 +17,6 @@ function launchServer (app, options) {
   })
 }
 
-test('log: common', function (t) {
-  t.plan(1)
-  const stream = PassThrough()
-
-  stream.on('readable', () => {
-    let chunk = stream.read()
-    if (chunk) t.ok(/GET/.test(chunk.toString()))
-  })
-
-  const app = localWebServer({
-    log: {
-      format: 'common',
-      options: {
-        stream: stream
-      }
-    }
-  })
-  launchServer(app)
-})
-
 test('static', function (t) {
   t.plan(1)
   const app = localWebServer({
@@ -70,6 +50,26 @@ test('serve-index', function (t) {
   }})
 })
 
+test('log: common', function (t) {
+  t.plan(1)
+  const stream = PassThrough()
+
+  stream.on('readable', () => {
+    let chunk = stream.read()
+    if (chunk) t.ok(/GET/.test(chunk.toString()))
+  })
+
+  const app = localWebServer({
+    log: {
+      format: 'common',
+      options: {
+        stream: stream
+      }
+    }
+  })
+  launchServer(app)
+})
+
 test('compress', function(t){
   t.plan(1)
   const app = localWebServer({
@@ -90,13 +90,14 @@ test('compress', function(t){
 })
 
 test('mime', function(t){
-  t.plan(1)
+  t.plan(2)
   const app = localWebServer({
     log: { format: 'none' },
     static: { root: __dirname + '/fixture' },
     mime: { 'text/plain': [ 'php' ]}
   })
   launchServer(app, { path: '/something.php', onSuccess: response => {
+    t.strictEqual(response.res.statusCode, 200)
     t.ok(/text\/plain/.test(response.res.headers['content-type']))
   }})
 })
@@ -105,14 +106,14 @@ test('forbid', function (t) {
   t.plan(2)
   const app = localWebServer({
     log: { format: 'none' },
-    static: { root: __dirname + '/fixture' },
-    forbid: [ /php$/, /html$/ ]
+    static: { root: __dirname + '/fixture/forbid' },
+    forbid: [ '*.php', '*.html' ]
   })
   const server = launchServer(app, { leaveOpen: true })
-  request('http://localhost:8100/something.php')
+  request('http://localhost:8100/two.php')
     .then(response => {
       t.strictEqual(response.res.statusCode, 403)
-      request('http://localhost:8100/ajax.html')
+      request('http://localhost:8100/one.html')
         .then(response => {
           t.strictEqual(response.res.statusCode, 403)
           server.close()
@@ -120,26 +121,27 @@ test('forbid', function (t) {
     })
 })
 
-test.skip('directories: should serve index and static files', function(t){
+test('rewrite: local', function(t){
   t.plan(1)
   const app = localWebServer({
     log: { format: 'none' },
-    directories: [
-      __dirname + '/fixture/one'
-    ]
+    static: { root: __dirname + '/fixture/rewrite' },
+    rewrite: [ { from: '/two.html', to: '/one.html'} ]
   })
-  launchServer(app, { path: '/something.php', onSuccess: response => {
-    t.ok(/text\/plain/.test(response.res.headers['content-type']))
+  launchServer(app, { path: '/two.html', onSuccess: response => {
+    t.strictEqual(response.data, 'one\n')
   }})
 })
 
-test('proxy', function(t){
-  t.plan(1)
+test('rewrite: proxy', function(t){
+  t.plan(2)
   const app = localWebServer({
     log: { format: 'none' },
-    proxy: []
+    static: { root: __dirname + '/fixture/rewrite' },
+    rewrite: [ { from: '/test/*', to: 'http://registry.npmjs.org/$1'} ]
   })
-  launchServer(app, { path: '/something.php', onSuccess: response => {
-    t.ok(/text\/plain/.test(response.res.headers['content-type']))
+  launchServer(app, { path: '/test/', onSuccess: response => {
+    t.strictEqual(response.res.statusCode, 200)
+    t.ok(/db_name/.test(response.data))
   }})
 })
