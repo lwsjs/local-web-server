@@ -29,6 +29,7 @@
   "repository": "https://github.com/75lb/local-web-server",
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "dependencies": {
+    "array-back": "^1.0.2",
     "command-line-args": "^2.0.2",
     "config-master": "^2",
     "http-proxy": "^1.12.0",

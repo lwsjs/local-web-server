@@ -1,0 +1,6 @@
+{
+  "rewrite": [
+    { "from": "/tree", "to": "/mocks/trees.mock.js" },
+    { "from": "/tree/:id", "to": "/mocks/tree.mock.js" }
+  ]
+}
