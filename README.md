@@ -20,7 +20,7 @@ For the examples below, we assume we're in a project directory looking like this
 └── package.json
 ```
 
-All paths/routes are specified using [express syntax](http://expressjs.com/guide/routing.html#route-paths).
+All paths/routes are specified using [express syntax](http://expressjs.com/guide/routing.html#route-paths). To run the example projects linked below, clone the project, move into the example directory specified, run `ws`.
 
 ### Static site
 
@@ -29,6 +29,8 @@ Fire up your static site on the default port:
 $ ws
 serving at http://localhost:8000
 ```
+
+[Example](https://github.com/75lb/local-web-server/tree/master/example/simple).
 
 ### Single Page Application
 
@@ -41,6 +43,8 @@ By default, typical SPA urls (e.g. `/user/1`, `/login`) would return `404 Not Fo
 
 *If a static file at the requested path exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then serve the specified SPA and handle the route client-side.*
 
+[Example](https://github.com/75lb/local-web-server/tree/master/example/spa).
+
 ### Access Control
 
 By default, access to all files is allowed (including dot files). Use `--forbid` to establish a blacklist:
@@ -48,6 +52,8 @@ By default, access to all files is allowed (including dot files). Use `--forbid`
 $ ws --forbid '*.json' '*.yml'
 serving at http://localhost:8000
 ```
+
+[Example](https://github.com/75lb/local-web-server/tree/master/example/forbid).
 
 ### URL rewriting
 
@@ -85,6 +91,8 @@ Map local requests for repo data to the Github API:
 ```sh
 $ ws --rewrite '/:user/repos/:name -> https://api.github.com/repos/:user/:name'
 ```
+
+[Example](https://github.com/75lb/local-web-server/tree/master/example/rewrite).
 
 ### Stored config
 
@@ -160,6 +168,8 @@ You can set additional mime-type/extension mappings, or override the defaults by
 }
 ```
 
+[Example](https://github.com/75lb/local-web-server/tree/master/example/mime-override).
+
 #### Log Visualisation
 Instructions for how to visualise log output using goaccess, logstalgia or gltail [here](https://github.com/75lb/local-web-server/blob/master/doc/visualisation.md).
 
@@ -210,25 +220,60 @@ serving at http://localhost:8100
 
 ## API Reference
 
+
+* [local-web-server](#module_local-web-server)
+  * [localWebServer([options])](#exp_module_local-web-server--localWebServer) ⇒ <code>[KoaApplication](https://github.com/koajs/koa/blob/master/docs/api/index.md#application)</code> ⏏
+    * [~rewriteRule](#module_local-web-server--localWebServer..rewriteRule)
+
 <a name="exp_module_local-web-server--localWebServer"></a>
-### localWebServer([options]) ⏏
-Returns a Koa application
+### localWebServer([options]) ⇒ <code>[KoaApplication](https://github.com/koajs/koa/blob/master/docs/api/index.md#application)</code> ⏏
+Returns a Koa application you can launch or mix into an existing app.
 
 **Kind**: Exported function  
 **Params**
 - [options] <code>object</code> - options
-  - [.static] <code>object</code> - koajs/static config
+  - [.static] <code>object</code> - koa-static config
     - [.root] <code>string</code> - root directory
-    - [.options] <code>string</code> - options
+    - [.options] <code>string</code> - [options](https://github.com/koajs/static#options)
   - [.serveIndex] <code>object</code> - koa-serve-index config
     - [.path] <code>string</code> - root directory
-    - [.options] <code>string</code> - options
-  - [.forbid] <code>Array.&lt;string&gt;</code> - a list of forbidden routes.
+    - [.options] <code>string</code> - [options](https://github.com/expressjs/serve-index#options)
+  - [.forbid] <code>Array.&lt;string&gt;</code> - A list of forbidden routes, each route being an [express route-path](http://expressjs.com/guide/routing.html#route-paths).
+  - [.spa] <code>string</code> - specify an SPA file to catch requests for everything but static assets.
+  - [.log] <code>object</code> - [morgan](https://github.com/expressjs/morgan) config
+    - [.format] <code>string</code> - [log format](https://github.com/expressjs/morgan#predefined-formats)
+    - [.options] <code>object</code> - [options](https://github.com/expressjs/morgan#options)
+  - [.compress] <code>boolean</code> - Serve gzip-compressed resources, where applicable
+  - [.mime] <code>object</code> - A list of mime-type overrides, passed directly to [mime.define()](https://github.com/broofa/node-mime#mimedefine)
+  - [.rewrite] <code>[Array.&lt;rewriteRule&gt;](#module_local-web-server--localWebServer..rewriteRule)</code> - One or more rewrite rules
+  - [.verbose] <code>boolean</code> - Print detailed output, useful for debugging
 
 **Example**  
 ```js
 const localWebServer = require('local-web-server')
 localWebServer().listen(8000)
+```
+<a name="module_local-web-server--localWebServer..rewriteRule"></a>
+#### localWebServer~rewriteRule
+The `from` and `to` routes are specified using [express route-paths](http://expressjs.com/guide/routing.html#route-paths)
+
+**Kind**: inner typedef of <code>[localWebServer](#exp_module_local-web-server--localWebServer)</code>  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| from | <code>string</code> | request route |
+| to | <code>string</code> | target route |
+
+**Example**  
+```json
+{
+  "rewrite": [
+    { "from": "/css/*", "to": "/build/styles/$1" },
+    { "from": "/npm/*", "to": "http://registry.npmjs.org/$1" },
+    { "from": "/:user/repos/:name", "to": "https://api.github.com/repos/:user/:name" }
+  ]
+}
 ```
 
 * * *
