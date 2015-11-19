@@ -222,12 +222,12 @@ serving at http://localhost:8100
 
 
 * [local-web-server](#module_local-web-server)
-  * [localWebServer([options])](#exp_module_local-web-server--localWebServer) ⏏
+  * [localWebServer([options])](#exp_module_local-web-server--localWebServer) ⇒ <code>[KoaApplication](https://github.com/koajs/koa/blob/master/docs/api/index.md#application)</code> ⏏
     * [~rewriteRule](#module_local-web-server--localWebServer..rewriteRule)
 
 <a name="exp_module_local-web-server--localWebServer"></a>
-### localWebServer([options]) ⏏
-Returns a Koa application
+### localWebServer([options]) ⇒ <code>[KoaApplication](https://github.com/koajs/koa/blob/master/docs/api/index.md#application)</code> ⏏
+Returns a Koa application you can launch or mix into an existing app.
 
 **Kind**: Exported function  
 **Params**
