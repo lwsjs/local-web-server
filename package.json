@@ -1,6 +1,6 @@
 {
   "name": "local-web-server",
-  "version": "1.0.0-alpha.6",
+  "version": "1.0.0-alpha.7",
   "description": "A simple web-server for productive front-end development",
   "bin": {
     "ws": "./bin/cli.js"
@@ -30,6 +30,7 @@
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "dependencies": {
     "array-back": "^1.0.2",
+    "ansi-escape-sequences": "^2.2.1",
     "command-line-args": "^2.0.2",
     "config-master": "^2",
     "http-proxy": "^1.12.0",
