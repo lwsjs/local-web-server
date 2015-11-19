@@ -50,7 +50,7 @@ test('serve-index', function (t) {
   }})
 })
 
-test('single page app', function(t){
+test('single page app', function (t) {
   t.plan(4)
   const app = localWebServer({
     log: { format: 'none' },
@@ -89,7 +89,7 @@ test('log: common', function (t) {
   launchServer(app)
 })
 
-test('compress', function(t){
+test('compress', function (t) {
   t.plan(1)
   const app = localWebServer({
     compress: true,
@@ -108,12 +108,12 @@ test('compress', function(t){
   )
 })
 
-test('mime', function(t){
+test('mime', function (t) {
   t.plan(2)
   const app = localWebServer({
     log: { format: 'none' },
     static: { root: __dirname + '/fixture' },
-    mime: { 'text/plain': [ 'php' ]}
+    mime: { 'text/plain': [ 'php' ] }
   })
   launchServer(app, { path: '/something.php', onSuccess: response => {
     t.strictEqual(response.res.statusCode, 200)
@@ -140,24 +140,24 @@ test('forbid', function (t) {
     })
 })
 
-test('rewrite: local', function(t){
+test('rewrite: local', function (t) {
   t.plan(1)
   const app = localWebServer({
     log: { format: 'none' },
     static: { root: __dirname + '/fixture/rewrite' },
-    rewrite: [ { from: '/two.html', to: '/one.html'} ]
+    rewrite: [ { from: '/two.html', to: '/one.html' } ]
   })
   launchServer(app, { path: '/two.html', onSuccess: response => {
     t.strictEqual(response.data, 'one\n')
   }})
 })
 
-test('rewrite: proxy', function(t){
+test('rewrite: proxy', function (t) {
   t.plan(2)
   const app = localWebServer({
     log: { format: 'none' },
     static: { root: __dirname + '/fixture/rewrite' },
-    rewrite: [ { from: '/test/*', to: 'http://registry.npmjs.org/$1'} ]
+    rewrite: [ { from: '/test/*', to: 'http://registry.npmjs.org/$1' } ]
   })
   launchServer(app, { path: '/test/', onSuccess: response => {
     t.strictEqual(response.res.statusCode, 200)
@@ -165,7 +165,7 @@ test('rewrite: proxy', function(t){
   }})
 })
 
-test('rewrite: proxy with port', function(t){
+test('rewrite: proxy with port', function (t) {
   t.plan(2)
   const one = localWebServer({
     log: { format: 'none' },
@@ -174,18 +174,18 @@ test('rewrite: proxy with port', function(t){
   const two = localWebServer({
     log: { format: 'none' },
     static: { root: __dirname + '/fixture/spa' },
-    rewrite: [ { from: '/test/*', to: 'http://localhost:9000/$1'} ]
+    rewrite: [ { from: '/test/*', to: 'http://localhost:9000/$1' } ]
   })
   const server1 = http.createServer(one.callback())
   const server2 = http.createServer(two.callback())
   server1.listen(9000, () => {
-     server2.listen(8100, () => {
-       request('http://localhost:8100/test/file.txt').then(response => {
-         t.strictEqual(response.res.statusCode, 200)
-         t.ok(/one/.test(response.data))
-         server1.close()
-         server2.close()
-       })
-     })
+    server2.listen(8100, () => {
+      request('http://localhost:8100/test/file.txt').then(response => {
+        t.strictEqual(response.res.statusCode, 200)
+        t.ok(/one/.test(response.data))
+        server1.close()
+        server2.close()
+      })
+    })
   })
 })
