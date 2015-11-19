@@ -48,7 +48,9 @@
     "koa-static": "^1.5.2",
     "path-to-regexp": "^1.2.1",
     "stream-log-stats": "^v1.1.0-0",
-    "string-tools": "^1.0.0"
+    "string-tools": "^1.0.0",
+    "test-value": "^1.0.1",
+    "typical": "^2.4.0"
   },
   "devDependencies": {
     "req-then": "^0.2.2",
