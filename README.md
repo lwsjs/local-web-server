@@ -4,6 +4,8 @@
 [![Dependency Status](https://david-dm.org/75lb/local-web-server.svg)](https://david-dm.org/75lb/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
+***This is the documentation for the next version. For the previous release, see the `prev` branch. To install this prerelease: `$ npm i -g local-web-server@^1.0.0-beta`***
+
 # local-web-server
 A simple web-server for productive front-end development.
 
@@ -233,10 +235,10 @@ Returns a Koa application you can launch or mix into an existing app.
 **Params**
 - [options] <code>object</code> - options
   - [.static] <code>object</code> - koa-static config
-    - [.root] <code>string</code> - root directory
+    - [.root] <code>string</code> <code> = &quot;.&quot;</code> - root directory
     - [.options] <code>string</code> - [options](https://github.com/koajs/static#options)
   - [.serveIndex] <code>object</code> - koa-serve-index config
-    - [.path] <code>string</code> - root directory
+    - [.path] <code>string</code> <code> = &quot;.&quot;</code> - root directory
     - [.options] <code>string</code> - [options](https://github.com/expressjs/serve-index#options)
   - [.forbid] <code>Array.&lt;string&gt;</code> - A list of forbidden routes, each route being an [express route-path](http://expressjs.com/guide/routing.html#route-paths).
   - [.spa] <code>string</code> - specify an SPA file to catch requests for everything but static assets.
