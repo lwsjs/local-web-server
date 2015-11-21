@@ -29,7 +29,7 @@ test('static', function (t) {
     }
   })
   launchServer(app, { onSuccess: response => {
-    t.strictEqual(response.data, 'test\n')
+    t.ok(/test/.test(response.data))
   }})
 })
 
@@ -60,10 +60,10 @@ test('single page app', function (t) {
   const server = launchServer(app, { leaveOpen: true })
   request('http://localhost:8100/test').then(response => {
     t.strictEqual(response.res.statusCode, 200)
-    t.strictEqual(response.data, 'one\n')
+    t.ok(/one/.test(response.data))
     request('http://localhost:8100/two.txt').then(response => {
       t.strictEqual(response.res.statusCode, 200)
-      t.strictEqual(response.data, 'two\n')
+      t.ok(/two/.test(response.data))
       server.close()
     })
   })
@@ -148,7 +148,7 @@ test('rewrite: local', function (t) {
     rewrite: [ { from: '/two.html', to: '/one.html' } ]
   })
   launchServer(app, { path: '/two.html', onSuccess: response => {
-    t.strictEqual(response.data, 'one\n')
+    t.ok(/one/.test(response.data))
   }})
 })
 
