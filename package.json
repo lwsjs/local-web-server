@@ -42,7 +42,7 @@
     "koa-conditional-get": "^1.0.3",
     "koa-convert": "^1.1.0",
     "koa-etag": "^2.1.0",
-    "koa-json": "75lb/json",
+    "koa-json": "^1.1.1",
     "koa-morgan": "^0.4.0",
     "koa-rewrite": "75lb/rewrite",
     "koa-route": "^3",
