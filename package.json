@@ -45,7 +45,7 @@
     "koa-json": "75lb/json",
     "koa-morgan": "^0.4.0",
     "koa-rewrite": "75lb/rewrite",
-    "koa-route": "^2.4.2",
+    "koa-route": "^3",
     "koa-send": "^3.1.0",
     "koa-serve-index": "^1.1.0",
     "koa-static": "^1.5.2",

@@ -165,6 +165,18 @@ test('rewrite: proxy', function (t) {
   }})
 })
 
+test('rewrite: proxy, two url tokens', function (t) {
+  t.plan(2)
+  const app = localWebServer({
+    log: { format: 'none' },
+    rewrite: [ { from: '/:package/:version', to: 'http://registry.npmjs.org/:package/:version' } ]
+  })
+  launchServer(app, { path: '/command-line-args/1.0.0', onSuccess: response => {
+    t.strictEqual(response.res.statusCode, 200)
+    t.ok(/command-line-args/.test(response.data))
+  }})
+})
+
 test('rewrite: proxy with port', function (t) {
   t.plan(2)
   const one = localWebServer({
