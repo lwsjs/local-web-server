@@ -7,6 +7,7 @@ const ansi = require('ansi-escape-sequences')
 const loadConfig = require('config-master')
 const path = require('path')
 const s = require('string-tools')
+const os = require('os')
 
 const cli = commandLineArgs(cliOptions.definitions)
 const usage = cli.getUsage(cliOptions.usageData)
@@ -63,10 +64,17 @@ function halt (err) {
 }
 
 function onServerUp () {
+  const ipList = Object.keys(os.networkInterfaces())
+    .map(key => os.networkInterfaces()[key])
+    .reduce((prev, curr) => prev = prev.concat(curr), [])
+    .filter(iface => iface.family === 'IPv4')
+    .map(iface => `[underline]{${iface.address}:${options.server.port}}`)
+    .join(', ')
+
   console.error(ansi.format(
     path.resolve(options.server.directory) === process.cwd()
-      ? `serving at [underline]{http://localhost:${options.server.port}}`
-      : `serving [underline]{${options.server.directory}} at [underline]{http://localhost:${options.server.port}}`
+      ? `serving at `
+      : `serving [underline]{${options.server.directory}} at ${ipList}`
   ))
 }
 
