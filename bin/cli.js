@@ -73,7 +73,7 @@ function onServerUp () {
 
   console.error(ansi.format(
     path.resolve(options.server.directory) === process.cwd()
-      ? `serving at `
+      ? `serving at ${ipList}`
       : `serving [underline]{${options.server.directory}} at ${ipList}`
   ))
 }
