@@ -8,22 +8,15 @@ const loadConfig = require('config-master')
 const path = require('path')
 const s = require('string-tools')
 const os = require('os')
+const arrayify = require('array-back')
 
 const cli = commandLineArgs(cliOptions.definitions)
 const usage = cli.getUsage(cliOptions.usageData)
 const stored = loadConfig('local-web-server')
 const options = collectOptions()
 
-// TODO summary line on server launch
-
-if (options.misc.help) {
-  console.log(usage)
-  process.exit(0)
-}
-if (options.misc.config) {
-  console.log(JSON.stringify(options.server, null, '  '))
-  process.exit(0)
-}
+if (options.misc.help) stop(usage, 0)
+if (options.misc.config) stop(JSON.stringify(options.server, null, '  '), 0)
 
 const app = localWebServer({
   static: {
@@ -48,19 +41,15 @@ const app = localWebServer({
   spa: options.server.spa,
   'no-cache': options.server['no-cache'],
   rewrite: options.server.rewrite,
-  verbose: options.server.verbose
+  verbose: options.server.verbose,
+  mocks: options.server.mocks
 })
 
-app
-  .on('verbose', (category, message) => {
-    console.error(ansi.format(s.padRight(category, 14), 'bold'), message)
-  })
-  .listen(options.server.port, onServerUp)
+app.listen(options.server.port, onServerUp)
 
-function halt (err) {
-  console.log(ansi.format(`Error: ${err.message}`, 'red'))
-  console.log(usage)
-  process.exit(1)
+function stop (msgs, exitCode) {
+  arrayify(msgs).forEach(msg => console.error(ansi.format(msg)))
+  process.exit(exitCode)
 }
 
 function onServerUp () {
@@ -85,7 +74,7 @@ function collectOptions () {
   try {
     options = cli.parse()
   } catch (err) {
-    halt(err)
+    stop([ `[red]{Error}: ${err.message}`, usage ], 1)
   }
 
   const builtIn = {

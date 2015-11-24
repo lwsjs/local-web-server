@@ -1,7 +1,0 @@
-[
-  { "id": 1, "name": "Conifer", "maxHeight": 115 },
-  { "id": 2, "name": "Eucalyptus", "maxHeight": 210 },
-  { "id": 3, "name": "Ash", "maxHeight": 40 },
-  { "id": 4, "name": "Elder", "maxHeight": 5 },
-  { "id": 5, "name": "Holly", "maxHeight": 10 }
-]

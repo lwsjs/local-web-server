@@ -1,7 +1,43 @@
 {
-  "rewrite": [
-    { "from": "/trees", "to": "/mocks/trees.mock.js" },
-    { "from": "/trees/:id", "to": "/mocks/tree.mock.js" },
-    { "from": "/search", "to": "/mocks/search.mock.js" }
+  "mocks": [
+    {
+      "route": "/one",
+      "response": {
+        "body": { "id": 1, "name": "whatever" }
+      }
+    },
+    {
+      "route": "/two",
+      "request": { "accepts": "xml" },
+      "response": {
+        "body": "<result id='2' name='whatever' />"
+      }
+    },
+    {
+      "route": "/three",
+      "targets": [
+        {
+          "request": { "method": "GET" },
+          "response": {
+            "body": { "id": 1, "name": "whatever" }
+          }
+        },
+        {
+          "request": { "method": "POST" },
+          "response": {
+            "status": 400,
+            "body": { "message": "That method is not allowed." }
+          }
+        }
+      ]
+    },
+    {
+      "route": "/four",
+      "module": "/mocks/four.js"
+    },
+    {
+      "route": "/five/:id\\?name=:name",
+      "module": "/mocks/five.js"
+    }
   ]
 }
