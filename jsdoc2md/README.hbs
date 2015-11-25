@@ -47,16 +47,6 @@ By default, typical SPA urls (e.g. `/user/1`, `/login`) would return `404 Not Fo
 
 [Example](https://github.com/75lb/local-web-server/tree/master/example/spa).
 
-### Access Control
-
-By default, access to all files is allowed (including dot files). Use `--forbid` to establish a blacklist:
-```sh
-$ ws --forbid '*.json' '*.yml'
-serving at http://localhost:8000
-```
-
-[Example](https://github.com/75lb/local-web-server/tree/master/example/forbid).
-
 ### URL rewriting
 
 Your application requested `/css/style.css` but it's stored at `/build/css/style.css`. To avoid a 404 you need a rewrite rule:
@@ -79,7 +69,6 @@ $ ws --rewrite '/css/* -> /build/css/$1'
 
 this rewrites `/css/a` as `/build/css/a`, `/css/a/b/c` as `/build/css/a/b/c` etc.
 
-
 #### Proxied requests
 
 If the `to` URL contains a remote host, local-web-server will act as a proxy - fetching and responding with the remote resource.
@@ -95,6 +84,91 @@ $ ws --rewrite '/:user/repos/:name -> https://api.github.com/repos/:user/:name'
 ```
 
 [Example](https://github.com/75lb/local-web-server/tree/master/example/rewrite).
+
+### Mock Responses
+
+Mock a data service, serve any custom/dynamic content.
+
+A mock definition maps a route to a response. Mock a home page.
+```json
+{
+  "mocks": [
+    {
+      "route": "/",
+      "response": {
+        "body": "<h1>Welcome to the Mock Responses example</h1>"
+      }
+    }
+  ]
+}
+```
+
+Conditional response, depending on the request.
+```json
+{
+  "mocks": [
+    {
+      "route": "/two",
+      "request": { "accepts": "xml" },
+      "response": {
+        "body": "<result id='2' name='whatever' />"
+      }
+    }
+  ]
+}
+```
+
+Multiple potential responses. First request to match.
+```json
+{
+  "mocks": [
+    {
+      "route": "/three",
+      "responses": [
+        {
+          "request": { "method": "GET" },
+          "response": {
+            "body": "<h1>Mock response for 'GET' request on /three</h1>"
+          }
+        },
+        {
+          "request": { "method": "POST" },
+          "response": {
+            "status": 400,
+            "body": { "message": "That method is not allowed." }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+More dynamic response.
+```json
+{
+  "mocks": [
+    {
+      "route": "/four",
+      "module": "/mocks/four.js"
+    }
+  ]
+}
+```
+
+Tokens in the route are passed to the response.
+```json
+{
+  "mocks": [
+    {
+      "route": "/five/:id\\?name=:name",
+      "module": "/mocks/five.js"
+    }
+  ]
+}
+```
+
+[Example](https://github.com/75lb/local-web-server/tree/master/example/mock).
 
 ### Stored config
 
@@ -135,6 +209,16 @@ serving at http://localhost:8000
 ```
 
 The format value supplied is passed directly to [morgan](https://github.com/expressjs/morgan). The exception is `--log-format none` which disables all output.
+
+### Access Control
+
+By default, access to all files is allowed (including dot files). Use `--forbid` to establish a blacklist:
+```sh
+$ ws --forbid '*.json' '*.yml'
+serving at http://localhost:8000
+```
+
+[Example](https://github.com/75lb/local-web-server/tree/master/example/forbid).
 
 ### Other usage
 

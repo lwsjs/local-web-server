@@ -1,5 +1,7 @@
+const fs = require('fs')
+
 module.exports = {
   response: {
-    body: { id: 2, name: 'eucalyptus', maxHeight: 210 }
+    body: fs.createReadStream(__filename)
   }
 }

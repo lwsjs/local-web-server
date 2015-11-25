@@ -1,8 +1,5 @@
 module.exports = {
   response: function (ctx, id, name) {
-    this.body = {
-      id: id,
-      name: name
-    }
+    ctx.body = `<h1>id: ${id}, name: ${name}</h1>`
   }
 }

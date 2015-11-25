@@ -17,6 +17,13 @@ function launchServer (app, options) {
   })
 }
 
+function checkResponse (t, status, body) {
+  return function (response) {
+    if (status) t.strictEqual(response.res.statusCode, status)
+    if (body) t.ok(body.test(response.data))
+  }
+}
+
 test('static', function (t) {
   t.plan(1)
   const app = localWebServer({
@@ -199,5 +206,132 @@ test('rewrite: proxy with port', function (t) {
         server2.close()
       })
     })
+  })
+})
+
+test('mock: simple response', function (t) {
+  t.plan(2)
+  const app = localWebServer({
+    log: { format: 'none' },
+    mocks: [
+      { route: '/test', response: { body: 'test' } }
+    ]
+  })
+  launchServer(app, { path: '/test', onSuccess: response => {
+    t.strictEqual(response.res.statusCode, 200)
+    t.ok(/test/.test(response.data))
+  }})
+})
+
+test('mock: method request filter', function (t) {
+  t.plan(3)
+  const app = localWebServer({
+    log: { format: 'none' },
+    mocks: [
+      {
+        route: '/test',
+        request: { method: 'POST' },
+        response: { body: 'test' }
+      }
+    ]
+  })
+  const server = http.createServer(app.callback())
+  server.listen(8100, () => {
+    request('http://localhost:8100/test')
+      .then(checkResponse(t, 404))
+      .then(() => request('http://localhost:8100/test', { data: 'something' }))
+      .then(checkResponse(t, 200, /test/))
+      .then(server.close.bind(server))
+  })
+})
+
+test('mock: accepts request filter', function (t) {
+  t.plan(3)
+  const app = localWebServer({
+    log: { format: 'none' },
+    mocks: [
+      {
+        route: '/test',
+        request: { accepts: 'text' },
+        response: { body: 'test' }
+      }
+    ]
+  })
+  const server = http.createServer(app.callback())
+  server.listen(8100, () => {
+    request('http://localhost:8100/test', { headers: { Accept: '*/json' }})
+      .then(checkResponse(t, 404))
+      .then(() => request('http://localhost:8100/test', { headers: { Accept: 'text/plain' }}))
+      .then(checkResponse(t, 200, /test/))
+      .then(server.close.bind(server))
+  })
+})
+
+test('mock: responses array', function (t) {
+  t.plan(4)
+  const app = localWebServer({
+    log: { format: 'none' },
+    mocks: [
+      {
+        route: '/test',
+        responses: [
+          { request: { method: 'GET' }, response: { body: 'get' } },
+          { request: { method: 'POST' }, response: { body: 'post' } }
+        ]
+      }
+    ]
+  })
+  const server = http.createServer(app.callback())
+  server.listen(8100, () => {
+    request('http://localhost:8100/test')
+      .then(checkResponse(t, 200, /get/))
+      .then(() => request('http://localhost:8100/test', { method: 'POST' }))
+      .then(checkResponse(t, 200, /post/))
+      .then(server.close.bind(server))
+  })
+})
+
+test('mock: response function', function (t) {
+  t.plan(4)
+  const app = localWebServer({
+    log: { format: 'none' },
+    mocks: [
+      {
+        route: '/test',
+        responses: [
+          { request: { method: 'GET' }, response: ctx => ctx.body = 'get' },
+          { request: { method: 'POST' }, response: ctx => ctx.body = 'post' }
+        ]
+      }
+    ]
+  })
+  const server = http.createServer(app.callback())
+  server.listen(8100, () => {
+    request('http://localhost:8100/test')
+      .then(checkResponse(t, 200, /get/))
+      .then(() => request('http://localhost:8100/test', { method: 'POST' }))
+      .then(checkResponse(t, 200, /post/))
+      .then(server.close.bind(server))
+  })
+})
+
+test('mock: response function args', function (t) {
+  t.plan(2)
+  const app = localWebServer({
+    log: { format: 'none' },
+    mocks: [
+      {
+        route: '/test/:one',
+        responses: [
+          { request: { method: 'GET' }, response: (ctx, one) => ctx.body = one }
+        ]
+      }
+    ]
+  })
+  const server = http.createServer(app.callback())
+  server.listen(8100, () => {
+    request('http://localhost:8100/test/yeah')
+      .then(checkResponse(t, 200, /yeah/))
+      .then(server.close.bind(server))
   })
 })

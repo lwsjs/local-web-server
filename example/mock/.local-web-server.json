@@ -1,9 +1,9 @@
 {
   "mocks": [
     {
-      "route": "/one",
+      "route": "/",
       "response": {
-        "body": { "id": 1, "name": "whatever" }
+        "body": "<h1>Welcome to the Mock Responses example</h1>"
       }
     },
     {
@@ -15,11 +15,11 @@
     },
     {
       "route": "/three",
-      "targets": [
+      "responses": [
         {
           "request": { "method": "GET" },
           "response": {
-            "body": { "id": 1, "name": "whatever" }
+            "body": "<h1>Mock response for 'GET' request on /three</h1>"
           }
         },
         {
