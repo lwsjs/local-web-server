@@ -7,7 +7,21 @@
 ***This is the documentation for the next version. For the previous release, see the `prev` branch. To install this prerelease: `$ npm i -g local-web-server@^1.0.0-beta`***
 
 # local-web-server
-A simple web-server for productive front-end development.
+A simple web-server for productive front-end development. Typical use cases:
+
+* Front-end Development
+  * Static or Single Page App development
+  * reroute paths to local or remote resources
+  * Bundle with your front-end project
+  * Very little configuration, just a few options
+  * Outputs a dynamic statistics view to the terminal
+  * Configurable log output, compatible with [Goaccess, Logstalgia and glTail](https://github.com/75lb/local-web-server/blob/master/doc/visualisation.md)
+* Back-end service mocking
+  * Prototype a web service, microservice, REST API etc.
+  * CORS-friendly, all origins allowed by default.
+* Proxy server
+  * Useful to workaround CORS issues with remote servers
+* File sharing
 
 **Requires node v4.0.0 or higher**.
 
