@@ -28,8 +28,7 @@ A simple web-server for productive front-end development. Typical use cases:
 ## Synopsis
 local-web-server is a simple command-line tool. To use it, from your project directory run `ws`.
 
-<pre><code>
-$ ws --help
+<pre><code>$ ws --help
 
 <strong>local-web-server</strong>
 
@@ -37,7 +36,7 @@ $ ws --help
 
 <strong>Synopsis</strong>
 
-  $ ws [\<server options\>]
+  $ ws [&lt;server options&gt;]
   $ ws --config
   $ ws --help
 
