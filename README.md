@@ -21,7 +21,7 @@ A simple web-server for productive front-end development. Typical use cases:
   * Mocks are defined with config (static), or code (dynamic).
   * CORS-friendly, all origins allowed by default.
 * Proxy server
-  * Map local routes to remote services. Removes CORS issues with remote servers.
+  * Map local routes to remote servers. Removes CORS pain when consuming remote services.
 * File sharing
 
 **Requires node v4.0.0 or higher**.
@@ -97,7 +97,7 @@ You're building a web app with client-side routing, so mark `index.html` as the 
 $ ws --spa index.html
 ```
 
-By default, typical SPA urls (e.g. `/user/1`, `/login`) would return `404 Not Found` as a file does not exist with that path. By marking `index.html` as the SPA you create this rule:
+By default, typical SPA paths (e.g. `/user/1`, `/login`) would return `404 Not Found` as a file does not exist with that path. By marking `index.html` as the SPA you create this rule:
 
 *If a static file at the requested path exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then serve the specified SPA and handle the route client-side.*
 

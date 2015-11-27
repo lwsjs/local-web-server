@@ -45,6 +45,10 @@
     {
       "route": "/five/:id\\?name=:name",
       "module": "/mocks/five.js"
+    },
+    {
+      "route": "/users*",
+      "module": "/mocks/users.js"
     }
   ]
 }
