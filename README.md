@@ -11,16 +11,17 @@ A simple web-server for productive front-end development. Typical use cases:
 
 * Front-end Development
   * Static or Single Page App development
-  * reroute paths to local or remote resources
+  * Re-route paths to local or remote resources
   * Bundle with your front-end project
   * Very little configuration, just a few options
   * Outputs a dynamic statistics view to the terminal
   * Configurable log output, compatible with [Goaccess, Logstalgia and glTail](https://github.com/75lb/local-web-server/blob/master/doc/visualisation.md)
 * Back-end service mocking
   * Prototype a web service, microservice, REST API etc.
+  * Mocks are defined with config (static), or code (dynamic).
   * CORS-friendly, all origins allowed by default.
 * Proxy server
-  * Useful to workaround CORS issues with remote servers
+  * Map local routes to remote services. Removes CORS issues with remote servers.
 * File sharing
 
 **Requires node v4.0.0 or higher**.
@@ -142,9 +143,9 @@ $ ws --rewrite '/:user/repos/:name -> https://api.github.com/repos/:user/:name'
 
 ### Mock Responses
 
-Mock a data service, serve any custom/dynamic content.
+Mocks give you full control over the response headers and body returned to the client. They can be used to return anything from a simple html string to a resourceful REST API. Typically, they're used to mock services but can be used for anything.
 
-A mock definition maps a route to a response. Mock a home page.
+In the config, define an array called `mocks`. Each mock definition maps a <code>[route](http://expressjs.com/guide/routing.html#route-paths)</code> to a `response`. A simple home page:
 ```json
 {
   "mocks": [
@@ -158,7 +159,23 @@ A mock definition maps a route to a response. Mock a home page.
 }
 ```
 
-Conditional response, depending on the request.
+Under the hood, the property values from the `response` object are written onto the underlying [koa response object](https://github.com/koajs/koa/blob/master/docs/api/response.md). You can set any valid koa response properies, for example [type](https://github.com/koajs/koa/blob/master/docs/api/response.md#responsetype-1):
+```json
+{
+  "mocks": [
+    {
+      "route": "/",
+      "response": {
+        "type": "text/plain",
+        "body": "<h1>Welcome to the Mock Responses example</h1>"
+      }
+    }
+  ]
+}
+```
+
+To define a **conditional response**, set a `request` object on the mock definition. The `request` value acts as a query - the response defined will only be returned if each property of the `request` query matches. For example, return an XML response *only* if the request headers include `accept: application/xml`, else return 404 Not Found.
+
 ```json
 {
   "mocks": [
@@ -173,7 +190,8 @@ Conditional response, depending on the request.
 }
 ```
 
-Multiple potential responses. First request to match.
+To specify **multiple potential responses**, set an array of mock definitions to the `responses` property. The first response with a matching request query will be sent. In this example, the client will get one of two responses depending on the request method:
+
 ```json
 {
   "mocks": [
@@ -199,25 +217,74 @@ Multiple potential responses. First request to match.
 }
 ```
 
-More dynamic response.
+The examples above all returned static data. To define a **dynamic response**, create a mock module. Specify its path in the `module` property:
 ```json
 {
   "mocks": [
     {
       "route": "/four",
-      "module": "/mocks/four.js"
+      "module": "/mocks/stream-self.js"
     }
   ]
 }
 ```
 
-Tokens in the route are passed to the response.
+Here's what the `stream-self` module looks like. The module should export a mock definition (an object with a `response` and optional `request`). In this example, the module simply streams itself to the response but you could craft and return *any* [valid value](https://github.com/koajs/koa/blob/master/docs/api/response.md#responsebody-1).
+```js
+const fs = require('fs')
+
+module.exports = {
+  response: {
+    body: fs.createReadStream(__filename)
+  }
+}
+```
+
+For more power, define the response body as a function. It will receive the [koa context](https://github.com/koajs/koa/blob/master/docs/api/context.md) as its first argument. Now you have full programmatic control over the response returned.
+```js
+const fs = require('fs')
+
+module.exports = {
+  response: {
+    body: function (ctx) {
+      ctx.body = '<h1>I can do anything i want.</h1>'
+    }
+  }
+}
+```
+
+If the route contains tokens, their values are passed to the response. For example, with this mock...
 ```json
 {
   "mocks": [
     {
       "route": "/five/:id\\?name=:name",
-      "module": "/mocks/five.js"
+      "module": "/mocks/example.js"
+    }
+  ]
+}
+```
+
+...the values `id` and `name` are passed to the body function. For example, a path of `/five/10?name=Lionel` would pass `10` and `Lionel` to the body function:
+```js
+const fs = require('fs')
+
+module.exports = {
+  response: {
+    body: function (ctx, id, name) {
+      ctx.body = `<h1>id: ${id}, name: ${name}</h1>`
+    }
+  }
+}
+```
+
+Here's an example of a REST collection (users). The config:
+```json
+{
+  "mocks": [
+    {
+      "route": "/users",
+      "module": "/mocks/users.js"
     }
   ]
 }

@@ -7,6 +7,13 @@
       }
     },
     {
+      "route": "/one",
+      "response": {
+        "type": "text/plain",
+        "body": "<h1>Welcome to the Mock Responses example</h1>"
+      }
+    },
+    {
       "route": "/two",
       "request": { "accepts": "xml" },
       "response": {
@@ -33,7 +40,7 @@
     },
     {
       "route": "/four",
-      "module": "/mocks/four.js"
+      "module": "/mocks/stream-self.js"
     },
     {
       "route": "/five/:id\\?name=:name",
