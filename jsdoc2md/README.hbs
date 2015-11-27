@@ -26,6 +26,50 @@ A simple web-server for productive front-end development. Typical use cases:
 **Requires node v4.0.0 or higher**.
 
 ## Synopsis
+local-web-server is a simple command-line tool. To use it, from your project directory run `ws`.
+
+<pre><code>
+$ ws --help
+
+<strong>local-web-server</strong>
+
+  A simple web-server for productive front-end development.
+
+Synopsis
+
+  $ ws [<server options>]
+  $ ws --config
+  $ ws --help
+
+Server
+
+  -p, --port number              Web server port.
+  -d, --directory path           Root directory, defaults to the current directory.
+  -f, --log-format string        If a format is supplied an access log is written to
+                                 stdout. If not, a dynamic statistics view is displayed.
+                                 Use a preset ('none', 'dev','combined', 'short', 'tiny'
+                                 or 'logstalgia') or supply a custom format (e.g.
+                                 ':method -> :url').
+  -r, --rewrite expression ...   A list of URL rewrite rules. For each rule, separate the
+                                 'from' and 'to' routes with '->'. Whitespace surrounded
+                                 the routes is ignored. E.g. '/from -> /to'.
+  -s, --spa file                 Path to a Single Page App, e.g. app.html.
+  -c, --compress                 Serve gzip-compressed resources, where applicable.
+  -b, --forbid path ...          A list of forbidden routes.
+  -n, --no-cache                 Disable etag-based caching -forces loading from disk
+                                 each request.
+  --verbose                      Verbose output, useful for debugging.
+
+Misc
+
+  -h, --help    Print these usage instructions.
+  --config      Print the stored config.
+
+  Project home: https://github.com/75lb/local-web-server
+</code></pre>
+
+## Examples
+
 For the examples below, we assume we're in a project directory looking like this:
 
 ```sh
