@@ -4,7 +4,7 @@
 [![Dependency Status](https://david-dm.org/75lb/local-web-server.svg)](https://david-dm.org/75lb/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
-***This is the documentation for the next version. For the previous release, see the `prev` branch. To install this prerelease: `$ npm i -g local-web-server@^1.0.0-beta`***
+***This is the documentation for the next version. For the previous release, see the `prev` branch. To install this prerelease: `$ npm i -g local-web-server@next`***
 
 # local-web-server
 A simple web-server for productive front-end development. Typical use cases:

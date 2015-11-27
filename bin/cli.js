@@ -57,7 +57,7 @@ function onServerUp () {
     .map(key => os.networkInterfaces()[key])
     .reduce((prev, curr) => prev = prev.concat(curr), [])
     .filter(iface => iface.family === 'IPv4')
-    .map(iface => `[underline]{${iface.address}:${options.server.port}}`)
+    .map(iface => `[underline]{http://${iface.address}:${options.server.port}}`)
     .join(', ')
 
   console.error(ansi.format(
