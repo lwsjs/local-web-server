@@ -1,5 +1,5 @@
 module.exports = {
-  response: function (ctx, id, name) {
-    ctx.body = `<h1>id: ${id}, name: ${name}</h1>`
+  response: function (ctx, id) {
+    ctx.body = `<h1>id: ${id}, name: ${ctx.query.name}</h1>`
   }
 }

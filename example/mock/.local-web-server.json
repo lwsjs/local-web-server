@@ -43,11 +43,11 @@
       "module": "/mocks/stream-self.js"
     },
     {
-      "route": "/five/:id\\?name=:name",
+      "route": "/five/:id",
       "module": "/mocks/five.js"
     },
     {
-      "route": "/users*",
+      "route": "/users",
       "module": "/mocks/users.js"
     }
   ]

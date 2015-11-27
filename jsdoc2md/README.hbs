@@ -258,21 +258,21 @@ If the route contains tokens, their values are passed to the response. For examp
 {
   "mocks": [
     {
-      "route": "/five/:id\\?name=:name",
+      "route": "/five/:id",
       "module": "/mocks/example.js"
     }
   ]
 }
 ```
 
-...the values `id` and `name` are passed to the body function. For example, a path of `/five/10?name=Lionel` would pass `10` and `Lionel` to the body function:
+...the `id` value is passed to the body function. For example, a path of `/five/10?name=Lionel` would pass `10` to the body function. Additional, the value `Lionel` would be available on `ctx.query.name`:
 ```js
 const fs = require('fs')
 
 module.exports = {
   response: {
-    body: function (ctx, id, name) {
-      ctx.body = `<h1>id: ${id}, name: ${name}</h1>`
+    body: function (ctx, id) {
+      ctx.body = `<h1>id: ${id}, name: ${ctx.query.name}</h1>`
     }
   }
 }
