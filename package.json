@@ -56,7 +56,8 @@
     "typical": "^2.4.0"
   },
   "devDependencies": {
-    "req-then": "^0.2.2",
+    "jsdoc-to-markdown": "^1.2.1",
+    "req-then": "^0.2.4",
     "tape": "^4.2.2"
   }
 }

@@ -286,7 +286,7 @@ Here's an example of a REST collection (users). The config:
 
 ### Stored config
 
-Use the same port and blacklist every time? Persist it to `package.json`:
+Use the same options every time? Persist then to `package.json`:
 ```json
 {
   "name": "example",
@@ -306,7 +306,7 @@ or `.local-web-server.json`
 }
 ```
 
-local-web-server will merge and use all config found, searching from the current directory upward. In the case both `package.json` and `.local-web-server.json` config is found in the same directory, `.local-web-server.json` will take precedence. Command-line options take precedence over all.
+local-web-server will merge and use all config found, searching from the current directory upward. In the case both `package.json` and `.local-web-server.json` config is found in the same directory, `.local-web-server.json` will take precedence. Options set on the command line take precedence over all.
 
 To inspect stored config, run:
 ```sh

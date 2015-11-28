@@ -1,9 +1,6 @@
-const users = [
-  { id: 1, name: 'Lloyd', age: 40, nationality: 'English' },
-  { id: 2, name: 'Mona', age: 34, nationality: 'Palestinian' },
-  { id: 3, name: 'Francesco', age: 24, nationality: 'Italian' }
-]
+const users = require('./users.json')
 
+/* responses for /users */
 const mockResponses = [
   { request: { method: 'PUT' }, response: { status: 400 } },
   { request: { method: 'DELETE' }, response: { status: 400 } },
@@ -12,7 +9,7 @@ const mockResponses = [
     request: { method: 'GET' },
     response: function (ctx) {
       ctx.body = users.filter(user => {
-        const meetsMinAge = user.age >= (Number(ctx.query.minAge) || 0)
+        const meetsMinAge = (user.age || 1000) >= (Number(ctx.query.minAge) || 0)
         const requiredNationality = user.nationality === (ctx.query.nationality || user.nationality)
         return meetsMinAge && requiredNationality
       })

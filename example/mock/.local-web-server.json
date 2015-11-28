@@ -49,6 +49,10 @@
     {
       "route": "/users",
       "module": "/mocks/users.js"
+    },
+    {
+      "route": "/users/:id",
+      "module": "/mocks/user.js"
     }
   ]
 }
