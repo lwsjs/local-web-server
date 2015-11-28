@@ -4,7 +4,7 @@
 [![Dependency Status](https://david-dm.org/75lb/local-web-server.svg)](https://david-dm.org/75lb/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
-***This is the documentation for the next version. For the previous release, see the `prev` branch. To install this prerelease: `$ npm i -g local-web-server@next`***
+***This is the documentation for the next version. For the previous release, see the [prev](https://github.com/75lb/local-web-server/tree/prev) branch. To install this prerelease: `$ npm i -g local-web-server@next`***
 
 # local-web-server
 A simple web-server for productive front-end development. Typical use cases:
@@ -229,7 +229,7 @@ The examples above all returned static data. To define a **dynamic response**, c
 }
 ```
 
-Here's what the `stream-self` module looks like. The module should export a mock definition (an object with a `response` and optional `request`). In this example, the module simply streams itself to the response but you could craft and return *any* [valid value](https://github.com/koajs/koa/blob/master/docs/api/response.md#responsebody-1).
+Here's what the `stream-self` module looks like. The module should export a mock definition (an object, or array of objects, each with a `response` and optional `request`). In this example, the module simply streams itself to the response but you could set `body` to *any* [valid value](https://github.com/koajs/koa/blob/master/docs/api/response.md#responsebody-1).
 ```js
 const fs = require('fs')
 
@@ -240,15 +240,11 @@ module.exports = {
 }
 ```
 
-For more power, define the response body as a function. It will receive the [koa context](https://github.com/koajs/koa/blob/master/docs/api/context.md) as its first argument. Now you have full programmatic control over the response returned.
+For more power, define the response as a function. It will receive the [koa context](https://github.com/koajs/koa/blob/master/docs/api/context.md) as its first argument. Now you have full programmatic control over the response returned.
 ```js
-const fs = require('fs')
-
 module.exports = {
-  response: {
-    body: function (ctx) {
-      ctx.body = '<h1>I can do anything i want.</h1>'
-    }
+  response: function (ctx) {
+    ctx.body = '<h1>I can do anything i want.</h1>'
   }
 }
 ```
@@ -258,22 +254,18 @@ If the route contains tokens, their values are passed to the response. For examp
 {
   "mocks": [
     {
-      "route": "/five/:id",
-      "module": "/mocks/example.js"
+      "route": "/players/:id",
+      "module": "/mocks/players.js"
     }
   ]
 }
 ```
 
-...the `id` value is passed to the body function. For example, a path of `/five/10?name=Lionel` would pass `10` to the body function. Additional, the value `Lionel` would be available on `ctx.query.name`:
+...the `id` value is passed to the `response` function. For example, a path of `/players/10?name=Lionel` would pass `10` to the response function. Additional, the value `Lionel` would be available on `ctx.query.name`:
 ```js
-const fs = require('fs')
-
 module.exports = {
-  response: {
-    body: function (ctx, id) {
-      ctx.body = `<h1>id: ${id}, name: ${ctx.query.name}</h1>`
-    }
+  response: function (ctx, id) {
+    ctx.body = `<h1>id: ${id}, name: ${ctx.query.name}</h1>`
   }
 }
 ```
