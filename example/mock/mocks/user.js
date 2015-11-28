@@ -1,11 +1,8 @@
 const users = require('./users.json')
-function getUser(id) {
-  return users.find(user => user.id === Number(id))
-}
 
 /* responses for /users/:id */
 const mockResponses = [
-  /* don't support POST */
+  /* don't support POST here */
   { request: { method: 'POST' }, response: { status: 400 } },
 
   /* for GET requests, return a particular user */
