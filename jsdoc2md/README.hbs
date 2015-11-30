@@ -4,7 +4,7 @@
 [![Dependency Status](https://david-dm.org/75lb/local-web-server.svg)](https://david-dm.org/75lb/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
-***This is the documentation for the next version. For the previous release, see the [prev](https://github.com/75lb/local-web-server/tree/prev) branch. To install this prerelease: `$ npm i -g local-web-server@next`***
+***Requires node v4.0.0 or higher. Install the [previous release](https://github.com/75lb/local-web-server/tree/prev) for older node support.***
 
 # local-web-server
 A simple web-server for productive front-end development. Typical use cases:
@@ -23,8 +23,6 @@ A simple web-server for productive front-end development. Typical use cases:
 * Proxy server
   * Map local routes to remote servers. Removes CORS pain when consuming remote services.
 * File sharing
-
-**Requires node v4.0.0 or higher**.
 
 ## Synopsis
 local-web-server is a simple command-line tool. To use it, from your project directory run `ws`.
