@@ -9,6 +9,7 @@ const path = require('path')
 const s = require('string-tools')
 const os = require('os')
 const arrayify = require('array-back')
+const t = require('typical')
 
 const cli = commandLineArgs(cliOptions.definitions)
 const usage = cli.getUsage(cliOptions.usageData)
@@ -17,6 +18,8 @@ const options = collectOptions()
 
 if (options.misc.help) stop(usage, 0)
 if (options.misc.config) stop(JSON.stringify(options.server, null, '  '), 0)
+
+validateOptions(options)
 
 const app = localWebServer({
   static: {
@@ -45,7 +48,22 @@ const app = localWebServer({
   mocks: options.server.mocks
 })
 
-app.listen(options.server.port, onServerUp)
+let isHttps = false
+if (options.server.key && options.server.cert) {
+  const https = require('https')
+  const fs = require('fs')
+  isHttps = true
+
+  const serverOptions = {
+    key: fs.readFileSync(options.server.key),
+    cert: fs.readFileSync(options.server.cert)
+  }
+
+  const server = https.createServer(serverOptions, app.callback())
+  server.listen(options.server.port, onServerUp)
+} else {
+  app.listen(options.server.port, onServerUp)
+}
 
 function stop (msgs, exitCode) {
   arrayify(msgs).forEach(msg => console.error(ansi.format(msg)))
@@ -57,7 +75,7 @@ function onServerUp () {
     .map(key => os.networkInterfaces()[key])
     .reduce((prev, curr) => prev = prev.concat(curr), [])
     .filter(iface => iface.family === 'IPv4')
-    .map(iface => `[underline]{http://${iface.address}:${options.server.port}}`)
+    .map(iface => `[underline]{${isHttps ? 'https' : 'http'}://${iface.address}:${options.server.port}}`)
     .join(', ')
 
   console.error(ansi.format(
@@ -101,4 +119,13 @@ function parseRewriteRules (rules) {
       to: matches[2]
     }
   })
+}
+
+function validateOptions (options) {
+  function invalid (msg) {
+    return `[red underline]{Invalid:} [bold]{${msg}}`
+  }
+  if (!t.isNumber(options.server.port)) {
+    stop([ invalid(`--port must be numeric [value=${options.server.port}]`), usage ], 1)
+  }
 }
