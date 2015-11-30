@@ -56,6 +56,8 @@ local-web-server is a simple command-line tool. To use it, from your project dir
   -c, --compress                 Serve gzip-compressed resources, where applicable.
   -b, --forbid path ...          A list of forbidden routes.
   -n, --no-cache                 Disable etag-based caching -forces loading from disk each request.
+  --key file                     SSL key, required for https.
+  --cert file                    SSL cert, required for https.
   --verbose                      Verbose output, useful for debugging.
 
 <strong>Misc</strong>
@@ -174,7 +176,9 @@ Under the hood, the property values from the `response` object are written onto 
 }
 ```
 
-To define a **conditional response**, set a `request` object on the mock definition. The `request` value acts as a query - the response defined will only be returned if each property of the `request` query matches. For example, return an XML response *only* if the request headers include `accept: application/xml`, else return 404 Not Found.
+#### Conditional Response
+
+To define a conditional response, set a `request` object on the mock definition. The `request` value acts as a query - the response defined will only be returned if each property of the `request` query matches. For example, return an XML response *only* if the request headers include `accept: application/xml`, else return 404 Not Found.
 
 ```json
 {
@@ -190,7 +194,9 @@ To define a **conditional response**, set a `request` object on the mock definit
 }
 ```
 
-To specify **multiple potential responses**, set an array of mock definitions to the `responses` property. The first response with a matching request query will be sent. In this example, the client will get one of two responses depending on the request method:
+#### Multiple Potential Responses
+
+To specify multiple potential responses, set an array of mock definitions to the `responses` property. The first response with a matching request query will be sent. In this example, the client will get one of two responses depending on the request method:
 
 ```json
 {
@@ -217,7 +223,9 @@ To specify **multiple potential responses**, set an array of mock definitions to
 }
 ```
 
-The examples above all returned static data. To define a **dynamic response**, create a mock module. Specify its path in the `module` property:
+#### Dynamic Response
+
+The examples above all returned static data. To define a dynamic response, create a mock module. Specify its path in the `module` property:
 ```json
 {
   "mocks": [
@@ -239,6 +247,8 @@ module.exports = {
   }
 }
 ```
+
+#### Response function
 
 For more power, define the response as a function. It will receive the [koa context](https://github.com/koajs/koa/blob/master/docs/api/context.md) as its first argument. Now you have full programmatic control over the response returned.
 ```js
@@ -270,16 +280,107 @@ module.exports = {
 }
 ```
 
-Here's an example of a REST collection (users). The config:
+#### RESTful Resource example
+
+Here's an example of a REST collection (users). We'll create two routes, one for actions on the resource collection, one for individual resource actions.
+
 ```json
 {
   "mocks": [
-    {
-      "route": "/users",
-      "module": "/mocks/users.js"
-    }
+    { "route": "/users", "module": "/mocks/users.js" },
+    { "route": "/users/:id", "module": "/mocks/user.js" }
   ]
 }
+```
+
+Define a module (`users.json`) defining seed data:
+
+```json
+[
+  { "id": 1, "name": "Lloyd", "age": 40, "nationality": "English" },
+  { "id": 2, "name": "Mona", "age": 34, "nationality": "Palestinian" },
+  { "id": 3, "name": "Francesco", "age": 24, "nationality": "Italian" }
+]
+```
+
+The collection module:
+
+```js
+const users = require('./users.json')
+
+/* responses for /users */
+const mockResponses = [
+  /* Respond with 400 Bad Request for PUT and DELETE - inappropriate on a collection */
+  { request: { method: 'PUT' }, response: { status: 400 } },
+  { request: { method: 'DELETE' }, response: { status: 400 } },
+  {
+    /* for GET requests return a subset of data, optionally filtered on 'minAge' and 'nationality' */
+    request: { method: 'GET' },
+    response: function (ctx) {
+      ctx.body = users.filter(user => {
+        const meetsMinAge = (user.age || 1000) >= (Number(ctx.query.minAge) || 0)
+        const requiredNationality = user.nationality === (ctx.query.nationality || user.nationality)
+        return meetsMinAge && requiredNationality
+      })
+    }
+  },
+  {
+    /* for POST requests, create a new user and return the path to the new resource */
+    request: { method: 'POST' },
+    response: function (ctx) {
+      const newUser = ctx.request.body
+      users.push(newUser)
+      newUser.id = users.length
+      ctx.status = 201
+      ctx.response.set('Location', `/users/${newUser.id}`)
+    }
+  }
+]
+
+module.exports = mockResponses
+```
+
+The individual resource module:
+
+```js
+const users = require('./users.json')
+
+/* responses for /users/:id */
+const mockResponses = [
+  /* don't support POST here */
+  { request: { method: 'POST' }, response: { status: 400 } },
+
+  /* for GET requests, return a particular user */
+  {
+    request: { method: 'GET' },
+    response: function (ctx, id) {
+      ctx.body = users.find(user => user.id === Number(id))
+    }
+  },
+
+  /* for PUT requests, update the record */
+  {
+    request: { method: 'PUT' },
+    response: function (ctx, id) {
+      const updatedUser = ctx.request.body
+      const existingUserIndex = users.findIndex(user => user.id === Number(id))
+      users.splice(existingUserIndex, 1, updatedUser)
+      ctx.status = 200
+    }
+  },
+
+  /* DELETE request: remove the record */
+  {
+    request: { method: 'DELETE' },
+    response: function (ctx, id) {
+      const existingUserIndex = users.findIndex(user => user.id === Number(id))
+      users.splice(existingUserIndex, 1)
+      ctx.status = 200
+    }
+  }
+]
+
+module.exports = mockResponses
 ```
 
 [Example](https://github.com/75lb/local-web-server/tree/master/example/mock).

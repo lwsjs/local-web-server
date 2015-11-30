@@ -2,10 +2,11 @@ const users = require('./users.json')
 
 /* responses for /users */
 const mockResponses = [
+  /* Respond with 400 Bad Request for PUT and DELETE - inappropriate on a collection */
   { request: { method: 'PUT' }, response: { status: 400 } },
   { request: { method: 'DELETE' }, response: { status: 400 } },
   {
-    /* for GET requests, return a subset of data filtered on 'minAge' and 'nationality' */
+    /* for GET requests return a subset of data, optionally filtered on 'minAge' and 'nationality' */
     request: { method: 'GET' },
     response: function (ctx) {
       ctx.body = users.filter(user => {
@@ -16,7 +17,7 @@ const mockResponses = [
     }
   },
   {
-    /* for POST requests, create a new user with the request data (a JSON user) */
+    /* for POST requests, create a new user and return the path to the new resource */
     request: { method: 'POST' },
     response: function (ctx) {
       const newUser = ctx.request.body
