@@ -22,6 +22,8 @@ A simple web-server for productive front-end development. Typical use cases:
   * CORS-friendly, all origins allowed by default.
 * Proxy server
   * Map local routes to remote servers. Removes CORS pain when consuming remote services.
+* HTTPS server
+  * HTTPS is strictly required by some modern techs (ServiceWorker, Media Capture and Streams etc.)
 * File sharing
 
 ## Synopsis
@@ -54,8 +56,8 @@ local-web-server is a simple command-line tool. To use it, from your project dir
   -c, --compress                 Serve gzip-compressed resources, where applicable.
   -b, --forbid path ...          A list of forbidden routes.
   -n, --no-cache                 Disable etag-based caching -forces loading from disk each request.
-  --key file                     SSL key, required for https.
-  --cert file                    SSL cert, required for https.
+  --key file                     SSL key. Supply along with --cert to launch a https server.
+  --cert file                    SSL cert. Supply along with --key to launch a https server.
   --verbose                      Verbose output, useful for debugging.
 
 <strong>Misc</strong>
@@ -382,6 +384,16 @@ module.exports = mockResponses
 ```
 
 [Example](https://github.com/75lb/local-web-server/tree/master/example/mock).
+
+### HTTPS Server
+
+Some modern techs (ServiceWorker, webRTC, any `getUserMedia` request etc.) *must* be served from a secure origin (HTTPS). To launch an HTTPS server, supply a `--key` and `--cert` to local-web-server, for example:
+
+```
+$ ws --key assets/localhost.key --cert assets/localhost.crt
+```
+
+Follow [this guide](https://devcenter.heroku.com/articles/ssl-certificate-self) to create a key and self-signed certificate. Important: you must put the correct FQDN (typically `127.0.0.1`, `localhost`, `dev-server.local` etc.) into the `Common Name` field.
 
 ### Stored config
 
