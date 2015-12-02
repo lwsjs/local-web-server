@@ -12,6 +12,7 @@ A simple web-server for productive front-end development. Typical use cases:
 * Front-end Development
   * Static or Single Page App development
   * Re-route paths to local or remote resources
+  * Efficient, predictable, entity-tag-powered conditional requests (no need to 'Disable Cache' in DevTools, slowing page-load down)
   * Bundle with your front-end project
   * Very little configuration, just a few options
   * Outputs a dynamic statistics view to the terminal
@@ -387,7 +388,7 @@ module.exports = mockResponses
 
 ### HTTPS Server
 
-Some modern techs (ServiceWorker, webRTC, any `getUserMedia` request etc.) *must* be served from a secure origin (HTTPS). To launch an HTTPS server, supply a `--key` and `--cert` to local-web-server, for example:
+Some modern techs (ServiceWorker, any `MediaDevices.getUserMedia()` request etc.) *must* be served from a secure origin (HTTPS). To launch an HTTPS server, supply a `--key` and `--cert` to local-web-server, for example:
 
 ```
 $ ws --key assets/localhost.key --cert assets/localhost.crt
