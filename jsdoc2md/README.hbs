@@ -391,10 +391,37 @@ module.exports = mockResponses
 Some modern techs (ServiceWorker, any `MediaDevices.getUserMedia()` request etc.) *must* be served from a secure origin (HTTPS). To launch an HTTPS server, supply a `--key` and `--cert` to local-web-server, for example:
 
 ```
-$ ws --key assets/localhost.key --cert assets/localhost.crt
+$ ws --key localhost.key --cert localhost.crt
 ```
 
-Follow [this guide](https://devcenter.heroku.com/articles/ssl-certificate-self) to create a key and self-signed certificate. Important: you must put the correct FQDN (typically `127.0.0.1`, `localhost`, `dev-server.local` etc.) into the `Common Name` field.
+You need a valid certificate, you do not need third-party verification (Verisign etc.). To create a certificate is trivial:
+
+1. Install openssl.
+
+  `$ brew install openssl`
+
+2. Generate a RSA private key.
+
+  `$ openssl genrsa -des3 -passout pass:x -out ws.pass.key 2048`
+
+3. Create RSA key.
+
+  ```
+  $ openssl rsa -passin pass:x -in ws.pass.key -out ws.key
+  $ rm ws.pass.key
+  ```
+
+4. Create certificate request. **Important**: you must put the correct FQDN (typically `127.0.0.1`, `localhost`, `dev-server.local` etc.) into the `Common Name` field.
+
+  `$ openssl req -new -key ws.key -out ws.csr`
+
+5. Generate self-signed certificate.
+
+  `$  openssl x509 -req -days 365 -in ws.csr -signkey ws.key -out ws.crt`
+
+5. Launch HTTPS server.
+
+  `$ ws --key ws.key --cert ws.crt`
 
 ### Stored config
 
