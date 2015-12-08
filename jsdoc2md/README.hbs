@@ -12,7 +12,7 @@ A simple web-server for productive front-end development. Typical use cases:
 * Front-end Development
   * Static or Single Page App development
   * Re-route paths to local or remote resources
-  * Efficient, predictable, entity-tag-powered conditional requests (no need to 'Disable Cache' in DevTools, slowing page-load down)
+  * Efficient, predictable, entity-tag-powered conditional request handling (no need to 'Disable Cache' in DevTools, slowing page-load down)
   * Bundle with your front-end project
   * Very little configuration, just a few options
   * Outputs a dynamic statistics view to the terminal
