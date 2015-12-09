@@ -411,7 +411,7 @@ You need a valid certificate, you do not need third-party verification (Verisign
   $ rm ws.pass.key
   ```
 
-4. Create certificate request. **Important**: you must put the correct FQDN (typically `127.0.0.1`, `localhost`, `dev-server.local` etc.) into the `Common Name` field.
+4. Create certificate request. **Important**: you **must** put your local server's correct FQDN (typically `127.0.0.1`, `localhost`, `dev-server.local` etc.) into the `Common Name` field. The cert will only work on the domain specified here.
 
   `$ openssl req -new -key ws.key -out ws.csr`
 
@@ -421,7 +421,10 @@ You need a valid certificate, you do not need third-party verification (Verisign
 
 5. Launch HTTPS server.
 
-  `$ ws --key ws.key --cert ws.crt`
+  ```
+  $ ws --key ws.key --cert ws.crt
+  serving at https://127.0.0.1:8000, https://192.168.1.203:8000
+  ```
 
 ### Stored config
 
