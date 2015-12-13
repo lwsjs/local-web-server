@@ -71,10 +71,12 @@ function stop (msgs, exitCode) {
 }
 
 function onServerUp () {
-  const ipList = Object.keys(os.networkInterfaces())
+  let ipList = Object.keys(os.networkInterfaces())
     .map(key => os.networkInterfaces()[key])
     .reduce((prev, curr) => prev = prev.concat(curr), [])
     .filter(iface => iface.family === 'IPv4')
+  ipList.unshift({ address: os.hostname() })
+  ipList = ipList
     .map(iface => `[underline]{${isHttps ? 'https' : 'http'}://${iface.address}:${options.server.port}}`)
     .join(', ')
 
