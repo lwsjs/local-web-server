@@ -1,0 +1,8 @@
+{
+  "mocks": [
+    {
+      "route": "/",
+      "module": "/mocks/delayed.js"
+    }
+  ]
+}

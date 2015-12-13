@@ -335,3 +335,31 @@ test('mock: response function args', function (t) {
       .then(server.close.bind(server))
   })
 })
+
+test('mock: async response function', function (t) {
+  t.plan(2)
+  const app = localWebServer({
+    log: { format: 'none' },
+    mocks: [
+      {
+        route: '/test',
+        responses: {
+          response: function (ctx) {
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                ctx.body = 'test'
+                resolve()
+              }, 10)
+            })
+          }
+        }
+      }
+    ]
+  })
+  const server = http.createServer(app.callback())
+  server.listen(8100, () => {
+    request('http://localhost:8100/test')
+      .then(checkResponse(t, 200, /test/))
+      .then(server.close.bind(server))
+  })
+})
