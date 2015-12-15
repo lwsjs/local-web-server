@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/75lb/local-web-server.svg?branch=master)](https://travis-ci.org/75lb/local-web-server)
 [![Dependency Status](https://david-dm.org/75lb/local-web-server.svg)](https://david-dm.org/75lb/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
+[![Join the chat at https://gitter.im/75lb/local-web-server](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/75lb/local-web-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ***Requires node v4.0.0 or higher. Install the [previous release](https://github.com/75lb/local-web-server/tree/prev) for older node support.***
 
