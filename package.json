@@ -43,21 +43,21 @@
     "koa-convert": "^1.1.0",
     "koa-etag": "^2.1.0",
     "koa-json": "^1.1.1",
-    "koa-morgan": "^1",
+    "koa-morgan": "^1.0.1",
     "koa-rewrite": "75lb/rewrite",
     "koa-route": "^3",
     "koa-send": "^3.1.0",
     "koa-serve-index": "^1.1.0",
     "koa-static": "^1.5.2",
     "path-to-regexp": "^1.2.1",
-    "stream-log-stats": "^1.1.0",
+    "stream-log-stats": "^1.1.2",
     "string-tools": "^1.0.0",
     "test-value": "^1.0.1",
-    "typical": "^2.4.0"
+    "typical": "^2.4.1"
   },
   "devDependencies": {
-    "jsdoc-to-markdown": "^1.2.1",
+    "jsdoc-to-markdown": "^1.3.2",
     "req-then": "^0.2.4",
-    "tape": "^4.2.2"
+    "tape": "^4.4.0"
   }
 }
