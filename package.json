@@ -48,7 +48,7 @@
     "koa-route": "^3",
     "koa-send": "^3.1.0",
     "koa-serve-index": "^1.1.0",
-    "koa-static": "^1.5.2",
+    "koa-static": "^2.0.0",
     "path-to-regexp": "^1.2.1",
     "stream-log-stats": "^1.1.2",
     "string-tools": "^1.0.0",

@@ -24,22 +24,6 @@ function checkResponse (t, status, body) {
   }
 }
 
-test('static', function (t) {
-  t.plan(1)
-  const app = localWebServer({
-    log: { format: 'none' },
-    static: {
-      root: __dirname + '/fixture',
-      options: {
-        index: 'file.txt'
-      }
-    }
-  })
-  launchServer(app, { onSuccess: response => {
-    t.ok(/test/.test(response.data))
-  }})
-})
-
 test('serve-index', function (t) {
   t.plan(2)
   const app = localWebServer({
