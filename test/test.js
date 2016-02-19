@@ -259,9 +259,9 @@ test('mock: accepts request filter', function (t) {
   })
   const server = http.createServer(app.callback())
   server.listen(8100, () => {
-    request('http://localhost:8100/test', { headers: { Accept: '*/json' }})
+    request('http://localhost:8100/test', { headers: { Accept: '*/json' } })
       .then(checkResponse(t, 404))
-      .then(() => request('http://localhost:8100/test', { headers: { Accept: 'text/plain' }}))
+      .then(() => request('http://localhost:8100/test', { headers: { Accept: 'text/plain' } }))
       .then(checkResponse(t, 200, /test/))
       .then(server.close.bind(server))
   })
