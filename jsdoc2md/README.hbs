@@ -60,6 +60,8 @@ local-web-server is a simple command-line tool. To use it, from your project dir
   -n, --no-cache                 Disable etag-based caching -forces loading from disk each request.
   --key file                     SSL key. Supply along with --cert to launch a https server.
   --cert file                    SSL cert. Supply along with --key to launch a https server.
+  --https                        Enable HTTPS using a built-in key and cert, registered to the
+                                 domain 127.0.0.1.
   --verbose                      Verbose output, useful for debugging.
 
 <strong>Misc</strong>
