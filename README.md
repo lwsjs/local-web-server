@@ -444,6 +444,9 @@ Chrome and Firefox will still complain your certificate has not been verified by
 
 Now you have a valid, trusted certificate for development.
 
+#### Built-in certificate
+As a quick win, you can run `ws` with the `https` flag. This will launch an HTTPS server using a [built-in certificate](https://github.com/75lb/local-web-server/tree/master/ssl) registered to the domain 127.0.0.1.
+
 ### Stored config
 
 Use the same options every time? Persist then to `package.json`:
@@ -582,8 +585,8 @@ serving at http://localhost:8100
 
 
 * [local-web-server](#module_local-web-server)
-  * [localWebServer([options])](#exp_module_local-web-server--localWebServer) ⇒ <code>[KoaApplication](https://github.com/koajs/koa/blob/master/docs/api/index.md#application)</code> ⏏
-    * [~rewriteRule](#module_local-web-server--localWebServer..rewriteRule)
+    * [localWebServer([options])](#exp_module_local-web-server--localWebServer) ⇒ <code>[KoaApplication](https://github.com/koajs/koa/blob/master/docs/api/index.md#application)</code> ⏏
+        * [~rewriteRule](#module_local-web-server--localWebServer..rewriteRule)
 
 <a name="exp_module_local-web-server--localWebServer"></a>
 ### localWebServer([options]) ⇒ <code>[KoaApplication](https://github.com/koajs/koa/blob/master/docs/api/index.md#application)</code> ⏏
@@ -591,22 +594,23 @@ Returns a Koa application you can launch or mix into an existing app.
 
 **Kind**: Exported function  
 **Params**
+
 - [options] <code>object</code> - options
-  - [.static] <code>object</code> - koa-static config
-    - [.root] <code>string</code> <code> = &quot;.&quot;</code> - root directory
-    - [.options] <code>string</code> - [options](https://github.com/koajs/static#options)
-  - [.serveIndex] <code>object</code> - koa-serve-index config
-    - [.path] <code>string</code> <code> = &quot;.&quot;</code> - root directory
-    - [.options] <code>string</code> - [options](https://github.com/expressjs/serve-index#options)
-  - [.forbid] <code>Array.&lt;string&gt;</code> - A list of forbidden routes, each route being an [express route-path](http://expressjs.com/guide/routing.html#route-paths).
-  - [.spa] <code>string</code> - specify an SPA file to catch requests for everything but static assets.
-  - [.log] <code>object</code> - [morgan](https://github.com/expressjs/morgan) config
-    - [.format] <code>string</code> - [log format](https://github.com/expressjs/morgan#predefined-formats)
-    - [.options] <code>object</code> - [options](https://github.com/expressjs/morgan#options)
-  - [.compress] <code>boolean</code> - Serve gzip-compressed resources, where applicable
-  - [.mime] <code>object</code> - A list of mime-type overrides, passed directly to [mime.define()](https://github.com/broofa/node-mime#mimedefine)
-  - [.rewrite] <code>[Array.&lt;rewriteRule&gt;](#module_local-web-server--localWebServer..rewriteRule)</code> - One or more rewrite rules
-  - [.verbose] <code>boolean</code> - Print detailed output, useful for debugging
+    - [.static] <code>object</code> - koa-static config
+        - [.root] <code>string</code> <code> = &quot;.&quot;</code> - root directory
+        - [.options] <code>string</code> - [options](https://github.com/koajs/static#options)
+    - [.serveIndex] <code>object</code> - koa-serve-index config
+        - [.path] <code>string</code> <code> = &quot;.&quot;</code> - root directory
+        - [.options] <code>string</code> - [options](https://github.com/expressjs/serve-index#options)
+    - [.forbid] <code>Array.&lt;string&gt;</code> - A list of forbidden routes, each route being an [express route-path](http://expressjs.com/guide/routing.html#route-paths).
+    - [.spa] <code>string</code> - specify an SPA file to catch requests for everything but static assets.
+    - [.log] <code>object</code> - [morgan](https://github.com/expressjs/morgan) config
+        - [.format] <code>string</code> - [log format](https://github.com/expressjs/morgan#predefined-formats)
+        - [.options] <code>object</code> - [options](https://github.com/expressjs/morgan#options)
+    - [.compress] <code>boolean</code> - Serve gzip-compressed resources, where applicable
+    - [.mime] <code>object</code> - A list of mime-type overrides, passed directly to [mime.define()](https://github.com/broofa/node-mime#mimedefine)
+    - [.rewrite] <code>[Array.&lt;rewriteRule&gt;](#module_local-web-server--localWebServer..rewriteRule)</code> - One or more rewrite rules
+    - [.verbose] <code>boolean</code> - Print detailed output, useful for debugging
 
 **Example**  
 ```js
@@ -638,4 +642,4 @@ The `from` and `to` routes are specified using [express route-paths](http://expr
 
 * * *
 
-&copy; 2015 Lloyd Brookes <75pound@gmail.com>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
+&copy; 2013-16 Lloyd Brookes <75pound@gmail.com>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
