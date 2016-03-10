@@ -9,6 +9,7 @@ const path = require('path')
 const os = require('os')
 const arrayify = require('array-back')
 const t = require('typical')
+const flatten = require('reduce-flatten')
 
 const cli = commandLineArgs(cliOptions.definitions)
 const usage = cli.getUsage(cliOptions.usageData)
@@ -47,6 +48,11 @@ const app = localWebServer({
   mocks: options.server.mocks
 })
 
+if (options.server.https) {
+  options.server.key = path.resolve(__dirname, '..', 'ssl', '127.0.0.1.key')
+  options.server.cert = path.resolve(__dirname, '..', 'ssl', '127.0.0.1.crt')
+}
+
 let isHttps = false
 if (options.server.key && options.server.cert) {
   const https = require('https')
@@ -72,7 +78,7 @@ function stop (msgs, exitCode) {
 function onServerUp () {
   let ipList = Object.keys(os.networkInterfaces())
     .map(key => os.networkInterfaces()[key])
-    .reduce((prev, curr) => prev = prev.concat(curr), [])
+    .reduce(flatten, [])
     .filter(iface => iface.family === 'IPv4')
   ipList.unshift({ address: os.hostname() })
   ipList = ipList
