@@ -40,6 +40,7 @@
     "koa-bodyparser": "^3.0.0",
     "koa-compress": "^1.0.9",
     "koa-conditional-get": "^1.0.3",
+    "koa-connect-history-api-fallback": "^0.3.0",
     "koa-convert": "^1.2.0",
     "koa-etag": "^2.1.1",
     "koa-json": "^1.1.1",
