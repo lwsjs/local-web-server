@@ -30,7 +30,7 @@
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "dependencies": {
     "ansi-escape-sequences": "^2.2.2",
-    "array-back": "^1.0.2",
+    "array-back": "^1.0.3",
     "command-line-args": "^2.1.6",
     "config-master": "^2.0.2",
     "debug": "^2.2.0",
@@ -46,18 +46,18 @@
     "koa-morgan": "^1.0.1",
     "koa-rewrite": "^2.1.0",
     "koa-route": "^3",
-    "koa-send": "^3.1.1",
+    "koa-send": "^3.2.0",
     "koa-serve-index": "^1.1.1",
     "koa-static": "^2.0.0",
     "path-to-regexp": "^1.2.1",
     "reduce-flatten": "^1.0.0",
     "stream-log-stats": "^1.1.3",
     "string-tools": "^1.0.0",
-    "test-value": "^1.1.0",
+    "test-value": "^2.0.0",
     "typical": "^2.4.2"
   },
   "devDependencies": {
-    "jsdoc-to-markdown": "^1.3.3",
+    "jsdoc-to-markdown": "^1.3.4",
     "req-then": "^0.2.4",
     "tape": "^4.5.1"
   }
