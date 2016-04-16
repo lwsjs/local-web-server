@@ -42,21 +42,27 @@ test('serve-index', function (t) {
 })
 
 test('single page app', function (t) {
-  t.plan(4)
+  t.plan(6)
   const app = localWebServer({
     log: { format: 'none' },
     static: { root: __dirname + '/fixture/spa' },
     spa: 'one.txt'
   })
-  const server = launchServer(app, { leaveOpen: true })
-  request('http://localhost:8100/test').then(response => {
-    t.strictEqual(response.res.statusCode, 200)
-    t.ok(/one/.test(response.data))
-    request('http://localhost:8100/two.txt').then(response => {
-      t.strictEqual(response.res.statusCode, 200)
-      t.ok(/two/.test(response.data))
-      server.close()
-    })
+  const server = http.createServer(app.callback())
+  server.listen(8100, () => {
+    /* text/html requests for missing files redirect to spa */
+    request('http://localhost:8100/asdf', { headers: { accept: 'text/html' } })
+      .then(checkResponse(t, 200, /one/))
+      /* html requests for missing files with extensions do not redirect to spa */
+      .then(() => request('http://localhost:8100/asdf.txt', { headers: { accept: 'text/html' } }))
+      .then(checkResponse(t, 404))
+      /* existing static file */
+      .then(() => request('http://localhost:8100/two.txt'))
+      .then(checkResponse(t, 200, /two/))
+      /* not a text/html request - does not redirect to spa */
+      .then(() => request('http://localhost:8100/asdf'))
+      .then(checkResponse(t, 404))
+      .then(server.close.bind(server))
   })
 })
 
