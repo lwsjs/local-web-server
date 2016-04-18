@@ -46,7 +46,6 @@ if (options.misc.help) {
     if (options.server['log-format']) {
       console.error(ansi.format(err.message, 'red'))
     }
-  })
 
   const ws = localWebServer({
     static: {
@@ -65,6 +64,7 @@ if (options.misc.help) {
     log: {
       format: options.server['log-format']
     },
+    cacheControl: options.server.cacheControl,
     compress: options.server.compress,
     mime: options.server.mime,
     forbid: options.server.forbid,
