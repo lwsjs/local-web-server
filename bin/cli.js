@@ -45,6 +45,7 @@ const app = localWebServer({
   'no-cache': options.server['no-cache'],
   rewrite: options.server.rewrite,
   verbose: options.server.verbose,
+  livereload: options.server.livereload,
   mocks: options.server.mocks
 })
 
