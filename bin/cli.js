@@ -38,6 +38,7 @@ const app = localWebServer({
   log: {
     format: options.server['log-format']
   },
+  cacheControl: options.server.cacheControl,
   compress: options.server.compress,
   mime: options.server.mime,
   forbid: options.server.forbid,
