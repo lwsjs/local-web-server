@@ -14,65 +14,79 @@ const flatten = require('reduce-flatten')
 const cli = commandLineArgs(cliOptions.definitions)
 const usage = cli.getUsage(cliOptions.usageData)
 const stored = loadConfig('local-web-server')
-const options = collectOptions()
+let options
+let isHttps = false
 
-if (options.misc.help) stop(usage, 0)
-if (options.misc.config) stop(JSON.stringify(options.server, null, '  '), 0)
-
-validateOptions(options)
-
-const app = localWebServer({
-  static: {
-    root: options.server.directory,
-    options: {
-      hidden: true
-    }
-  },
-  serveIndex: {
-    path: options.server.directory,
-    options: {
-      icons: true,
-      hidden: true
-    }
-  },
-  log: {
-    format: options.server['log-format']
-  },
-  compress: options.server.compress,
-  mime: options.server.mime,
-  forbid: options.server.forbid,
-  spa: options.server.spa,
-  'no-cache': options.server['no-cache'],
-  rewrite: options.server.rewrite,
-  verbose: options.server.verbose,
-  mocks: options.server.mocks
-})
-
-if (options.server.https) {
-  options.server.key = path.resolve(__dirname, '..', 'ssl', '127.0.0.1.key')
-  options.server.cert = path.resolve(__dirname, '..', 'ssl', '127.0.0.1.crt')
+try {
+  options = collectOptions()
+} catch (err) {
+  stop([ `[red]{Error}: ${err.message}`, usage ], 1)
+  return
 }
 
-let isHttps = false
-if (options.server.key && options.server.cert) {
-  const https = require('https')
-  const fs = require('fs')
-  isHttps = true
-
-  const serverOptions = {
-    key: fs.readFileSync(options.server.key),
-    cert: fs.readFileSync(options.server.cert)
+if (options.misc.help) {
+  stop(usage, 0)
+} else if (options.misc.config) {
+  stop(JSON.stringify(options.server, null, '  '), 0)
+} else {
+  const valid = validateOptions(options)
+  if (!valid) {
+    /* gracefully end the process */
+    return
   }
 
-  const server = https.createServer(serverOptions, app.callback())
-  server.listen(options.server.port, onServerUp)
-} else {
-  app.listen(options.server.port, onServerUp)
+  const app = localWebServer({
+    static: {
+      root: options.server.directory,
+      options: {
+        hidden: true
+      }
+    },
+    serveIndex: {
+      path: options.server.directory,
+      options: {
+        icons: true,
+        hidden: true
+      }
+    },
+    log: {
+      format: options.server['log-format']
+    },
+    compress: options.server.compress,
+    mime: options.server.mime,
+    forbid: options.server.forbid,
+    spa: options.server.spa,
+    'no-cache': options.server['no-cache'],
+    rewrite: options.server.rewrite,
+    verbose: options.server.verbose,
+    mocks: options.server.mocks
+  })
+
+  if (options.server.https) {
+    options.server.key = path.resolve(__dirname, '..', 'ssl', '127.0.0.1.key')
+    options.server.cert = path.resolve(__dirname, '..', 'ssl', '127.0.0.1.crt')
+  }
+
+  if (options.server.key && options.server.cert) {
+    const https = require('https')
+    const fs = require('fs')
+    isHttps = true
+
+    const serverOptions = {
+      key: fs.readFileSync(options.server.key),
+      cert: fs.readFileSync(options.server.cert)
+    }
+
+    const server = https.createServer(serverOptions, app.callback())
+    server.listen(options.server.port, onServerUp)
+  } else {
+    app.listen(options.server.port, onServerUp)
+  }
 }
 
 function stop (msgs, exitCode) {
   arrayify(msgs).forEach(msg => console.error(ansi.format(msg)))
-  process.exit(exitCode)
+  process.exitCode = exitCode
 }
 
 function onServerUp () {
@@ -96,11 +110,7 @@ function collectOptions () {
   let options = {}
 
   /* parse command line args */
-  try {
-    options = cli.parse()
-  } catch (err) {
-    stop([ `[red]{Error}: ${err.message}`, usage ], 1)
-  }
+  options = cli.parse()
 
   const builtIn = {
     port: 8000,
@@ -129,10 +139,14 @@ function parseRewriteRules (rules) {
 }
 
 function validateOptions (options) {
+  let valid = true
   function invalid (msg) {
     return `[red underline]{Invalid:} [bold]{${msg}}`
   }
+
   if (!t.isNumber(options.server.port)) {
-    stop([ invalid(`--port must be numeric [value=${options.server.port}]`), usage ], 1)
+    stop([ invalid(`--port must be numeric`), usage ], 1)
+    valid = false
   }
+  return valid
 }

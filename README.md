@@ -84,7 +84,7 @@ For the examples below, we assume we're in a project directory looking like this
 └── package.json
 ```
 
-All paths/routes are specified using [express syntax](http://expressjs.com/guide/routing.html#route-paths). To run the example projects linked below, clone the project, move into the example directory specified, run `ws`.
+**All paths/routes are specified using [express syntax](http://expressjs.com/guide/routing.html#route-paths)**. To run the example projects linked below, clone the project, move into the example directory specified, run `ws`.
 
 ### Static site
 
