@@ -35,7 +35,24 @@ if (options.misc.help) {
     return
   }
 
-  const app = localWebServer({
+  const convert = require('koa-convert')
+  const Koa = require('koa')
+  const app = new Koa()
+  const _use = app.use
+  app.use = x => _use.call(app, convert(x))
+
+  // app.use((ctx, next) => {
+  //   return next()
+  //     .catch(err => {
+  //       console.error('FUKKK', err)
+  //     })
+  // })
+
+  app.on('error', err => {
+    console.error('ERROROO', err)
+  })
+
+  const ws = localWebServer({
     static: {
       root: options.server.directory,
       options: {
@@ -61,6 +78,8 @@ if (options.misc.help) {
     verbose: options.server.verbose,
     mocks: options.server.mocks
   })
+
+  app.use(ws)
 
   if (options.server.https) {
     options.server.key = path.resolve(__dirname, '..', 'ssl', '127.0.0.1.key')
