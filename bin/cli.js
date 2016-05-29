@@ -42,15 +42,10 @@ if (options.misc.help) {
   const _use = app.use
   app.use = x => _use.call(app, convert(x))
 
-  // app.use((ctx, next) => {
-  //   return next()
-  //     .catch(err => {
-  //       console.error('FUKKK', err)
-  //     })
-  // })
-
   app.on('error', err => {
-    console.error('ERROROO', err)
+    if (options.server['log-format']) {
+      console.error(ansi.format(err.message, 'red'))
+    }
   })
 
   const ws = localWebServer({
