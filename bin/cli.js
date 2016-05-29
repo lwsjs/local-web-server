@@ -3,6 +3,7 @@
 const localWebServer = require('../')
 const cliOptions = require('../lib/cli-options')
 const commandLineArgs = require('command-line-args')
+const commandLineUsage = require('command-line-usage')
 const ansi = require('ansi-escape-sequences')
 const loadConfig = require('config-master')
 const path = require('path')
@@ -11,9 +12,9 @@ const arrayify = require('array-back')
 const t = require('typical')
 const flatten = require('reduce-flatten')
 
-const cli = commandLineArgs(cliOptions.definitions)
-const usage = cli.getUsage(cliOptions.usageData)
+const usage = commandLineUsage(cliOptions.usageData)
 const stored = loadConfig('local-web-server')
+
 let options
 let isHttps = false
 
@@ -129,7 +130,7 @@ function collectOptions () {
   let options = {}
 
   /* parse command line args */
-  options = cli.parse()
+  options = commandLineArgs(cliOptions.definitions)
 
   const builtIn = {
     port: 8000,
