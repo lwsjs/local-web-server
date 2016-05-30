@@ -13,7 +13,6 @@ const t = require('typical')
 const flatten = require('reduce-flatten')
 
 const usage = commandLineUsage(cliOptions.usageData)
-const stored = loadConfig('local-web-server')
 
 let options
 let isHttps = false
@@ -36,16 +35,14 @@ if (options.misc.help) {
     return
   }
 
-  const convert = require('koa-convert')
   const Koa = require('koa')
   const app = new Koa()
-  const _use = app.use
-  app.use = x => _use.call(app, convert(x))
 
   app.on('error', err => {
     if (options.server['log-format']) {
       console.error(ansi.format(err.message, 'red'))
     }
+  })
 
   const ws = localWebServer({
     static: {
@@ -64,7 +61,6 @@ if (options.misc.help) {
     log: {
       format: options.server['log-format']
     },
-    cacheControl: options.server.cacheControl,
     compress: options.server.compress,
     mime: options.server.mime,
     forbid: options.server.forbid,
@@ -122,6 +118,7 @@ function onServerUp () {
 }
 
 function collectOptions () {
+  const stored = loadConfig('local-web-server')
   let options = {}
 
   /* parse command line args */
