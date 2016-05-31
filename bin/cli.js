@@ -62,6 +62,12 @@ if (options.misc.help) {
     mocks: options.server.mocks
   })
 
+  app.on('error', err => {
+    if (options.server['log-format']) {
+      console.error(ansi.format(err.message, 'red'))
+    }
+  })
+
   if (options.server.https) {
     options.server.key = path.resolve(__dirname, '..', 'ssl', '127.0.0.1.key')
     options.server.cert = path.resolve(__dirname, '..', 'ssl', '127.0.0.1.crt')
