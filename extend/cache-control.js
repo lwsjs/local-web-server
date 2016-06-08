@@ -1,17 +1,24 @@
 'use strict'
-const Koa = require('koa')
-const localWebServer = require('../')
+const Cli = require('../cli')
 const cacheControl = require('koa-cache-control')
-const convert = require('koa-convert')
+const cliData = require('../lib/cli-data')
 
-const app = new Koa()
-const ws = localWebServer({
+cliData.push({ name: 'black' })
+
+const ws = new Cli({
   'no-cache': true,
   log: { format: 'dev' }
 })
 
-app.use(convert(cacheControl({
-  maxAge: 15
-})))
-app.use(ws)
-app.listen(8000)
+ws.middleware.splice(
+  ws.middleware.findIndex(m => m.name === 'mime-type'),
+  1,
+  {
+    name: 'cache-control',
+    create: convert(cacheControl({
+      maxAge: 15
+    }))
+  }
+)
+
+ws.listen()
