@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict'
-const Cli = require('../')
+const LocalWebServer = require('../')
 
-const ws = new Cli()
+const ws = new LocalWebServer()
 ws.middleware
   .addCors()
   .addJson()
