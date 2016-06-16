@@ -3,8 +3,7 @@ const Cli = require('../')
 const liveReload = require('koa-livereload')
 
 const ws = new Cli()
-ws.middleware
-  .addLogging('dev')
-  .add(liveReload())
+ws.addLogging('dev')
+  .add({ middleware: liveReload })
   .addStatic()
-ws.listen(8000)
+  .start()

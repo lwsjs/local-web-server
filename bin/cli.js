@@ -3,8 +3,7 @@
 const LocalWebServer = require('../')
 
 const ws = new LocalWebServer()
-ws.middleware
-  .addCors()
+ws.addCors()
   .addJson()
   .addRewrite()
   .addBodyParser()
@@ -17,4 +16,4 @@ ws.middleware
   .addSpa()
   .addStatic()
   .addIndex()
-ws.listen()
+  .start()

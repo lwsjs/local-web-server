@@ -1,16 +1,17 @@
 'use strict'
 const LocalWebServer = require('../')
 const cacheControl = require('koa-cache-control')
-const cliData = require('../lib/cli-data')
 
-cliData.optionDefinitions.push({ name: 'maxage', group: 'misc' })
+const optionDefinitions = { name: 'maxage', type: Number, defaultValue: 1000 }
 
 const ws = new LocalWebServer()
-ws.middleware
-  .addLogging('dev')
-  .add(cacheControl({
-    maxAge: 15
-  }))
+ws.addLogging('dev')
+  .add({
+    optionDefinitions: optionDefinitions,
+    middleware: function (options) {
+      return cacheControl({ maxAge: options.middleware.maxage })
+    }
+  })
   .addStatic()
   .addIndex()
-ws.listen()
+  .start()

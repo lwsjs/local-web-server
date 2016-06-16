@@ -8,7 +8,7 @@
 ***Requires node v4.0.0 or higher. Install the [previous release](https://github.com/75lb/local-web-server/tree/prev) for older node support.***
 
 # local-web-server
-A simple web-server for productive front-end development. Typical use cases:
+A simple, extensible web-server for productive front-end development. Typical use cases:
 
 * Front-end Development
   * Static or Single Page App development
