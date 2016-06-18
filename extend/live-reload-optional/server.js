@@ -16,4 +16,4 @@ ws.addLogging('dev')
     }
   })
   .addStatic()
-  .start()
+  .listen()
