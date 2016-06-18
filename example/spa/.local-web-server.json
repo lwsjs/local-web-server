@@ -1,3 +1,4 @@
 {
-  "spa": "index.html"
+  "spa": "index.html",
+  "no-cache": true
 }
