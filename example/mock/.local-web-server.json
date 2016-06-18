@@ -39,7 +39,7 @@
       ]
     },
     {
-      "route": "/four",
+      "route": "/stream",
       "module": "/mocks/stream-self.js"
     },
     {

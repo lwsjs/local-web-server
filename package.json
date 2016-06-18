@@ -33,7 +33,6 @@
     "array-back": "^1.0.3",
     "command-line-tool": "75lb/command-line-tool",
     "config-master": "^2.0.2",
-    "debug": "^2.2.0",
     "http-proxy": "^1.13.3",
     "kcors": "^1.2.1",
     "koa": "^2.0.0",

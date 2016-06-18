@@ -9,7 +9,7 @@ ws.addLogging('dev')
   .add({
     optionDefinitions: optionDefinitions,
     middleware: function (options) {
-      return cacheControl({ maxAge: options.middleware.maxage })
+      return cacheControl({ maxAge: options.maxage })
     }
   })
   .addStatic()
