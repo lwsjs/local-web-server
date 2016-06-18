@@ -1,5 +1,5 @@
 'use strict'
-const Cli = require('../')
+const Cli = require('../../')
 const liveReload = require('koa-livereload')
 
 const ws = new Cli()
