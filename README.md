@@ -25,7 +25,7 @@ Application Shell
     * specify options (for command line or config)
     * Accepts Koa v1 or 2 middleware
   * Bundle with your front-end project
-  * Configuration is via json file or command-line (latter taking presedence)
+  * Configuration is via json file or command-line (latter taking precedence)
   * Outputs a dynamic statistics view to the terminal
 
 
@@ -51,30 +51,32 @@ local-web-server is a command-line tool. To serve the current directory, run `ws
 
 <strong>Synopsis</strong>
 
-  $ ws [&lt;server options&gt;]
+  $ ws [--verbose] [<server options>] [<middleware options>]
   $ ws --config
   $ ws --help
 
 <strong>Server</strong>
 
-  -p, --port number              Web server port.
-  -d, --directory path           Root directory, defaults to the current directory.
-  -f, --log-format string        If a format is supplied an access log is written to stdout. If
-                                 not, a dynamic statistics view is displayed. Use a preset ('none',
-                                 'dev','combined', 'short', 'tiny' or 'logstalgia') or supply a
-                                 custom format (e.g. ':method -> :url').
-  -r, --rewrite expression ...   A list of URL rewrite rules. For each rule, separate the 'from'
-                                 and 'to' routes with '->'. Whitespace surrounded the routes is
-                                 ignored. E.g. '/from -> /to'.
-  -s, --spa file                 Path to a Single Page App, e.g. app.html.
-  -c, --compress                 Serve gzip-compressed resources, where applicable.
+  -p, --port number   Web server port.
+  --key file          SSL key. Supply along with --cert to launch a https server.
+  --cert file         SSL cert. Supply along with --key to launch a https server.
+  --https             Enable HTTPS using a built-in key and cert, registered to the domain
+                      127.0.0.1.
+
+<strong>Middleware</strong>
+
+  -r, --rewrite expression ...   A list of URL rewrite rules. For each rule, separate the 'from' and 'to'
+                                 routes with '->'. Whitespace surrounded the routes is ignored. E.g. '/from ->
+                                 /to'.
   -b, --forbid path ...          A list of forbidden routes.
   -n, --no-cache                 Disable etag-based caching -forces loading from disk each request.
-  --key file                     SSL key. Supply along with --cert to launch a https server.
-  --cert file                    SSL cert. Supply along with --key to launch a https server.
-  --https                        Enable HTTPS using a built-in key and cert, registered to the
-                                 domain 127.0.0.1.
-  --verbose                      Verbose output, useful for debugging.
+  -c, --compress                 Serve gzip-compressed resources, where applicable.
+  -f, --log-format string        If a format is supplied an access log is written to stdout. If not, a dynamic
+                                 statistics view is displayed. Use a preset ('none', 'dev','combined',
+                                 'short', 'tiny' or 'logstalgia') or supply a custom format (e.g. ':method ->
+                                 :url').
+  -s, --spa file                 Path to a Single Page App, e.g. app.html.
+  -d, --directory path           Root directory, defaults to the current directory.
 
 <strong>Misc</strong>
 
@@ -108,72 +110,12 @@ serving at http://localhost:8000
 
 [Example](https://github.com/75lb/local-web-server/tree/master/example/simple).
 
-### Other usage
-
-#### Debugging
-
-Prints information about loaded middleware, arguments, remote proxy fetches etc.
-```sh
-$ ws --verbose
-```
-
-#### Compression
-
-Serve gzip-compressed resources, where applicable
-```sh
-$ ws --compress
-```
-
-#### Disable caching
-
-Disable etag response headers, forcing resources to be served in full every time.
-```sh
-$ ws --no-cache
-```
-
-#### Log Visualisation
-Instructions for how to visualise log output using goaccess, logstalgia or gltail [here](https://github.com/75lb/local-web-server/blob/master/doc/visualisation.md).
-
 ## Install
 Ensure [node.js](http://nodejs.org) is installed first. Linux/Mac users may need to run the following commands with `sudo`.
 
 ```sh
 $ npm install -g local-web-server
 ```
-
-## Distribute with your project
-The standard convention with client-server applications is to add an `npm start` command to launch the server component.
-
-1\. Install the server as a dev dependency
-
-```sh
-$ npm install local-web-server --save-dev
-```
-
-2\. Add a `start` command to your `package.json`:
-
-```json
-{
-  "name": "example",
-  "version": "1.0.0",
-  "local-web-server": {
-    "port": 8100,
-    "forbid": "*.json"
-  },
-  "scripts": {
-    "start": "ws"
-  }
-}
-```
-
-3\. Document how to build and launch your site
-
-```sh
-$ npm install
-$ npm start
-serving at http://localhost:8100
-```
-
 * * *
 
 &copy; 2013-16 Lloyd Brookes <75pound@gmail.com>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
