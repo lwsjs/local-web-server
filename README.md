@@ -8,28 +8,40 @@
 ***Requires node v4.0.0 or higher. Install the [previous release](https://github.com/75lb/local-web-server/tree/prev) for older node support.***
 
 # local-web-server
-A simple, extensible web-server for productive front-end development. Typical use cases:
+An application shell for building a simple, command-line web server for productive web development.
 
-* Front-end Development
-  * Static or Single Page App development
-  * Re-route paths to local or remote resources
-  * Efficient, predictable, entity-tag-powered conditional request handling (no need to 'Disable Cache' in DevTools, slowing page-load down)
+It is trivial is bundle and deploy with your project. Also deploys to heroku well for demo projects.
+
+It comes with some middleware built-in, which you need not use but will get you up and running for the following use cases:
+
+* Static or Single Page Application front-end development where you have
+  * No backend, an existing remote API or need to mock-up an API.
+
+Application Shell
+  * HTTP or HTTPS server
+    * HTTPS is strictly required by some modern techs (ServiceWorker, Media Capture and Streams etc.)
+  * Add your middleware
+    * Use any combination of built-in and custom middleware
+    * specify options (for command line or config)
+    * Accepts Koa v1 or 2 middleware
   * Bundle with your front-end project
-  * Very little configuration, just a few options
+  * Configuration is via json file or command-line (latter taking presedence)
   * Outputs a dynamic statistics view to the terminal
+
+
+Built-in Middleware (all optional)
+  * Rewrite routes to local or remote resources
+  * Efficient, predictable, entity-tag-powered conditional request handling (no need to 'Disable Cache' in DevTools, slowing page-load down)
   * Configurable log output, compatible with [Goaccess, Logstalgia and glTail](https://github.com/75lb/local-web-server/blob/master/doc/visualisation.md)
-* Back-end service mocking
-  * Prototype a web service, microservice, REST API etc.
-  * Mocks are defined with config (static), or code (dynamic).
+  * Proxy server
+    * Map local routes to remote servers. Removes CORS pain when consuming remote services.
+  * Back-end service mocking
+    * Prototype a web service, microservice, REST API etc.
+    * Mocks are defined with config (static), or code (dynamic).
   * CORS-friendly, all origins allowed by default.
-* Proxy server
-  * Map local routes to remote servers. Removes CORS pain when consuming remote services.
-* HTTPS server
-  * HTTPS is strictly required by some modern techs (ServiceWorker, Media Capture and Streams etc.)
-* File sharing
 
 ## Synopsis
-local-web-server is a simple command-line tool. To use it, from your project directory run `ws`.
+local-web-server is a command-line tool. To serve the current directory, run `ws`.
 
 <pre><code>$ ws --help
 
@@ -84,7 +96,7 @@ For the examples below, we assume we're in a project directory looking like this
 └── package.json
 ```
 
-**All paths/routes are specified using [express syntax](http://expressjs.com/guide/routing.html#route-paths)**. To run the example projects linked below, clone the project, move into the example directory specified, run `ws`.
+All paths/routes are specified using [express syntax](http://expressjs.com/guide/routing.html#route-paths). To run the example projects linked below, clone the project, move into the example directory specified, run `ws`.
 
 ### Static site
 
@@ -585,63 +597,7 @@ serving at http://localhost:8100
 
 ## API Reference
 
-
-* [local-web-server](#module_local-web-server)
-    * [localWebServer([options])](#exp_module_local-web-server--localWebServer) ⇒ <code>[KoaApplication](https://github.com/koajs/koa/blob/master/docs/api/index.md#application)</code> ⏏
-        * [~rewriteRule](#module_local-web-server--localWebServer..rewriteRule)
-
-<a name="exp_module_local-web-server--localWebServer"></a>
-### localWebServer([options]) ⇒ <code>[KoaApplication](https://github.com/koajs/koa/blob/master/docs/api/index.md#application)</code> ⏏
-Returns a Koa application you can launch or mix into an existing app.
-
-**Kind**: Exported function  
-**Params**
-
-- [options] <code>object</code> - options
-    - [.static] <code>object</code> - koa-static config
-        - [.root] <code>string</code> <code> = &quot;.&quot;</code> - root directory
-        - [.options] <code>string</code> - [options](https://github.com/koajs/static#options)
-    - [.serveIndex] <code>object</code> - koa-serve-index config
-        - [.path] <code>string</code> <code> = &quot;.&quot;</code> - root directory
-        - [.options] <code>string</code> - [options](https://github.com/expressjs/serve-index#options)
-    - [.forbid] <code>Array.&lt;string&gt;</code> - A list of forbidden routes, each route being an [express route-path](http://expressjs.com/guide/routing.html#route-paths).
-    - [.spa] <code>string</code> - specify an SPA file to catch requests for everything but static assets.
-    - [.log] <code>object</code> - [morgan](https://github.com/expressjs/morgan) config
-        - [.format] <code>string</code> - [log format](https://github.com/expressjs/morgan#predefined-formats)
-        - [.options] <code>object</code> - [options](https://github.com/expressjs/morgan#options)
-    - [.compress] <code>boolean</code> - Serve gzip-compressed resources, where applicable
-    - [.mime] <code>object</code> - A list of mime-type overrides, passed directly to [mime.define()](https://github.com/broofa/node-mime#mimedefine)
-    - [.rewrite] <code>[Array.&lt;rewriteRule&gt;](#module_local-web-server--localWebServer..rewriteRule)</code> - One or more rewrite rules
-    - [.verbose] <code>boolean</code> - Print detailed output, useful for debugging
-
-**Example**  
-```js
-const localWebServer = require('local-web-server')
-localWebServer().listen(8000)
-```
-<a name="module_local-web-server--localWebServer..rewriteRule"></a>
-#### localWebServer~rewriteRule
-The `from` and `to` routes are specified using [express route-paths](http://expressjs.com/guide/routing.html#route-paths)
-
-**Kind**: inner typedef of <code>[localWebServer](#exp_module_local-web-server--localWebServer)</code>  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| from | <code>string</code> | request route |
-| to | <code>string</code> | target route |
-
-**Example**  
-```json
-{
-  "rewrite": [
-    { "from": "/css/*", "to": "/build/styles/$1" },
-    { "from": "/npm/*", "to": "http://registry.npmjs.org/$1" },
-    { "from": "/:user/repos/:name", "to": "https://api.github.com/repos/:user/:name" }
-  ]
-}
-```
-
+ERROR, Cannot find module.
 * * *
 
 &copy; 2013-16 Lloyd Brookes <75pound@gmail.com>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
