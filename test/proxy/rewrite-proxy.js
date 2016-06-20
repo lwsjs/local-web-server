@@ -3,19 +3,7 @@ const test = require('tape')
 const request = require('req-then')
 const LocalWebServer = require('../../')
 const http = require('http')
-
-function checkResponse (t, status, body) {
-  return function (response) {
-    if (status) t.strictEqual(response.res.statusCode, status)
-    if (body) t.ok(body.test(response.data), 'correct data')
-  }
-}
-
-function fail (t) {
-  return function (err) {
-    t.fail('failed: ' + err.stack)
-  }
-}
+const c = require('../common')
 
 test('rewrite: proxy', function (t) {
   t.plan(2)
@@ -26,9 +14,9 @@ test('rewrite: proxy', function (t) {
   const server = ws.getServer()
   server.listen(8100, () => {
     request('http://localhost:8100/test/')
-      .then(checkResponse(t, 200, /db_name/))
+      .then(c.checkResponse(t, 200, /db_name/))
       .then(server.close.bind(server))
-      .catch(fail(t))
+      .catch(c.fail(t))
   })
 })
 
@@ -41,9 +29,9 @@ test('rewrite: proxy, POST', function (t) {
   const server = ws.getServer()
   server.listen(8100, () => {
     request('http://localhost:8100/test/', { data: {} })
-      .then(checkResponse(t, 405))
+      .then(c.checkResponse(t, 405))
       .then(server.close.bind(server))
-      .catch(fail(t))
+      .catch(c.fail(t))
   })
 })
 
@@ -56,9 +44,9 @@ test('rewrite: proxy, two url tokens', function (t) {
   const server = ws.getServer()
   server.listen(8100, () => {
     request('http://localhost:8100/command-line-args/1.0.0')
-      .then(checkResponse(t, 200, /command-line-args/))
+      .then(c.checkResponse(t, 200, /command-line-args/))
       .then(server.close.bind(server))
-      .catch(fail(t))
+      .catch(c.fail(t))
   })
 })
 
@@ -76,9 +64,10 @@ test('rewrite: proxy with port', function (t) {
   server1.listen(9000, () => {
     server2.listen(8100, () => {
       request('http://localhost:8100/test/file.txt')
-        .then(checkResponse(t, 200, /one/))
+        .then(c.checkResponse(t, 200, /one/))
         .then(server1.close.bind(server1))
         .then(server2.close.bind(server2))
+        .catch(c.fail(t))
     })
   })
 })
