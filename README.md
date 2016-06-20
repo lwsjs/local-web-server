@@ -141,11 +141,6 @@ Ensure [node.js](http://nodejs.org) is installed first. Linux/Mac users may need
 $ npm install -g local-web-server
 ```
 
-This will install the `ws` tool globally. To see the available options, run:
-```sh
-$ ws --help
-```
-
 ## Distribute with your project
 The standard convention with client-server applications is to add an `npm start` command to launch the server component.
 
@@ -178,37 +173,6 @@ $ npm install
 $ npm start
 serving at http://localhost:8100
 ```
-
-## API Reference
-
-
-* [local-web-server](#module_local-web-server)
-    * [LocalWebServer](#exp_module_local-web-server--LocalWebServer) ⇐ <code>[middleware-stack](#module_middleware-stack)</code> ⏏
-        * _instance_
-            * [.add(middleware)](#) ↩︎
-        * _inner_
-            * [~collectUserOptions()](#module_local-web-server--LocalWebServer..collectUserOptions)
-
-<a name="exp_module_local-web-server--LocalWebServer"></a>
-
-### LocalWebServer ⇐ <code>[middleware-stack](#module_middleware-stack)</code> ⏏
-**Kind**: Exported class  
-**Extends:** <code>[middleware-stack](#module_middleware-stack)</code>  
-<a name=""></a>
-
-#### localWebServer.add(middleware) ↩︎
-**Kind**: instance method of <code>[LocalWebServer](#exp_module_local-web-server--LocalWebServer)</code>  
-**Chainable**  
-**Params**
-
-- middleware <code>[middleware](#module_middleware-stack--MiddlewareStack..middleware)</code>
-
-<a name="module_local-web-server--LocalWebServer..collectUserOptions"></a>
-
-#### LocalWebServer~collectUserOptions()
-Return default, stored and command-line options combined
-
-**Kind**: inner method of <code>[LocalWebServer](#exp_module_local-web-server--LocalWebServer)</code>  
 
 * * *
 
