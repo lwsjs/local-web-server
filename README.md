@@ -108,409 +108,6 @@ serving at http://localhost:8000
 
 [Example](https://github.com/75lb/local-web-server/tree/master/example/simple).
 
-### Single Page Application
-
-You're building a web app with client-side routing, so mark `index.html` as the SPA.
-```sh
-$ ws --spa index.html
-```
-
-By default, typical SPA paths (e.g. `/user/1`, `/login`) would return `404 Not Found` as a file does not exist with that path. By marking `index.html` as the SPA you create this rule:
-
-*If a static file at the requested path exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then serve the specified SPA and handle the route client-side.*
-
-[Example](https://github.com/75lb/local-web-server/tree/master/example/spa).
-
-### URL rewriting
-
-Your application requested `/css/style.css` but it's stored at `/build/css/style.css`. To avoid a 404 you need a rewrite rule:
-
-```sh
-$ ws --rewrite '/css/style.css -> /build/css/style.css'
-```
-
-Or, more generally (matching any stylesheet under `/css`):
-
-```sh
-$ ws --rewrite '/css/:stylesheet -> /build/css/:stylesheet'
-```
-
-With a deep CSS directory structure it may be easier to mount the entire contents of `/build/css` to the `/css` path:
-
-```sh
-$ ws --rewrite '/css/* -> /build/css/$1'
-```
-
-this rewrites `/css/a` as `/build/css/a`, `/css/a/b/c` as `/build/css/a/b/c` etc.
-
-#### Proxied requests
-
-If the `to` URL contains a remote host, local-web-server will act as a proxy - fetching and responding with the remote resource.
-
-Mount the npm registry locally:
-```sh
-$ ws --rewrite '/npm/* -> http://registry.npmjs.org/$1'
-```
-
-Map local requests for repo data to the Github API:
-```sh
-$ ws --rewrite '/:user/repos/:name -> https://api.github.com/repos/:user/:name'
-```
-
-[Example](https://github.com/75lb/local-web-server/tree/master/example/rewrite).
-
-### Mock Responses
-
-Mocks give you full control over the response headers and body returned to the client. They can be used to return anything from a simple html string to a resourceful REST API. Typically, they're used to mock services but can be used for anything.
-
-In the config, define an array called `mocks`. Each mock definition maps a <code>[route](http://expressjs.com/guide/routing.html#route-paths)</code> to a `response`. A simple home page:
-```json
-{
-  "mocks": [
-    {
-      "route": "/",
-      "response": {
-        "body": "<h1>Welcome to the Mock Responses example</h1>"
-      }
-    }
-  ]
-}
-```
-
-Under the hood, the property values from the `response` object are written onto the underlying [koa response object](https://github.com/koajs/koa/blob/master/docs/api/response.md). You can set any valid koa response properies, for example [type](https://github.com/koajs/koa/blob/master/docs/api/response.md#responsetype-1):
-```json
-{
-  "mocks": [
-    {
-      "route": "/",
-      "response": {
-        "type": "text/plain",
-        "body": "<h1>Welcome to the Mock Responses example</h1>"
-      }
-    }
-  ]
-}
-```
-
-#### Conditional Response
-
-To define a conditional response, set a `request` object on the mock definition. The `request` value acts as a query - the response defined will only be returned if each property of the `request` query matches. For example, return an XML response *only* if the request headers include `accept: application/xml`, else return 404 Not Found.
-
-```json
-{
-  "mocks": [
-    {
-      "route": "/two",
-      "request": { "accepts": "xml" },
-      "response": {
-        "body": "<result id='2' name='whatever' />"
-      }
-    }
-  ]
-}
-```
-
-#### Multiple Potential Responses
-
-To specify multiple potential responses, set an array of mock definitions to the `responses` property. The first response with a matching request query will be sent. In this example, the client will get one of two responses depending on the request method:
-
-```json
-{
-  "mocks": [
-    {
-      "route": "/three",
-      "responses": [
-        {
-          "request": { "method": "GET" },
-          "response": {
-            "body": "<h1>Mock response for 'GET' request on /three</h1>"
-          }
-        },
-        {
-          "request": { "method": "POST" },
-          "response": {
-            "status": 400,
-            "body": { "message": "That method is not allowed." }
-          }
-        }
-      ]
-    }
-  ]
-}
-```
-
-#### Dynamic Response
-
-The examples above all returned static data. To define a dynamic response, create a mock module. Specify its path in the `module` property:
-```json
-{
-  "mocks": [
-    {
-      "route": "/four",
-      "module": "/mocks/stream-self.js"
-    }
-  ]
-}
-```
-
-Here's what the `stream-self` module looks like. The module should export a mock definition (an object, or array of objects, each with a `response` and optional `request`). In this example, the module simply streams itself to the response but you could set `body` to *any* [valid value](https://github.com/koajs/koa/blob/master/docs/api/response.md#responsebody-1).
-```js
-const fs = require('fs')
-
-module.exports = {
-  response: {
-    body: fs.createReadStream(__filename)
-  }
-}
-```
-
-#### Response function
-
-For more power, define the response as a function. It will receive the [koa context](https://github.com/koajs/koa/blob/master/docs/api/context.md) as its first argument. Now you have full programmatic control over the response returned.
-```js
-module.exports = {
-  response: function (ctx) {
-    ctx.body = '<h1>I can do anything i want.</h1>'
-  }
-}
-```
-
-If the route contains tokens, their values are passed to the response. For example, with this mock...
-```json
-{
-  "mocks": [
-    {
-      "route": "/players/:id",
-      "module": "/mocks/players.js"
-    }
-  ]
-}
-```
-
-...the `id` value is passed to the `response` function. For example, a path of `/players/10?name=Lionel` would pass `10` to the response function. Additional, the value `Lionel` would be available on `ctx.query.name`:
-```js
-module.exports = {
-  response: function (ctx, id) {
-    ctx.body = `<h1>id: ${id}, name: ${ctx.query.name}</h1>`
-  }
-}
-```
-
-#### RESTful Resource example
-
-Here's an example of a REST collection (users). We'll create two routes, one for actions on the resource collection, one for individual resource actions.
-
-```json
-{
-  "mocks": [
-    { "route": "/users", "module": "/mocks/users.js" },
-    { "route": "/users/:id", "module": "/mocks/user.js" }
-  ]
-}
-```
-
-Define a module (`users.json`) defining seed data:
-
-```json
-[
-  { "id": 1, "name": "Lloyd", "age": 40, "nationality": "English" },
-  { "id": 2, "name": "Mona", "age": 34, "nationality": "Palestinian" },
-  { "id": 3, "name": "Francesco", "age": 24, "nationality": "Italian" }
-]
-```
-
-The collection module:
-
-```js
-const users = require('./users.json')
-
-/* responses for /users */
-const mockResponses = [
-  /* Respond with 400 Bad Request for PUT and DELETE - inappropriate on a collection */
-  { request: { method: 'PUT' }, response: { status: 400 } },
-  { request: { method: 'DELETE' }, response: { status: 400 } },
-  {
-    /* for GET requests return a subset of data, optionally filtered on 'minAge' and 'nationality' */
-    request: { method: 'GET' },
-    response: function (ctx) {
-      ctx.body = users.filter(user => {
-        const meetsMinAge = (user.age || 1000) >= (Number(ctx.query.minAge) || 0)
-        const requiredNationality = user.nationality === (ctx.query.nationality || user.nationality)
-        return meetsMinAge && requiredNationality
-      })
-    }
-  },
-  {
-    /* for POST requests, create a new user and return the path to the new resource */
-    request: { method: 'POST' },
-    response: function (ctx) {
-      const newUser = ctx.request.body
-      users.push(newUser)
-      newUser.id = users.length
-      ctx.status = 201
-      ctx.response.set('Location', `/users/${newUser.id}`)
-    }
-  }
-]
-
-module.exports = mockResponses
-```
-
-The individual resource module:
-
-```js
-const users = require('./users.json')
-
-/* responses for /users/:id */
-const mockResponses = [
-  /* don't support POST here */
-  { request: { method: 'POST' }, response: { status: 400 } },
-
-  /* for GET requests, return a particular user */
-  {
-    request: { method: 'GET' },
-    response: function (ctx, id) {
-      ctx.body = users.find(user => user.id === Number(id))
-    }
-  },
-
-  /* for PUT requests, update the record */
-  {
-    request: { method: 'PUT' },
-    response: function (ctx, id) {
-      const updatedUser = ctx.request.body
-      const existingUserIndex = users.findIndex(user => user.id === Number(id))
-      users.splice(existingUserIndex, 1, updatedUser)
-      ctx.status = 200
-    }
-  },
-
-  /* DELETE request: remove the record */
-  {
-    request: { method: 'DELETE' },
-    response: function (ctx, id) {
-      const existingUserIndex = users.findIndex(user => user.id === Number(id))
-      users.splice(existingUserIndex, 1)
-      ctx.status = 200
-    }
-  }
-]
-
-module.exports = mockResponses
-```
-
-[Example](https://github.com/75lb/local-web-server/tree/master/example/mock).
-
-### HTTPS Server
-
-Some modern techs (ServiceWorker, any `MediaDevices.getUserMedia()` request etc.) *must* be served from a secure origin (HTTPS). To launch an HTTPS server, supply a `--key` and `--cert` to local-web-server, for example:
-
-```
-$ ws --key localhost.key --cert localhost.crt
-```
-
-If you don't have a key and certificate it's trivial to create them. You do not need third-party verification (Verisign etc.) for development purposes. To get the green padlock in the browser, the certificate..
-
-* must have a `Common Name` value matching the FQDN of the server
-* must be verified by a Certificate Authority (but we can overrule this - see below)
-
-First create a certificate:
-
-1. Install openssl.
-
-  `$ brew install openssl`
-
-2. Generate a RSA private key.
-
-  `$ openssl genrsa -des3 -passout pass:x -out ws.pass.key 2048`
-
-3. Create RSA key.
-
-  ```
-  $ openssl rsa -passin pass:x -in ws.pass.key -out ws.key
-  ```
-
-4. Create certificate request. The command below will ask a series of questions about the certificate owner. The most imporant answer to give is for `Common Name`, you can accept the default values for the others.  **Important**: you **must** input your server's correct FQDN (`dev-server.local`, `laptop.home` etc.) into the `Common Name` field. The cert is only valid for the domain specified here. You can find out your computers host name by running the command `hostname`. For example, mine is `mba3.home`.
-
-  `$ openssl req -new -key ws.key -out ws.csr`
-
-5. Generate self-signed certificate.
-
-  `$ openssl x509 -req -days 365 -in ws.csr -signkey ws.key -out ws.crt`
-
-6. Clean up files we're finished with
-
-  `$ rm ws.pass.key ws.csr`
-
-7. Launch HTTPS server. In iTerm, control-click the first URL (with the hostname matching `Common Name`) to launch your browser.
-
-  ```
-  $ ws --key ws.key --cert ws.crt
-  serving at https://mba3.home:8010, https://127.0.0.1:8010, https://192.168.1.203:8010
-  ```
-
-Chrome and Firefox will still complain your certificate has not been verified by a Certificate Authority. Firefox will offer you an `Add an exception` option, allowing you to ignore the warning and manually mark the certificate as trusted. In Chrome on Mac, you can manually trust the certificate another way:
-
-1. Open Keychain
-2. Click File -> Import. Select the `.crt` file you created.
-3. In the `Certificates` category, double-click the cert you imported.
-4. In the `trust` section, underneath `when using this certificate`, select `Always Trust`.
-
-Now you have a valid, trusted certificate for development.
-
-#### Built-in certificate
-As a quick win, you can run `ws` with the `https` flag. This will launch an HTTPS server using a [built-in certificate](https://github.com/75lb/local-web-server/tree/master/ssl) registered to the domain 127.0.0.1.
-
-### Stored config
-
-Use the same options every time? Persist then to `package.json`:
-```json
-{
-  "name": "example",
-  "version": "1.0.0",
-  "local-web-server": {
-    "port": 8100,
-    "forbid": "*.json"
-  }
-}
-```
-
-or `.local-web-server.json`
-```json
-{
-  "port": 8100,
-  "forbid": "*.json"
-}
-```
-
-local-web-server will merge and use all config found, searching from the current directory upward. In the case both `package.json` and `.local-web-server.json` config is found in the same directory, `.local-web-server.json` will take precedence. Options set on the command line take precedence over all.
-
-To inspect stored config, run:
-```sh
-$ ws --config
-```
-
-### Logging
-By default, local-web-server outputs a simple, dynamic statistics view. To see traditional web server logs, use `--log-format`:
-
-```sh
-$ ws --log-format combined
-serving at http://localhost:8000
-::1 - - [16/Nov/2015:11:16:52 +0000] "GET / HTTP/1.1" 200 12290 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2562.0 Safari/537.36"
-```
-
-The format value supplied is passed directly to [morgan](https://github.com/expressjs/morgan). The exception is `--log-format none` which disables all output.
-
-### Access Control
-
-By default, access to all files is allowed (including dot files). Use `--forbid` to establish a blacklist:
-```sh
-$ ws --forbid '*.json' '*.yml'
-serving at http://localhost:8000
-```
-
-[Example](https://github.com/75lb/local-web-server/tree/master/example/forbid).
-
 ### Other usage
 
 #### Debugging
@@ -533,19 +130,6 @@ Disable etag response headers, forcing resources to be served in full every time
 ```sh
 $ ws --no-cache
 ```
-
-#### mime-types
-You can set additional mime-type/extension mappings, or override the defaults by setting a `mime` value in the stored config. This value is passed directly to [mime.define()](https://github.com/broofa/node-mime#mimedefine). Example:
-
-```json
-{
-  "mime": {
-    "text/plain": [ "php", "pl" ]
-  }
-}
-```
-
-[Example](https://github.com/75lb/local-web-server/tree/master/example/mime-override).
 
 #### Log Visualisation
 Instructions for how to visualise log output using goaccess, logstalgia or gltail [here](https://github.com/75lb/local-web-server/blob/master/doc/visualisation.md).
@@ -597,7 +181,35 @@ serving at http://localhost:8100
 
 ## API Reference
 
-ERROR, Cannot find module.
+
+* [local-web-server](#module_local-web-server)
+    * [LocalWebServer](#exp_module_local-web-server--LocalWebServer) ⇐ <code>[middleware-stack](#module_middleware-stack)</code> ⏏
+        * _instance_
+            * [.add(middleware)](#) ↩︎
+        * _inner_
+            * [~collectUserOptions()](#module_local-web-server--LocalWebServer..collectUserOptions)
+
+<a name="exp_module_local-web-server--LocalWebServer"></a>
+
+### LocalWebServer ⇐ <code>[middleware-stack](#module_middleware-stack)</code> ⏏
+**Kind**: Exported class  
+**Extends:** <code>[middleware-stack](#module_middleware-stack)</code>  
+<a name=""></a>
+
+#### localWebServer.add(middleware) ↩︎
+**Kind**: instance method of <code>[LocalWebServer](#exp_module_local-web-server--LocalWebServer)</code>  
+**Chainable**  
+**Params**
+
+- middleware <code>[middleware](#module_middleware-stack--MiddlewareStack..middleware)</code>
+
+<a name="module_local-web-server--LocalWebServer..collectUserOptions"></a>
+
+#### LocalWebServer~collectUserOptions()
+Return default, stored and command-line options combined
+
+**Kind**: inner method of <code>[LocalWebServer](#exp_module_local-web-server--LocalWebServer)</code>  
+
 * * *
 
 &copy; 2013-16 Lloyd Brookes <75pound@gmail.com>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
