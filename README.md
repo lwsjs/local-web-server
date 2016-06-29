@@ -8,7 +8,7 @@
 ***Requires node v4.0.0 or higher. Install the [previous release](https://github.com/75lb/local-web-server/tree/prev) for older node support.***
 
 # local-web-server
-An application shell for building a simple, command-line web server for productive web development.
+An application shell for building a simple, command-line web server for productive web development. It contains no middleware of its own but will load default-stack unless you specify otherwise.
 
 It is trivial is bundle and deploy with your project. Also deploys to heroku well for demo projects.
 
