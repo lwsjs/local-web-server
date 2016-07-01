@@ -71,7 +71,7 @@ local-web-server is a command-line tool. To serve the current directory, run `ws
   -b, --forbid path ...          A list of forbidden routes.
   -n, --no-cache                 Disable etag-based caching -forces loading from disk each request.
   -c, --compress                 Serve gzip-compressed resources, where applicable.
-  -f, --log-format string        If a format is supplied an access log is written to stdout. If not, a dynamic
+  -f, --log.format string        If a format is supplied an access log is written to stdout. If not, a dynamic
                                  statistics view is displayed. Use a preset ('none', 'dev','combined',
                                  'short', 'tiny' or 'logstalgia') or supply a custom format (e.g. ':method ->
                                  :url').

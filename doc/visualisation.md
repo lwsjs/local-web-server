@@ -4,7 +4,7 @@ To get live statistics in [goaccess](http://goaccess.io/), first create this con
 ```
 time-format %T
 date-format %d/%b/%Y
-log-format %h %^[%d:%t %^] "%r" %s %b "%R" "%u"
+log.format %h %^[%d:%t %^] "%r" %s %b "%R" "%u"
 ```
 
 Then, start the server, outputting `combined` format logs to disk:
