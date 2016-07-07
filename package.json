@@ -24,6 +24,9 @@
   "engines": {
     "node": ">=4.0.0"
   },
+  "files": [
+    "bin", "lib", "ssl"
+  ],
   "scripts": {
     "test": "tape test/*/*.js",
     "docs": "jsdoc2md -t jsdoc2md/api.hbs -p list lib/*.js > doc/api.md; echo",
