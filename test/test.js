@@ -8,15 +8,17 @@ const path = require('path')
 test('stack', function (t) {
   t.plan(2)
   const ws = new LocalWebServer({
-    stack: [ path.resolve(__dirname, 'test-middleware.js') ]
+    stack: [ path.resolve(__dirname, 'test-middleware.js') ],
+    port: 8100
   })
-  const server = ws.getServer()
-  server.listen(8100, () => {
-    request('http://localhost:8100/')
-      .then(c.checkResponse(t, 200, /1234512345/))
-      .then(server.close.bind(server))
-      .catch(c.fail(t))
-  })
+  ws.listen()
+    .then(() => {
+      return request('http://localhost:8100/')
+        .then(c.checkResponse(t, 200, /1234512345/))
+        .then(ws.close.bind(ws))
+        .catch(c.fail(t))
+    })
+    .catch(c.fail(t))
 })
 
 test('https', function (t) {
@@ -28,9 +30,9 @@ test('https', function (t) {
   })
   ws.listen()
     .then(() => {
-      request('https://localhost:8100/')
+      return request('https://localhost:8100/')
         .then(c.checkResponse(t, 200, /1234512345/))
         .then(ws.close.bind(ws))
-        .catch(c.fail(t))
     })
+    .catch(c.fail(t))
 })

@@ -28,7 +28,7 @@
     "bin", "lib", "ssl"
   ],
   "scripts": {
-    "test": "tape test/*/*.js",
+    "test": "tape test/*.js",
     "docs": "jsdoc2md -t jsdoc2md/api.hbs -p list lib/*.js > doc/api.md; echo",
     "cover": "istanbul cover ./node_modules/.bin/tape test/*.js && cat coverage/lcov.info | coveralls && rm -rf coverage; echo"
   },
