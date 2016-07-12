@@ -44,6 +44,8 @@
     "command-line-usage": "^3.0.3",
     "config-master": "^2.0.3",
     "koa": "^2.0.0",
+    "koa-compose": "^3.1.0",
+    "koa-convert": "^1.2.0",
     "local-web-server-default-stack": "github:local-web-server/default-stack",
     "reduce-flatten": "^1.0.1",
     "table-layout": "~0.2.2",
