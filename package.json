@@ -39,7 +39,9 @@
   "dependencies": {
     "ansi-escape-sequences": "^2.2.2",
     "array-back": "^1.0.3",
+    "command-line-args": "^3.0.0",
     "command-line-tool": "~0.4.0",
+    "command-line-usage": "^3.0.3",
     "config-master": "^2.0.3",
     "koa": "^2.0.0",
     "local-web-server-default-stack": "github:local-web-server/default-stack",
