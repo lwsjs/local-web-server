@@ -10,13 +10,16 @@ test('stack', function (t) {
   const ws = new LocalWebServer({
     stack: [ path.resolve(__dirname, 'test-middleware.js') ],
     port: 8100,
-    ignoreCli: true
+    testMode: true
   })
   const server = ws.getServer(() => {
     return request('http://localhost:8100/')
       .then(c.checkResponse(t, 200, /1234512345/))
       .then(server.close.bind(server))
-      .catch(c.fail(t))
+      .catch(err => {
+        t.fail(err.message)
+        server.close()
+      })
   })
 })
 
@@ -26,11 +29,18 @@ test('https', function (t) {
     stack: [ path.resolve(__dirname, 'test-middleware.js') ],
     https: true,
     port: 8100,
-    ignoreCli: true
+    testMode: true
   })
+  const url = require('url')
+  const reqOptions = url.parse('https://localhost:8100/')
+  reqOptions.rejectUnauthorized = false
   const server = ws.getServer(() => {
-    return request('https://localhost:8100/')
+    return request(reqOptions)
       .then(c.checkResponse(t, 200, /1234512345/))
       .then(server.close.bind(server))
+      .catch(err => {
+        t.fail(err.message)
+        server.close()
+      })
   })
 })

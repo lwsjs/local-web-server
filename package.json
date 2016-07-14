@@ -56,7 +56,7 @@
     "jsdoc-to-markdown": "^1.3.6",
     "koa-cache-control": "^1.0.0",
     "koa-livereload": "~0.2.0",
-    "req-then": "~0.2.4",
+    "req-then": "~0.3.3",
     "tape": "^4.6.0"
   }
 }

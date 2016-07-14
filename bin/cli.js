@@ -2,4 +2,4 @@
 'use strict'
 const LocalWebServer = require('../')
 const ws = new LocalWebServer()
-const server = ws.getServer()
+ws.getServer()
