@@ -8,28 +8,33 @@
 ***Requires node v4.0.0 or higher. Install the [previous release](https://github.com/75lb/local-web-server/tree/prev) for older node support.***
 
 # local-web-server
-An application shell for building a simple, command-line web server for productive web development. It contains no middleware of its own but will load default-stack unless you specify otherwise.
+At its core, local-web-server is an application shell for building a specialised command-line web server to support productive Web Platform engineers. It comes bundled with a middleware stack covering common requirements but any arbitrary stack can be specified from the command line or config.
 
-It is trivial is bundle and deploy with your project. Also deploys to heroku well for demo projects.
+Being an npm module, it is trivial is bundle and distribute/deploy with your web application.
 
-It comes with some middleware built-in, which you need not use but will get you up and running for the following use cases:
+**Typically used for building:**
 
-* Static or Single Page Application front-end development where you have
-  * No backend, an existing remote API or need to mock-up an API.
+* Simple static site
+* Single Page Application
+  * Works well with React, Angular or vanilla JS.
 
-Application Shell
-  * HTTP or HTTPS server
-    * HTTPS is strictly required by some modern techs (ServiceWorker, Media Capture and Streams etc.)
-  * Add your middleware
-    * Use any combination of built-in and custom middleware
-    * specify options (for command line or config)
-    * Accepts Koa v1 or 2 middleware
-  * Bundle with your front-end project
-  * Configuration is via json file or command-line (latter taking precedence)
-  * Outputs a dynamic statistics view to the terminal
+**Backend scenarios covered:**
 
+* Existing API
+* Mock API
+* Websocket server
 
-Built-in Middleware (all optional)
+**Server options**
+
+* HTTP or HTTPS server
+  * HTTPS is strictly required by some modern techs (ServiceWorker, Media Capture and Streams etc.)
+* Configurable middleware stack
+  * Use any combination of built-in and custom middleware
+  * specify options (for command line or config)
+  * Accepts Koa v1 or 2 middleware
+
+**Built-in Middleware stack**
+
   * Rewrite routes to local or remote resources
   * Efficient, predictable, entity-tag-powered conditional request handling (no need to 'Disable Cache' in DevTools, slowing page-load down)
   * Configurable log output, compatible with [Goaccess, Logstalgia and glTail](https://github.com/75lb/local-web-server/blob/master/doc/visualisation.md)
@@ -39,6 +44,9 @@ Built-in Middleware (all optional)
     * Prototype a web service, microservice, REST API etc.
     * Mocks are defined with config (static), or code (dynamic).
   * CORS-friendly, all origins allowed by default.
+
+**Personalised stack**
+
 
 ## Synopsis
 local-web-server is a command-line tool. To serve the current directory, run `ws`.
@@ -86,32 +94,8 @@ local-web-server is a command-line tool. To serve the current directory, run `ws
   Project home: https://github.com/75lb/local-web-server
 </code></pre>
 
-## Examples
-
-For the examples below, we assume we're in a project directory looking like this:
-
-```sh
-.
-├── css
-│   └── style.css
-├── index.html
-└── package.json
-```
-
-All paths/routes are specified using [express syntax](http://expressjs.com/guide/routing.html#route-paths). To run the example projects linked below, clone the project, move into the example directory specified, run `ws`.
-
-### Static site
-
-Fire up your static site on the default port:
-```sh
-$ ws
-serving at http://localhost:8000
-```
-
-[Example](https://github.com/75lb/local-web-server/tree/master/example/simple).
 
 ## Install
-Ensure [node.js](http://nodejs.org) is installed first. Linux/Mac users may need to run the following commands with `sudo`.
 
 ```sh
 $ npm install -g local-web-server
