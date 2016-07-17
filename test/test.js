@@ -12,13 +12,13 @@ test('stack', function (t) {
     port: 8100,
     testMode: true
   })
-  const server = ws.getServer(() => {
+  ws.server.on('listening', () => {
     return request('http://localhost:8100/')
       .then(c.checkResponse(t, 200, /1234512345/))
-      .then(server.close.bind(server))
+      .then(ws.server.close.bind(ws.server))
       .catch(err => {
         t.fail(err.message)
-        server.close()
+        ws.server.close()
       })
   })
 })
@@ -34,13 +34,13 @@ test('https', function (t) {
   const url = require('url')
   const reqOptions = url.parse('https://localhost:8100/')
   reqOptions.rejectUnauthorized = false
-  const server = ws.getServer(() => {
+  ws.server.on('listening', () => {
     return request(reqOptions)
       .then(c.checkResponse(t, 200, /1234512345/))
-      .then(server.close.bind(server))
+      .then(ws.server.close.bind(ws.server))
       .catch(err => {
         t.fail(err.message)
-        server.close()
+        ws.server.close()
       })
   })
 })

@@ -13,7 +13,7 @@ Then, start the server, outputting `combined` format logs to disk:
 $ ws -f combined > web.log
 ```
 
-In a separate tab, point goaccess at `web.log` and it will display statistics in real time:
+In a separate terminal, point goaccess at `web.log` and it will display statistics in real time:
 
 ```
 $ goaccess -p ~/.goaccessrc -f web.log

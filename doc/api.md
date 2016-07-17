@@ -5,10 +5,10 @@
     * [LocalWebServer](#exp_module_local-web-server--LocalWebServer) ⇐ <code>module:middleware-stack</code> ⏏
         * [new LocalWebServer([options])](#new_module_local-web-server--LocalWebServer_new)
         * _instance_
-            * [.view](#module_local-web-server--LocalWebServer.LocalWebServer+view) : <code>View</code>
             * [.features](#module_local-web-server--LocalWebServer.LocalWebServer+features) : <code>Array.&lt;Feature&gt;</code>
             * [.options](#module_local-web-server--LocalWebServer.LocalWebServer+options) : <code>object</code>
-            * [.server](#module_local-web-server--LocalWebServer+server) : <code>Server</code>
+            * [.view](#module_local-web-server--LocalWebServer.LocalWebServer+view) : <code>View</code>
+            * [.server](#module_local-web-server--LocalWebServer.LocalWebServer+server) : <code>Server</code>
             * [.getApplication()](#module_local-web-server--LocalWebServer+getApplication) ⇒ <code>function</code>
             * [.getServer()](#module_local-web-server--LocalWebServer+getServer) ⇒ <code>Server</code>
         * _inner_
@@ -28,12 +28,6 @@
     - .port} <code>number</code> - Port
     - .stack} <code>Array.&lt;string&gt;</code> | <code>Array.&lt;Features&gt;</code> - Port
 
-<a name="module_local-web-server--LocalWebServer.LocalWebServer+view"></a>
-
-#### localWebServer.view : <code>View</code>
-Current view.
-
-**Kind**: instance property of <code>[LocalWebServer](#exp_module_local-web-server--LocalWebServer)</code>  
 <a name="module_local-web-server--LocalWebServer.LocalWebServer+features"></a>
 
 #### localWebServer.features : <code>Array.&lt;Feature&gt;</code>
@@ -46,7 +40,13 @@ Loaded feature modules
 Config
 
 **Kind**: instance property of <code>[LocalWebServer](#exp_module_local-web-server--LocalWebServer)</code>  
-<a name="module_local-web-server--LocalWebServer+server"></a>
+<a name="module_local-web-server--LocalWebServer.LocalWebServer+view"></a>
+
+#### localWebServer.view : <code>View</code>
+Current view.
+
+**Kind**: instance property of <code>[LocalWebServer](#exp_module_local-web-server--LocalWebServer)</code>  
+<a name="module_local-web-server--LocalWebServer.LocalWebServer+server"></a>
 
 #### localWebServer.server : <code>Server</code>
 Node.js server
