@@ -8,7 +8,7 @@
 ***Requires node v4.0.0 or higher. Install the [previous release](https://github.com/75lb/local-web-server/tree/prev) for older node support.***
 
 # local-web-server
-At its core, local-web-server is an application shell for building a specialised command-line web server to support productive Web Platform engineers. It comes bundled with a middleware stack covering common requirements but any arbitrary stack can be specified from the command line or config.
+At its core, local-web-server is an application shell for building a specialised command-line web server to support productive Web Platform engineers. When combined with built-in and custom features it's in intended to by a powerful tool in helping build and debug Web applications. It comes bundled with a middleware stack covering common requirements but any arbitrary stack can be specified from the command line or config.
 
 Being an npm module, it is trivial is bundle and distribute/deploy with your web application.
 
