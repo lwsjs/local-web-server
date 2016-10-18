@@ -1,0 +1,5 @@
+{
+  "rewrite": [
+    { "from": "one", "to": "two" }
+  ]
+}

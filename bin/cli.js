@@ -13,7 +13,7 @@ const t = require('typical')
 const flatten = require('reduce-flatten')
 
 const usage = commandLineUsage(cliOptions.usageData)
-const stored = loadConfig('local-web-server')
+
 let options
 let isHttps = false
 
@@ -130,6 +130,9 @@ function collectOptions () {
   }
 
   /* override built-in defaults with stored config and then command line args */
+  const stored = options._all['deep-merge-config']
+    ? loadConfig('local-web-server', { deep: true })
+    : loadConfig('local-web-server')
   options.server = Object.assign(builtIn, stored, options.server)
   return options
 }
