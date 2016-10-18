@@ -1,6 +1,6 @@
 {
-  "name": "local-web-server",
-  "version": "1.2.6",
+  "name": "lws",
+  "version": "2.0.0-0",
   "description": "A simple web-server for productive front-end development",
   "bin": {
     "ws": "./bin/cli.js"
@@ -16,14 +16,22 @@
     "development",
     "cors",
     "mime",
-    "rest"
+    "rest",
+    "mock",
+    "api",
+    "proxy"
   ],
   "engines": {
     "node": ">=4.0.0"
   },
+  "files": [
+    "bin",
+    "lib",
+    "ssl"
+  ],
   "scripts": {
     "test": "tape test/*.js",
-    "docs": "jsdoc2md -t jsdoc2md/README.hbs -p list lib/*.js > README.md; echo",
+    "docs": "jsdoc2md -t jsdoc2md/api.hbs -p list lib/*.js > doc/api.md; echo",
     "cover": "istanbul cover ./node_modules/.bin/tape test/*.js && cat coverage/lcov.info | coveralls && rm -rf coverage; echo"
   },
   "repository": "https://github.com/75lb/local-web-server",
@@ -31,35 +39,23 @@
   "dependencies": {
     "ansi-escape-sequences": "^2.2.2",
     "array-back": "^1.0.3",
-    "command-line-args": "^2.1.6",
-    "config-master": "^2.0.2",
-    "debug": "^2.2.0",
-    "http-proxy": "^1.13.2",
-    "kcors": "^1.2.0",
+    "command-line-args": "^3.0.1",
+    "command-line-usage": "^3.0.3",
+    "config-master": "^2.0.4",
     "koa": "^2.0.0",
-    "koa-bodyparser": "^3.0.0",
-    "koa-compress": "^1.0.9",
-    "koa-conditional-get": "^1.0.3",
-    "koa-connect-history-api-fallback": "^0.3.0",
+    "koa-compose": "^3.1.0",
     "koa-convert": "^1.2.0",
-    "koa-etag": "^2.1.1",
-    "koa-json": "^1.1.3",
-    "koa-morgan": "^1.0.1",
-    "koa-rewrite": "^2.1.0",
-    "koa-route": "^3",
-    "koa-send": "^3.2.0",
-    "koa-serve-index": "^1.1.1",
-    "koa-static": "^2.0.0",
-    "path-to-regexp": "^1.2.1",
-    "reduce-flatten": "^1.0.0",
-    "stream-log-stats": "^1.1.3",
-    "string-tools": "^1.0.0",
-    "test-value": "^2.0.0",
-    "typical": "^2.4.2"
+    "local-web-server-default-stack": "github:local-web-server/default-stack",
+    "reduce-flatten": "^1.0.1",
+    "table-layout": "~0.2.2",
+    "typical": "^2.6.0",
+    "walk-back": "^2.0.1"
   },
   "devDependencies": {
-    "jsdoc-to-markdown": "^1.3.6",
-    "req-then": "^0.2.4",
-    "tape": "^4.5.1"
+    "jsdoc-to-markdown": "^1.3.7",
+    "koa-cache-control": "^1.0.0",
+    "koa-livereload": "~0.2.0",
+    "req-then": "~0.5.0",
+    "tape": "^4.6.0"
   }
 }

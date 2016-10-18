@@ -1,4 +1,5 @@
 module.exports = {
+  name: 'delayed response',
   response: function (ctx) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

@@ -7,6 +7,7 @@ const mockResponses = [
 
   /* for GET requests, return a particular user */
   {
+    name: 'GET user',
     request: { method: 'GET' },
     response: function (ctx, id) {
       ctx.body = users.find(user => user.id === Number(id))
@@ -15,6 +16,7 @@ const mockResponses = [
 
   /* for PUT requests, update the record */
   {
+    name: 'PUT user',
     request: { method: 'PUT' },
     response: function (ctx, id) {
       const updatedUser = ctx.request.body
@@ -26,6 +28,7 @@ const mockResponses = [
 
   /* DELETE request: remove the record */
   {
+    name: 'DELETE user',
     request: { method: 'DELETE' },
     response: function (ctx, id) {
       const existingUserIndex = users.findIndex(user => user.id === Number(id))
