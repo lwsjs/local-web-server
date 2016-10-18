@@ -39,23 +39,23 @@
   "dependencies": {
     "ansi-escape-sequences": "^2.2.2",
     "array-back": "^1.0.3",
-    "command-line-args": "^3.0.0",
+    "command-line-args": "^3.0.1",
     "command-line-usage": "^3.0.3",
-    "config-master": "^2.0.3",
+    "config-master": "^2.0.4",
     "koa": "^2.0.0",
     "koa-compose": "^3.1.0",
     "koa-convert": "^1.2.0",
     "local-web-server-default-stack": "github:local-web-server/default-stack",
     "reduce-flatten": "^1.0.1",
     "table-layout": "~0.2.2",
-    "typical": "^2.4.2",
+    "typical": "^2.6.0",
     "walk-back": "^2.0.1"
   },
   "devDependencies": {
-    "jsdoc-to-markdown": "^1.3.6",
+    "jsdoc-to-markdown": "^1.3.7",
     "koa-cache-control": "^1.0.0",
     "koa-livereload": "~0.2.0",
-    "req-then": "~0.3.3",
+    "req-then": "~0.5.0",
     "tape": "^4.6.0"
   }
 }
