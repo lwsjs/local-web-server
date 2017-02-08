@@ -39,7 +39,7 @@
   "dependencies": {
     "ansi-escape-sequences": "^3.0.0",
     "array-back": "^1.0.4",
-    "command-line-args": "^3.0.5",
+    "command-line-args": "^4.0.1",
     "command-line-usage": "^4.0.0",
     "config-master": "^2.1.0-0",
     "koa": "next",
