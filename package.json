@@ -1,5 +1,5 @@
 {
-  "name": "lws",
+  "name": "local-web-server",
   "version": "2.0.0-1",
   "description": "A simple web-server for productive front-end development",
   "bin": {
