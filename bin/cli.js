@@ -73,6 +73,8 @@ if (options.misc.help) {
     options.server.cert = path.resolve(__dirname, '..', 'ssl', '127.0.0.1.crt')
   }
 
+  let server = app;
+
   if (options.server.key && options.server.cert) {
     const https = require('https')
     const fs = require('fs')
@@ -83,33 +85,38 @@ if (options.misc.help) {
       cert: fs.readFileSync(options.server.cert)
     }
 
-    const server = https.createServer(serverOptions, app.callback())
-    server.listen(options.server.port, onServerUp)
-  } else {
-    app.listen(options.server.port, onServerUp)
+    server = https.createServer(serverOptions, app.callback())
   }
+  server.listen(options.server.port, options.server.address, function() {
+    let ipList = [
+      {
+        address: options.server.address,
+      },
+    ];
+
+    if (options.server.address === '0.0.0.0') {
+      ipList = Object.keys(os.networkInterfaces())
+        .map(key => os.networkInterfaces()[key])
+        .reduce(flatten, [])
+        .filter(iface => iface.family === 'IPv4')
+      ipList.unshift({ address: os.hostname() })
+    }
+
+    ipList = ipList
+      .map(iface => `[underline]{${isHttps ? 'https' : 'http'}://${iface.address}:${options.server.port}}`)
+      .join(', ')
+
+    console.error(ansi.format(
+      path.resolve(options.server.directory) === process.cwd()
+        ? `serving at ${ipList}`
+        : `serving [underline]{${options.server.directory}} at ${ipList}`
+    ));
+  });
 }
 
 function stop (msgs, exitCode) {
   arrayify(msgs).forEach(msg => console.error(ansi.format(msg)))
   process.exitCode = exitCode
-}
-
-function onServerUp () {
-  let ipList = Object.keys(os.networkInterfaces())
-    .map(key => os.networkInterfaces()[key])
-    .reduce(flatten, [])
-    .filter(iface => iface.family === 'IPv4')
-  ipList.unshift({ address: os.hostname() })
-  ipList = ipList
-    .map(iface => `[underline]{${isHttps ? 'https' : 'http'}://${iface.address}:${options.server.port}}`)
-    .join(', ')
-
-  console.error(ansi.format(
-    path.resolve(options.server.directory) === process.cwd()
-      ? `serving at ${ipList}`
-      : `serving [underline]{${options.server.directory}} at ${ipList}`
-  ))
 }
 
 function collectOptions () {
@@ -120,6 +127,7 @@ function collectOptions () {
 
   const builtIn = {
     port: 8000,
+    address: 'localhost',
     directory: process.cwd(),
     forbid: [],
     rewrite: []
