@@ -1,4 +1,5 @@
 #!/usr/bin/env node
 'use strict'
 const LocalWebServer = require('../')
-new LocalWebServer()
+const localWebServer = new LocalWebServer()
+localWebServer.start()

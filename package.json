@@ -30,32 +30,16 @@
     "ssl"
   ],
   "scripts": {
-    "test": "tape test/*.js",
+    "test": "test-runner test/*.js",
     "docs": "jsdoc2md -t jsdoc2md/api.hbs -p list lib/*.js > doc/api.md; echo",
     "cover": "istanbul cover ./node_modules/.bin/tape test/*.js && cat coverage/lcov.info | coveralls && rm -rf coverage; echo"
   },
   "repository": "https://github.com/75lb/local-web-server",
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "dependencies": {
-    "ansi-escape-sequences": "^3.0.0",
-    "array-back": "^1.0.4",
-    "command-line-args": "^4.0.1",
-    "command-line-usage": "^4.0.0",
-    "config-master": "^3.0.0",
-    "koa": "next",
-    "koa-compose": "^3.1.0",
-    "koa-convert": "^1.2.0",
-    "local-web-server-default-stack": "github:local-web-server/default-stack",
-    "reduce-flatten": "^1.0.1",
-    "table-layout": "~0.4.0",
-    "typical": "^2.6.0",
-    "walk-back": "^2.0.1"
+    "local-web-server-log": "file:///Users/lloydb/Documents/lws/log",
+    "local-web-server-static": "file:///Users/lloydb/Documents/lws/static",
+    "lws": "^0.8.1"
   },
-  "devDependencies": {
-    "jsdoc-to-markdown": "^3.0.0",
-    "koa-cache-control": "^1.0.0",
-    "koa-livereload": "~0.2.0",
-    "req-then": "~0.5.1",
-    "tape": "^4.6.3"
-  }
+  "devDependencies": {}
 }
