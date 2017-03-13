@@ -5,7 +5,7 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 [![Join the chat at https://gitter.im/75lb/local-web-server](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/75lb/local-web-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-***This project does not yet use the latest Koa modules (some dependencies are out of date) because the recent Koa upgrade made node v7.6 the minimum supported version. This tool works with node v4.0.0 or higher. However, local-web-server v2 will likely require node v7.6 and above.***
+***This project does not yet use the latest Koa modules (therefore some dependencies are out of date) because the recent Koa upgrade made node v7.6 the minimum supported version. This tool supports node v4 and higher. The next version of this tool will likely require node v7.6 and above.***
 
 # local-web-server
 A simple web-server for productive front-end development. Typical use cases:
