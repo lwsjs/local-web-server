@@ -44,10 +44,10 @@
     "local-web-server-cors": "file:///Users/lloydb/Documents/lws/cors",
     "local-web-server-index": "file:///Users/lloydb/Documents/lws/index",
     "local-web-server-json": "file:///Users/lloydb/Documents/lws/json",
-    "local-web-server-log": "file:///Users/lloydb/Documents/lws/log",
+    "lws-log": "file:///Users/lloydb/Documents/lws/log",
     "local-web-server-mime": "file:///Users/lloydb/Documents/lws/mime",
     "local-web-server-mock-response": "file:///Users/lloydb/Documents/lws/mock-response",
-    "local-web-server-rewrite": "file:///Users/lloydb/Documents/lws/rewrite",
+    "lws-rewrite": "file:///Users/lloydb/Documents/lws/rewrite",
     "local-web-server-spa": "file:///Users/lloydb/Documents/lws/spa",
     "local-web-server-static": "file:///Users/lloydb/Documents/lws/static",
     "lws": "file:///Users/lloydb/Documents/lws/lws"
