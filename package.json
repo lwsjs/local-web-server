@@ -34,23 +34,23 @@
     "docs": "jsdoc2md -t jsdoc2md/api.hbs -p list lib/*.js > doc/api.md; echo",
     "cover": "istanbul cover ./node_modules/.bin/tape test/*.js && cat coverage/lcov.info | coveralls && rm -rf coverage; echo"
   },
-  "repository": "https://github.com/75lb/local-web-server",
+  "repository": "https://github.com/lwsjs/local-web-server",
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "dependencies": {
-    "local-web-server-blacklist": "file:///Users/lloydb/Documents/lws/blacklist",
-    "local-web-server-body-parser": "file:///Users/lloydb/Documents/lws/body-parser",
-    "local-web-server-compress": "file:///Users/lloydb/Documents/lws/compress",
-    "local-web-server-conditional-get": "file:///Users/lloydb/Documents/lws/conditional-get",
-    "local-web-server-cors": "file:///Users/lloydb/Documents/lws/cors",
-    "local-web-server-index": "file:///Users/lloydb/Documents/lws/index",
-    "local-web-server-json": "file:///Users/lloydb/Documents/lws/json",
-    "lws-log": "file:///Users/lloydb/Documents/lws/log",
-    "local-web-server-mime": "file:///Users/lloydb/Documents/lws/mime",
-    "local-web-server-mock-response": "file:///Users/lloydb/Documents/lws/mock-response",
-    "lws-rewrite": "file:///Users/lloydb/Documents/lws/rewrite",
-    "local-web-server-spa": "file:///Users/lloydb/Documents/lws/spa",
-    "local-web-server-static": "file:///Users/lloydb/Documents/lws/static",
-    "lws": "file:///Users/lloydb/Documents/lws/lws"
+    "lws-blacklist": "^0.1.0",
+    "lws-body-parser": "^0.1.0",
+    "lws-compress": "^0.1.0",
+    "lws-conditional-get": "^0.1.0",
+    "lws-cors": "^0.1.0",
+    "lws-index": "^0.1.0",
+    "lws-json": "^0.1.0",
+    "lws-log": "^0.1.0",
+    "lws-mime": "^0.1.0",
+    "lws-mock-response": "^0.1.0",
+    "lws-rewrite": "^0.1.0",
+    "lws-spa": "^0.1.0",
+    "lws-static": "^0.1.0",
+    "lws": "^1.0.0-pre.0"
   },
   "devDependencies": {}
 }

@@ -1,0 +1,8 @@
+module.exports = {
+  rewrite: [
+    { from: '/css/*', 'to': '/build/styles/$1' },
+    { from: '/npm/*', 'to': 'http://registry.npmjs.org/$1' },
+    { from: '/broken/*', 'to': 'http://localhost:9999' },
+    { from: '/:user/repos/:name', 'to': 'https://api.github.com/repos/:user/:name' }
+  ]
+}
