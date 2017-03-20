@@ -1,4 +1,4 @@
-#!/usr/bin/env node --harmony_string_padding
+#!/usr/bin/env node
 'use strict'
 const LocalWebServer = require('../')
 const localWebServer = new LocalWebServer()
