@@ -22,7 +22,7 @@
     "proxy"
   ],
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=7.6"
   },
   "files": [
     "bin",
@@ -52,5 +52,7 @@
     "lws-static": "^0.1.0",
     "lws": "^1.0.0-pre.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "test-runner": "^0.3.0"
+  }
 }
