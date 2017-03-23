@@ -42,7 +42,7 @@
     "lws-compress": "^0.1.0",
     "lws-conditional-get": "^0.1.0",
     "lws-cors": "^0.1.0",
-    "lws-index": "^0.1.0",
+    "lws-index": "^0.1.1",
     "lws-json": "^0.1.0",
     "lws-log": "^0.1.1",
     "lws-mime": "^0.1.0",
@@ -50,7 +50,7 @@
     "lws-rewrite": "^0.1.0",
     "lws-spa": "^0.1.0",
     "lws-static": "^0.1.1",
-    "lws": "^1.0.0-pre.3"
+    "lws": "^1.0.0-pre.4"
   },
   "devDependencies": {
     "test-runner": "^0.3.0"

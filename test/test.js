@@ -10,7 +10,7 @@ runner.test('basic', async function () {
   const port = 9000 + this.index
   const localWebServer = new LocalWebServer({
     port: port,
-    'static.root': 'test/fixture',
+    directory: 'test/fixture',
     'log.format': 'none'
   })
   localWebServer.start()
