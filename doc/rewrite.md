@@ -34,4 +34,4 @@ Map local requests for repo data to the Github API:
 $ ws --rewrite '/:user/repos/:name -> https://api.github.com/repos/:user/:name'
 ```
 
-[Example](https://github.com/75lb/local-web-server/tree/master/example/rewrite).
+[Example](https://github.com/lwsjs/local-web-server/tree/master/example/rewrite).

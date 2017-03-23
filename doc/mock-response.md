@@ -238,4 +238,4 @@ const mockResponses = [
 module.exports = mockResponses
 ```
 
-[Example](https://github.com/75lb/local-web-server/tree/master/example/mock).
+[Example](https://github.com/lwsjs/local-web-server/tree/master/example/mock).

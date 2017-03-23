@@ -56,4 +56,4 @@ Chrome and Firefox will still complain your certificate has not been verified by
 Now you have a valid, trusted certificate for development.
 
 ### Built-in certificate
-As a quick win, you can run `ws` with the `https` flag. This will launch an HTTPS server using a [built-in certificate](https://github.com/75lb/local-web-server/tree/master/ssl) registered to the domain 127.0.0.1.
+As a quick win, you can run `ws` with the `https` flag. This will launch an HTTPS server using a [built-in certificate](https://github.com/lwsjs/local-web-server/tree/master/ssl) registered to the domain 127.0.0.1.

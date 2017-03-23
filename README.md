@@ -1,11 +1,11 @@
 [![view on npm](http://img.shields.io/npm/v/local-web-server.svg)](https://www.npmjs.org/package/local-web-server)
 [![npm module downloads](http://img.shields.io/npm/dt/local-web-server.svg)](https://www.npmjs.org/package/local-web-server)
-[![Build Status](https://travis-ci.org/75lb/local-web-server.svg?branch=master)](https://travis-ci.org/75lb/local-web-server)
-[![Dependency Status](https://david-dm.org/75lb/local-web-server.svg)](https://david-dm.org/75lb/local-web-server)
+[![Build Status](https://travis-ci.org/lwsjs/local-web-server.svg?branch=master)](https://travis-ci.org/lwsjs/local-web-server)
+[![Dependency Status](https://david-dm.org/lwsjs/local-web-server.svg)](https://david-dm.org/lwsjs/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
-[![Join the chat at https://gitter.im/75lb/local-web-server](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/75lb/local-web-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/lwsjs/local-web-server](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/lwsjs/local-web-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-***Requires node v4.0.0 or higher. Install the [previous release](https://github.com/75lb/local-web-server/tree/prev) for older node support.***
+***Requires node v7.6 or higher. Install the [previous release](https://github.com/lwsjs/local-web-server/tree/prev) for older node support.***
 
 # local-web-server
 At its core, local-web-server is an application shell for building a specialised command-line web server to support productive Web Platform engineers. When combined with built-in and custom features it's in intended to by a powerful tool in helping build and debug Web applications. It comes bundled with a middleware stack covering common requirements but any arbitrary stack can be specified from the command line or config.
@@ -37,7 +37,7 @@ Being an npm module, it is trivial is bundle and distribute/deploy with your web
 
   * Rewrite routes to local or remote resources
   * Efficient, predictable, entity-tag-powered conditional request handling (no need to 'Disable Cache' in DevTools, slowing page-load down)
-  * Configurable log output, compatible with [Goaccess, Logstalgia and glTail](https://github.com/75lb/local-web-server/blob/master/doc/visualisation.md)
+  * Configurable log output, compatible with [Goaccess, Logstalgia and glTail](https://github.com/lwsjs/local-web-server/blob/master/doc/visualisation.md)
   * Proxy server
     * Map local routes to remote servers. Removes CORS pain when consuming remote services.
   * Back-end service mocking
@@ -91,7 +91,7 @@ local-web-server is a command-line tool. To serve the current directory, run `ws
   -h, --help    Print these usage instructions.
   --config      Print the stored config.
 
-  Project home: https://github.com/75lb/local-web-server
+  Project home: https://github.com/lwsjs/local-web-server
 </code></pre>
 
 

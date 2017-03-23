@@ -6,4 +6,4 @@ $ ws --forbid '*.json' '*.yml'
 serving at http://localhost:8000
 ```
 
-[Example](https://github.com/75lb/local-web-server/tree/master/example/forbid).
+[Example](https://github.com/lwsjs/local-web-server/tree/master/example/forbid).

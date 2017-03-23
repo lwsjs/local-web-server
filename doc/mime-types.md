@@ -9,4 +9,4 @@ You can set additional mime-type/extension mappings, or override the defaults by
 }
 ```
 
-[Example](https://github.com/75lb/local-web-server/tree/master/example/mime-override).
+[Example](https://github.com/lwsjs/local-web-server/tree/master/example/mime-override).
