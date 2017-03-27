@@ -9,17 +9,20 @@
 
 # local-web-server
 
-A convenient local web server to support productive, full-stack Javascript development. Built on [lws](https://github.com/lwsjs/lws).
+The productive development web server. Built on [lws](https://github.com/lwsjs/lws).
 
 **Features**
 
-- Lightweight
-- http/https ([http2](https://github.com/nodejs/http2) will be added once ready)
-- Rewrite routes to local or remote resources
-  - Url rewriting
-  - Proxy certain routes to a remote server (e.g. an existing API). Avoids CORS pain when consuming remote services.
-- Configurable by command-line options, stored config or both
-- Efficient, predictable, entity-tag-powered conditional request handling (no need to 'Disable Cache' in DevTools, slowing page-load down)
+- Fast and lightweight. Supports most common web application styles:
+  - Static site.
+  - Single Page Application (client-side rendering, web service consumption).
+  - Server-rendered content.
+- Configurable with sensible defaults. Configure by constructor option, command-line option, stored config or all three.
+- HTTP or HTTPS ([HTTP2](https://github.com/nodejs/http2) will be added once ready)
+- URL rewriting
+  - Local rewrites for quick experimentation (e.g. from `/img/logo.svg` to `/img/new-logo.svg`)
+  - Rewrite to remote resources (e.g. from `/api/*` to `https://example-api.pl/api/$1`). *Note: ignores remote server's CORS policy, which during development is typically what you want*.
+- Optimised default caching strategy. Efficient, predictable, entity-tag-powered conditional request handling (no need to 'Disable Cache' in DevTools, slowing page-load down)
 - Configurable log output, compatible with [Goaccess, Logstalgia and glTail](https://github.com/lwsjs/local-web-server/blob/master/doc/visualisation.md)
 - Configurable CORS rules. All origins allowed by default.
 
