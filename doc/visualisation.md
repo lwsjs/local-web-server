@@ -35,7 +35,7 @@ Then pipe the `logstalgia` output format directly into logstalgia for real-time 
 $ ws -f logstalgia | logstalgia -
 ```
 
-![local-web-server with logstalgia](https://raw.githubusercontent.com/75lb/local-web-server/master/doc/img/logstagia.gif)
+![local-web-server with logstalgia](https://raw.githubusercontent.com/lwsjs/local-web-server/master/doc/img/logstagia.gif)
 
 ## glTail
 To use with [glTail](http://www.fudgie.org), write your log to disk using the "default" format:

@@ -1,9 +1,9 @@
 [![view on npm](http://img.shields.io/npm/v/local-web-server.svg)](https://www.npmjs.org/package/local-web-server)
 [![npm module downloads](http://img.shields.io/npm/dt/local-web-server.svg)](https://www.npmjs.org/package/local-web-server)
-[![Build Status](https://travis-ci.org/75lb/local-web-server.svg?branch=master)](https://travis-ci.org/75lb/local-web-server)
-[![Dependency Status](https://david-dm.org/75lb/local-web-server.svg)](https://david-dm.org/75lb/local-web-server)
+[![Build Status](https://travis-ci.org/lwsjs/local-web-server.svg?branch=master)](https://travis-ci.org/lwsjs/local-web-server)
+[![Dependency Status](https://david-dm.org/lwsjs/local-web-server.svg)](https://david-dm.org/lwsjs/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
-[![Join the chat at https://gitter.im/75lb/local-web-server](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/75lb/local-web-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/lwsjs/local-web-server](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/lwsjs/local-web-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ***This project does not yet use the latest Koa modules (therefore some dependencies are out of date) because the recent Koa upgrade made node v7.6 the minimum supported version. This tool supports node v4 and higher. The next version of this tool will likely require node v7.6 and above.***
 
@@ -17,7 +17,7 @@ A simple web-server for productive front-end development. Typical use cases:
   * Bundle with your front-end project
   * Very little configuration, just a few options
   * Outputs a dynamic statistics view to the terminal
-  * Configurable log output, compatible with [Goaccess, Logstalgia and glTail](https://github.com/75lb/local-web-server/blob/master/doc/visualisation.md)
+  * Configurable log output, compatible with [Goaccess, Logstalgia and glTail](https://github.com/lwsjs/local-web-server/blob/master/doc/visualisation.md)
 * Back-end service mocking
   * Prototype a web service, microservice, REST API etc.
   * Mocks are defined with config (static), or code (dynamic).
@@ -69,7 +69,7 @@ local-web-server is a simple command-line tool. To use it, from your project dir
   -h, --help    Print these usage instructions.
   --config      Print the stored config.
 
-  Project home: https://github.com/75lb/local-web-server
+  Project home: https://github.com/lwsjs/local-web-server
 </code></pre>
 
 ## Examples
@@ -94,7 +94,7 @@ $ ws
 serving at http://localhost:8000
 ```
 
-[Example](https://github.com/75lb/local-web-server/tree/master/example/simple).
+[Example](https://github.com/lwsjs/local-web-server/tree/master/example/simple).
 
 ### Single Page Application
 
@@ -107,7 +107,7 @@ By default, typical SPA paths (e.g. `/user/1`, `/login`) would return `404 Not F
 
 *If a static file at the requested path exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then serve the specified SPA and handle the route client-side.*
 
-[Example](https://github.com/75lb/local-web-server/tree/master/example/spa).
+[Example](https://github.com/lwsjs/local-web-server/tree/master/example/spa).
 
 ### URL rewriting
 
@@ -145,7 +145,7 @@ Map local requests for repo data to the Github API:
 $ ws --rewrite '/:user/repos/:name -> https://api.github.com/repos/:user/:name'
 ```
 
-[Example](https://github.com/75lb/local-web-server/tree/master/example/rewrite).
+[Example](https://github.com/lwsjs/local-web-server/tree/master/example/rewrite).
 
 ### Mock Responses
 
@@ -387,7 +387,7 @@ const mockResponses = [
 module.exports = mockResponses
 ```
 
-[Example](https://github.com/75lb/local-web-server/tree/master/example/mock).
+[Example](https://github.com/lwsjs/local-web-server/tree/master/example/mock).
 
 ### HTTPS Server
 
@@ -447,7 +447,7 @@ Chrome and Firefox will still complain your certificate has not been verified by
 Now you have a valid, trusted certificate for development.
 
 #### Built-in certificate
-As a quick win, you can run `ws` with the `https` flag. This will launch an HTTPS server using a [built-in certificate](https://github.com/75lb/local-web-server/tree/master/ssl) registered to the domain 127.0.0.1.
+As a quick win, you can run `ws` with the `https` flag. This will launch an HTTPS server using a [built-in certificate](https://github.com/lwsjs/local-web-server/tree/master/ssl) registered to the domain 127.0.0.1.
 
 ### Stored config
 
@@ -497,7 +497,7 @@ $ ws --forbid '*.json' '*.yml'
 serving at http://localhost:8000
 ```
 
-[Example](https://github.com/75lb/local-web-server/tree/master/example/forbid).
+[Example](https://github.com/lwsjs/local-web-server/tree/master/example/forbid).
 
 ### Other usage
 
@@ -533,10 +533,10 @@ You can set additional mime-type/extension mappings, or override the defaults by
 }
 ```
 
-[Example](https://github.com/75lb/local-web-server/tree/master/example/mime-override).
+[Example](https://github.com/lwsjs/local-web-server/tree/master/example/mime-override).
 
 #### Log Visualisation
-Instructions for how to visualise log output using goaccess, logstalgia or gltail [here](https://github.com/75lb/local-web-server/blob/master/doc/visualisation.md).
+Instructions for how to visualise log output using goaccess, logstalgia or gltail [here](https://github.com/lwsjs/local-web-server/blob/master/doc/visualisation.md).
 
 ## Install
 Ensure [node.js](http://nodejs.org) is installed first. Linux/Mac users may need to run the following commands with `sudo`.
