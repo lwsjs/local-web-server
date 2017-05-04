@@ -67,6 +67,8 @@ local-web-server is a simple command-line tool. To use it, from your project dir
 <strong>Misc</strong>
 
   -h, --help    Print these usage instructions.
+  --confile file   Looking config file. Full config file name will be '.&lt;confile&gt;.json'. Default
+                   'local-web-server'.
   --config      Print the stored config.
 
   Project home: https://github.com/lwsjs/local-web-server

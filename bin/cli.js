@@ -13,7 +13,6 @@ const t = require('typical')
 const flatten = require('reduce-flatten')
 
 const usage = commandLineUsage(cliOptions.usageData)
-const stored = loadConfig('local-web-server')
 let options
 let isHttps = false
 
@@ -117,6 +116,7 @@ function collectOptions () {
 
   /* parse command line args */
   options = commandLineArgs(cliOptions.definitions)
+  const stored = loadConfig(options.misc.confile)
 
   const builtIn = {
     port: 8000,
@@ -131,6 +131,8 @@ function collectOptions () {
 
   /* override built-in defaults with stored config and then command line args */
   options.server = Object.assign(builtIn, stored, options.server)
+  options.server.forbid = Object.assign(builtIn.forbid, stored.forbid, options.server.forbid)
+  options.server.rewrite = Object.assign(builtIn.rewrite, stored.rewrite, options.server.rewrite)
   return options
 }
 
