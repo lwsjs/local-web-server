@@ -46,6 +46,7 @@ local-web-server is a simple command-line tool. To use it, from your project dir
 <strong>Server</strong>
 
   -p, --port number              Web server port.
+  -a, --address string           Web server address, defaults to localhost.
   -d, --directory path           Root directory, defaults to the current directory.
   -f, --log-format string        If a format is supplied an access log is written to stdout. If
                                  not, a dynamic statistics view is displayed. Use a preset ('none',
