@@ -131,6 +131,8 @@ function collectOptions () {
 
   /* override built-in defaults with stored config and then command line args */
   options.server = Object.assign(builtIn, stored, options.server)
+  options.server.forbid = Object.assign(builtIn.forbid, stored.forbid, options.server.forbid)
+  options.server.rewrite = Object.assign(builtIn.rewrite, stored.rewrite, options.server.rewrite)
   return options
 }
 
