@@ -13,7 +13,6 @@ const t = require('typical')
 const flatten = require('reduce-flatten')
 
 const usage = commandLineUsage(cliOptions.usageData)
-const stored = loadConfig('local-web-server')
 let options
 let isHttps = false
 
@@ -117,6 +116,7 @@ function collectOptions () {
 
   /* parse command line args */
   options = commandLineArgs(cliOptions.definitions)
+  const stored = loadConfig(options.misc.confile)
 
   const builtIn = {
     port: 8000,
