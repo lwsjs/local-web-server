@@ -5,28 +5,28 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 [![Join the chat at https://gitter.im/lwsjs/local-web-server](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/lwsjs/local-web-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-***Requires node v7.6 or higher. Install the [previous release](https://github.com/lwsjs/local-web-server/tree/v1.x) for older node support. Documentation still WIP.***
+***Requires node v7.6 or higher. Install the [previous release](https://github.com/lwsjs/local-web-server/tree/v1.x) for node >= v4.0.0. Documentation still WIP.***
 
 # local-web-server
 
-The productive development web server. Built on [lws](https://github.com/lwsjs/lws).
+The development web server for productive front-end and full-stack Javascript engineers. Built on [lws](https://github.com/lwsjs/lws).
 
 **Features**
 
-- Fast and lightweight. Supports most common web application styles:
-  - Static site.
-  - Single Page Application (client-side rendering, web service consumption).
-  - Server-rendered content.
-- Configurable with sensible defaults. Configure by constructor option, command-line option, stored config or all three.
+- Fast and lightweight.
+- Use the built-in features, a subset of the built-ins or your own feature stack
+- Configurable with sensible defaults.
+  - Configure by constructor option, command-line option, stored config or all three.
 - HTTP or HTTPS ([HTTP2](https://github.com/nodejs/http2) will be added once ready)
 - URL rewriting
   - Local rewrites for quick experimentation (e.g. from `/img/logo.svg` to `/img/new-logo.svg`)
   - Rewrite to remote resources (e.g. from `/api/*` to `https://example-api.pl/api/$1`). *Note: ignores remote server's CORS policy, which during development is typically what you want*.
-- Optimised default caching strategy. Efficient, predictable, entity-tag-powered conditional request handling (no need to 'Disable Cache' in DevTools, slowing page-load down)
+- Optimisal caching by default.
+  - Efficient, predictable, entity-tag-powered conditional request handling (no need to 'Disable Cache' in DevTools, slowing page-load down)
 - Configurable log output, compatible with [Goaccess, Logstalgia and glTail](https://github.com/lwsjs/local-web-server/blob/master/doc/visualisation.md)
 - Configurable CORS rules. All origins allowed by default.
 
-**Use cases**
+**Links to demoes and how-tos**
 
 Things you can build:
 
