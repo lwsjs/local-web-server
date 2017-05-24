@@ -51,6 +51,7 @@
     "koa-send": "^3.2.0",
     "koa-serve-index": "^1.1.1",
     "koa-static": "^2.0.0",
+   "lodash.omit": "^4.5.0",
     "path-to-regexp": "^1.6.0",
     "reduce-flatten": "^1.0.1",
     "stream-log-stats": "^1.1.7",
