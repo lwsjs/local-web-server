@@ -11,6 +11,7 @@ const os = require('os')
 const arrayify = require('array-back')
 const t = require('typical')
 const flatten = require('reduce-flatten')
+const omit = require('lodash.omit')
 
 const usage = commandLineUsage(cliOptions.usageData)
 const stored = loadConfig('local-web-server')
@@ -23,7 +24,6 @@ try {
   stop([ `[red]{Error}: ${err.message}`, usage ], 1)
   return
 }
-
 if (options.misc.help) {
   stop(usage, 0)
 } else if (options.misc.config) {
@@ -117,6 +117,15 @@ function collectOptions () {
 
   /* parse command line args */
   options = commandLineArgs(cliOptions.definitions)
+
+  let unfilledKeys = []
+  if (options.server.forbid.length === 0) {
+    unfilledKeys.push('forbid');
+  }
+  if (options.server.rewrite.length === 0) {
+    unfilledKeys.push('rewrite');
+  }
+  options.server = omit(options.server, unfilledKeys)
 
   const builtIn = {
     port: 8000,
