@@ -48,7 +48,7 @@
     "lws-mime": "^0.1.0",
     "lws-mock-response": "^0.1.0",
     "lws-rewrite": "^0.1.0",
-    "lws-spa": "^0.1.0",
+    "lws-spa": "^0.1.2",
     "lws-static": "^0.1.1",
     "lws": "^1.0.0-pre.4"
   },
