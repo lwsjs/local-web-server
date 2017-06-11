@@ -24,11 +24,6 @@
   "engines": {
     "node": ">=7.6"
   },
-  "files": [
-    "bin",
-    "lib",
-    "ssl"
-  ],
   "scripts": {
     "test": "test-runner test/*.js",
     "docs": "jsdoc2md -t jsdoc2md/api.hbs -p list lib/*.js > doc/api.md; echo",
@@ -45,14 +40,14 @@
     "lws-cors": "^0.2.0",
     "lws-index": "^0.2.0",
     "lws-json": "^0.2.0",
-    "lws-log": "^0.2.0",
+    "lws-log": "^0.2.1",
     "lws-mime": "^0.1.0",
     "lws-mock-response": "^0.1.0",
-    "lws-rewrite": "^0.2.0",
+    "lws-rewrite": "^0.2.1",
     "lws-spa": "^0.1.2",
     "lws-static": "^0.2.0"
   },
   "devDependencies": {
-    "test-runner": "^0.3.0"
+    "test-runner": "^0.4.0"
   }
 }

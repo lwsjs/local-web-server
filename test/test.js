@@ -11,9 +11,10 @@ runner.test('basic', async function () {
   const localWebServer = new LocalWebServer({
     port: port,
     directory: 'test/fixture',
-    'log.format': 'none'
+    logFormat: 'none'
   })
-  localWebServer.start()
+  localWebServer.attachView()
+  localWebServer.launch()
   const response = await request(`http://localhost:${port}/one.txt`)
   localWebServer.server.close()
   a.strictEqual(response.data.toString(), 'one\n')
