@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../').run()
+require('../lib/cli-app').run()
