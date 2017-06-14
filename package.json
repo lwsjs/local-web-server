@@ -1,6 +1,6 @@
 {
   "name": "local-web-server",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "A simple web-server for productive front-end development",
   "bin": {
     "ws": "./bin/cli.js"
