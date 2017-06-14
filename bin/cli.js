@@ -83,6 +83,16 @@ if (options.misc.help) {
       cert: fs.readFileSync(options.server.cert)
     }
 
+
+    if (options.server.secureProtocol) {
+      serverOptions.secureProtocol = options.server.secureProtocol
+    }
+
+    if (options.server.ciphers) {
+      serverOptions.honorCipherOrder = true
+      serverOptions.ciphers = options.server.ciphers
+    }
+
     const server = https.createServer(serverOptions, app.callback())
     server.listen(options.server.port, onServerUp)
   } else {
