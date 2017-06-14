@@ -53,7 +53,7 @@
     "koa-static": "^2.0.0",
     "path-to-regexp": "^1.6.0",
     "reduce-flatten": "^1.0.1",
-    "stream-log-stats": "^1.1.7",
+    "stream-log-stats": "^2.0.2",
     "test-value": "^2.1.0",
     "typical": "^2.6.0"
   },
