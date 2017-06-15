@@ -13,7 +13,6 @@ runner.test('basic', async function () {
     directory: 'test/fixture',
     logFormat: 'none'
   })
-  localWebServer.attachView()
   localWebServer.launch()
   const response = await request(`http://localhost:${port}/one.txt`)
   localWebServer.server.close()
