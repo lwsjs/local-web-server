@@ -29,7 +29,7 @@ Opening any of the listed URLs in your browser will open your home page (`index.
 
 ## Advanced Usage
 
-Being modular and extensible, there are many possibilites how to use this tool for more advanced usage.
+Being modular and extensible, there are many possibilites how to use this tool. [See the wiki for full documentation and tutorials](https://github.com/lwsjs/local-web-server/wiki).
 
 ## Install
 
