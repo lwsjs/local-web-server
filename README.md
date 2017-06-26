@@ -9,12 +9,12 @@
 
 # local-web-server
 
-The modular development web server for productive front-end and full-stack engineers. Use this tool to:
+The modular development web server for productive front-end and full-stack engineers.
+
+Use this tool to:
 
 * Help build a web application using any architecture (static website, Single Page Application with client-side rendering, dynamic app with server-side rendering, Progressive Web App etc.)
 * Prototype a web service (REST API, microservice, websocket server application etc)
-
-Agnostic which front-end framework (React, Polymer, Angular etc) you use, if any.
 
 ## Synopsis
 
