@@ -25,6 +25,10 @@ $ ws
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
+Opening any of the listed URLs in your browser will open your home page (`index.html` by default) if one exists, else show a directory listing.
+
+## Advanced Usage
+
 Being modular and extensible, there are many possibilites how to use this tool for more advanced usage.
 
 ## Install
