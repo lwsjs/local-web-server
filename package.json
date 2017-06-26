@@ -34,18 +34,18 @@
   "dependencies": {
     "lws": "^1.0.0-pre2.4",
     "lws-blacklist": "^0.2.1",
-    "lws-body-parser": "^0.2.1",
+    "lws-body-parser": "^0.2.2",
     "lws-compress": "^0.2.1",
-    "lws-conditional-get": "^0.3.2",
-    "lws-cors": "^0.3.1",
+    "lws-conditional-get": "^0.3.3",
+    "lws-cors": "^0.3.2",
     "lws-index": "^0.3.0",
     "lws-json": "^0.3.2",
     "lws-log": "^0.3.0",
     "lws-mime": "^0.2.1",
-    "lws-mock-response": "^0.2.1",
-    "lws-rewrite": "^0.3.1",
+    "lws-mock-response": "^0.2.3",
+    "lws-rewrite": "^0.3.2",
     "lws-spa": "^0.2.1",
-    "lws-static": "^0.3.2"
+    "lws-static": "^0.3.3"
   },
   "devDependencies": {
     "test-runner": "^0.4.0"
