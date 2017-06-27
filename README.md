@@ -9,12 +9,12 @@
 
 # local-web-server
 
-The modular development web server for productive front-end and full-stack engineers.
+The modular web server for productive full-stack development.
 
 Use this tool to:
 
-* Help build a web application using any architecture (static website, Single Page Application with client-side rendering, dynamic app with server-side rendering, Progressive Web App etc.)
-* Prototype a web service (REST API, microservice, websocket server application etc)
+* Build a static website, dynamic website with server-side rendering, Single Page Application with client-side rendering, Progressive Web App etc. - any web application you like.
+* Prototype a REST API, Microservice, websocket server or any other server-side application.
 
 ## Synopsis
 
@@ -33,7 +33,7 @@ Being modular and extensible, features can be added or removed from `ws` in the 
 
 ## Install
 
-Requires node v7.6 or higher. Install the [previous release](https://github.com/lwsjs/local-web-server/tree/v1.x) for node >= v4.0.0. 
+Requires node v7.6 or higher. Install the [previous release](https://github.com/lwsjs/local-web-server/tree/v1.x) for node >= v4.0.0.
 
 ```sh
 $ npm install -g local-web-server@next
