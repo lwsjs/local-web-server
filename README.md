@@ -13,8 +13,22 @@ The modular web server for productive full-stack development.
 
 Use this tool to:
 
-* Build a static website, dynamic website with server-side rendering, Single Page Application with client-side rendering, Progressive Web App etc. - any web application you like.
-* Prototype a REST API, Microservice, websocket server or any other server-side application.
+* Build a fast, modern web application using any tech, framework or architecture.
+* Prototype back-end services (RESTful HTTP API, Microservice, websocket server etc.)
+
+Essentially, local-web-server is the `lws` command-line web server with a middleware stack built in offering the following features:
+
+* Static file serving
+* Single Page Application support
+* Response mocking 
+* Configurable access log
+* URL Rewriting, to local or remote destinations 
+* Request body parsing
+* Route blacklisting
+* HTTP Conditional Request support (cacheing)
+* MIME-type customisation
+* Gzip response compression
+* Directory listing support
 
 ## Synopsis
 
@@ -26,6 +40,8 @@ Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:80
 ```
 
 Opening any of the listed URLs in your browser will open your home page (`index.html` by default) if one exists, else show a directory listing.
+
+
 
 ## Advanced Usage
 
