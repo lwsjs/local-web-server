@@ -13,10 +13,10 @@ The modular web server for productive full-stack development.
 
 Use this tool to:
 
-* Build a fast, modern web application using any tech, framework or architecture.
+* Build fast, modern web applications using any tech, framework or architecture.
 * Prototype back-end services (RESTful HTTP API, Microservice, websocket server etc.)
 
-Essentially, local-web-server is the `lws` command-line web server with a middleware stack built in offering the following features:
+Essentially, local-web-server is the `lws` command-line web server with a basic middleware stack built in offering the following typical features:
 
 * Static file serving
 * Single Page Application support
@@ -39,9 +39,12 @@ $ ws
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
-Opening any of the listed URLs in your browser will open your home page (`index.html` by default) if one exists, else show a directory listing.
+Another common use case is to proxy certain requests to different servers (e.g. you'd like to use data from a different environment). For example, the following command would proxy `http://127.0.0.1:8000/api/users/1` to `https://internal-service.local/api/users/1`:
 
-
+```sh
+$ ws --rewrite '/api/* -> https://internal-service.local/api/$1`
+Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
+```
 
 ## Advanced Usage
 
