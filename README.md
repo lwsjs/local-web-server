@@ -32,7 +32,7 @@ Essentially, local-web-server is the `lws` command-line web server with a basic 
 
 ## Synopsis
 
-This package installs the `ws` command-line tool. The most simple use case is to run `ws` without any arguments - this will **host the current directory as a static web site**.
+This package installs the `ws` command-line tool (take a look at the [usage guide](https://github.com/lwsjs/local-web-server/wiki/CLI-usage)). The most simple use case is to run `ws` without any arguments - this will **host the current directory as a static web site**.
 
 ```sh
 $ ws
@@ -81,6 +81,38 @@ module.exports = [
     ]
   }
 ]
+```
+
+Next, launch `ws` passing in your mock response file: 
+
+```sh
+$ ws --mocks example-mocks.js
+Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
+```
+
+Test your mock responses: 
+
+```sh
+$ curl http://127.0.0.1:8000/users
+[
+  {
+    "id": 1,
+    "name": "Lloyd",
+    "age": 40,
+    "nationality": "English"
+  },
+  {
+    "id": 2,
+    "name": "Mona",
+    "age": 34,
+    "nationality": "Palestinian"
+  },
+  {
+    "id": 3,
+    "name": "Francesco",
+    "age": 24,
+    "nationality": "Italian"
+  }
 ```
 
 ## Advanced Usage
