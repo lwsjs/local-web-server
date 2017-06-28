@@ -32,18 +32,23 @@ Essentially, local-web-server is the `lws` command-line web server with a basic 
 
 ## Synopsis
 
-This package installs the `ws` command-line tool. The most simple use case is to run `ws` without any arguments - this will host the current directory as a static web site.
+This package installs the `ws` command-line tool. The most simple use case is to run `ws` without any arguments - this will **host the current directory as a static web site**.
 
 ```sh
 $ ws
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
-Another common use case is to proxy certain requests to different servers (e.g. you'd like to use data from a different environment). For example, the following command would proxy `http://127.0.0.1:8000/api/users/1` to `https://internal-service.local/api/users/1`:
+Another common use case is to **proxy certain requests to remote servers** (e.g. you'd like to use data from a different environment). For example, the following command would proxy `http://127.0.0.1:8000/api/users/1` to `https://internal-service.local/api/users/1`:
 
 ```sh
 $ ws --rewrite '/api/* -> https://internal-service.local/api/$1`
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
+```
+
+Imagine the network is down or you're working offline, proxied requests to `https://internal-service.local/api/users/1` would fail. In this case, you could use Mock Responses to fill the gap. Define the mock responses in a module.
+
+```js
 ```
 
 ## Advanced Usage
