@@ -49,6 +49,38 @@ Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:80
 Imagine the network is down or you're working offline, proxied requests to `https://internal-service.local/api/users/1` would fail. In this case, you could use Mock Responses to fill the gap. Define the mock responses in a module.
 
 ```js
+const users = [
+  { "id": 1, "name": "Lloyd", "age": 40, "nationality": "English" },
+  { "id": 2, "name": "Mona", "age": 34, "nationality": "Palestinian" },
+  { "id": 3, "name": "Francesco", "age": 24, "nationality": "Italian" }
+]
+
+/* response mocks for /users */
+module.exports = [
+  {
+    route: '/users',
+    responses: [
+      /* Respond with 400 Bad Request for PUT and DELETE requests (inappropriate on a collection) */
+      { request: { method: 'PUT' }, response: { status: 400 } },
+      { request: { method: 'DELETE' }, response: { status: 400 } },
+      {
+        /* for GET requests return the collection */
+        request: { method: 'GET' },
+        response: { type: 'application/json', body: users }
+      },
+      {
+        /* for POST requests, create a new user and return its location */
+        request: { method: 'POST' },
+        response: function (ctx) {
+          const newUser = ctx.request.body
+          users.push(newUser)
+          ctx.status = 201
+          ctx.response.set('Location', `/users/${users.length}`)
+        }
+      }
+    ]
+  }
+]
 ```
 
 ## Advanced Usage
