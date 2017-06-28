@@ -16,19 +16,17 @@ Use this tool to:
 * Build fast, modern web applications using any tech, framework or architecture.
 * Prototype back-end services (RESTful HTTP API, Microservice, websocket server etc.)
 
-Essentially, local-web-server is the `lws` command-line web server with a basic middleware stack built in offering the following typical features:
+Features:
 
-* Static file serving
+* HTTP, HTTPS and HTTP2 support
+* Create, share and consume middleware, view and server modules
+* URL Rewriting, to local or remote destinations 
 * Single Page Application support
 * Response mocking 
 * Configurable access log
-* URL Rewriting, to local or remote destinations 
-* Request body parsing
 * Route blacklisting
 * HTTP Conditional Request support (cacheing)
-* MIME-type customisation
-* Gzip response compression
-* Directory listing support
+* Gzip response compression and much more
 
 ## Synopsis
 
