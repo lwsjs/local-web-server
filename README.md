@@ -93,6 +93,15 @@ Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:80
 Test your mock responses: 
 
 ```sh
+$ curl http://127.0.0.1:8000/users -H 'Content-type: application/json' -d '{ "name": "Anthony" }' -i
+HTTP/1.1 201 Created
+Vary: Origin
+Location: /users/4
+Content-Type: text/plain; charset=utf-8
+Content-Length: 7
+Date: Wed, 28 Jun 2017 20:31:19 GMT
+Connection: keep-alive
+
 $ curl http://127.0.0.1:8000/users
 [
   {
@@ -112,6 +121,10 @@ $ curl http://127.0.0.1:8000/users
     "name": "Francesco",
     "age": 24,
     "nationality": "Italian"
+  },
+  {
+    "id": 4,
+    "name": "Anthony"
   }
 ```
 
