@@ -41,7 +41,7 @@ Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:80
 Another common use case is to **proxy certain requests to a remote server** if, for example, you'd like to use data from a different environment. The following command would proxy requests with a URL beginning with `http://127.0.0.1:8000/api/` to `https://internal-service.local/api/`:
 
 ```sh
-$ ws --rewrite '/api/* -> https://internal-service.local/api/$1`
+$ ws --rewrite '/api/* -> https://internal-service.local/api/$1'
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
@@ -73,8 +73,9 @@ module.exports = [
         response: function (ctx) {
           const newUser = ctx.request.body
           users.push(newUser)
+          newUser.id = users.length
           ctx.status = 201
-          ctx.response.set('Location', `/users/${users.length}`)
+          ctx.response.set('Location', `/users/${newUser.id}`)
         }
       }
     ]
@@ -82,7 +83,7 @@ module.exports = [
 ]
 ```
 
-Next, launch `ws` passing in your mock response file: 
+Next, launch `ws` passing in your mock response file:
 
 ```sh
 $ ws --mocks example-mocks.js
