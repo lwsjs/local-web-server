@@ -45,13 +45,13 @@ $ ws --rewrite '/api/* -> https://internal-service.local/api/$1`
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
-Imagine the network is down or you're working offline, proxied requests to `https://internal-service.local/api/users/1` would fail. In this case, you could use Mock Responses to fill the gap. Define the mock responses in a module.
+Imagine the network is down or you're working offline, proxied requests to `https://internal-service.local/api/users/1` would fail. In this case, Mock Responses can fill the gap. Export your mock responses from a module.
 
 ```js
 const users = [
-  { "id": 1, "name": "Lloyd", "age": 40, "nationality": "English" },
-  { "id": 2, "name": "Mona", "age": 34, "nationality": "Palestinian" },
-  { "id": 3, "name": "Francesco", "age": 24, "nationality": "Italian" }
+  { "id": 1, "name": "Lloyd", "age": 40 },
+  { "id": 2, "name": "Mona", "age": 34 },
+  { "id": 3, "name": "Francesco", "age": 24 }
 ]
 
 /* response mocks for /users */
@@ -89,7 +89,7 @@ $ ws --mocks example-mocks.js
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
-Test your mock responses: 
+Test your mock responses. A `POST` request should return a `201` with a `Location` header and empty body.
 
 ```sh
 $ curl http://127.0.0.1:8000/users -H 'Content-type: application/json' -d '{ "name": "Anthony" }' -i
@@ -100,7 +100,11 @@ Content-Type: text/plain; charset=utf-8
 Content-Length: 7
 Date: Wed, 28 Jun 2017 20:31:19 GMT
 Connection: keep-alive
+```
 
+A `GET` to `/users` should return our mock user data, including the record just added.
+
+```sh
 $ curl http://127.0.0.1:8000/users
 [
   {
