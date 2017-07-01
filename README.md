@@ -131,9 +131,9 @@ $ curl http://127.0.0.1:8000/users
   }
 ```
 
-## Advanced Usage
+## Further Documentation
 
-Being modular and extensible, features can be added or removed from `ws` in the shape of Middleware, ServerFactory or View modules. [See the wiki for full documentation and tutorials](https://github.com/lwsjs/local-web-server/wiki).
+[See the wiki for plenty more documentation and tutorials](https://github.com/lwsjs/local-web-server/wiki).
 
 ## Install
 
