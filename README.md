@@ -15,29 +15,30 @@ Use this tool to:
 
 * Build fast, modern web applications using any tech, framework or architecture.
 * Prototype back-end services (RESTful HTTP API, Microservice, websocket server etc.)
+* Monitor activity, analyse performance, compare caching strategies etc.
 
 Features:
 
 * HTTP, HTTPS and HTTP2 support
-* Create, share and consume middleware, view and server modules
-* URL Rewriting, to local or remote destinations 
+* Modular. Create, share and consume middleware, view and server plugins.
+* URL Rewriting to local or remote destinations
 * Single Page Application support
-* Response mocking 
+* Response mocking
 * Configurable access log
 * Route blacklisting
-* HTTP Conditional Request support (cacheing)
+* HTTP Conditional Request support
 * Gzip response compression and much more
 
 ## Synopsis
 
-This package installs the `ws` command-line tool (take a look at the [usage guide](https://github.com/lwsjs/local-web-server/wiki/CLI-usage)). The most simple use case is to run `ws` without any arguments - this will **host the current directory as a static web site**.
+This package installs the `ws` command-line tool (take a look at the [usage guide](https://github.com/lwsjs/local-web-server/wiki/CLI-usage)). The most simple use case is to run `ws` without any arguments - this will **host the current directory as a static web site**. Navigating to the server will render your `index.html` or show a directory listing, if you don't have one.
 
 ```sh
 $ ws
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
-Another common use case is to **proxy certain requests to remote servers** (e.g. you'd like to use data from a different environment). For example, the following command would proxy `http://127.0.0.1:8000/api/users/1` to `https://internal-service.local/api/users/1`:
+Another common use case is to **proxy certain requests to a remote server** if, for example, you'd like to use data from a different environment. The following command would proxy requests with a URL beginning with `http://127.0.0.1:8000/api/` to `https://internal-service.local/api/`:
 
 ```sh
 $ ws --rewrite '/api/* -> https://internal-service.local/api/$1`
