@@ -42,7 +42,7 @@
     "lws-json": "^0.3.2",
     "lws-log": "^0.3.0",
     "lws-mime": "^0.2.1",
-    "lws-mock-response": "^0.2.3",
+    "lws-mock-response": "^0.2.4",
     "lws-request-monitor": "^0.1.0",
     "lws-rewrite": "^0.3.4",
     "lws-spa": "^0.2.2",
