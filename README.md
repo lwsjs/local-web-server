@@ -13,15 +13,15 @@ The modular web server for productive full-stack development.
 
 Use this tool to:
 
-* Build any flavour of web application (static site, dynamic site with client or server-rendered content, Single Page Apps, Progessive Web Apps, Angular or React apps etc.)
+* Build any flavour of web application (static site, dynamic site with client or server-rendered content, Single Page App, Progessive Web App, Angular or React app etc.)
 * Prototype any CORS-enabled back-end service (e.g. RESTful HTTP API or Microservice using websockets, Server Sent Events etc.)
 * Monitor activity, analyse performance, experiment with caching strategies etc.
 
 Features:
 
 * Modular, extensible and easy to personalise. Create, share and consume the plugins which match your requirements.
-* Powerful, extensible command-line interface (add your own options)
-* HTTP, HTTPS and HTTP2 support
+* Powerful, extensible command-line interface (add your own commands and options)
+* HTTP, HTTPS and experimental HTTP2 support
 * URL Rewriting to local or remote destinations
 * Single Page Application support
 * Response mocking
