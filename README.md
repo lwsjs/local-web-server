@@ -31,7 +31,7 @@ Features:
 
 ## Synopsis
 
-This package installs the `ws` command-line tool (take a look at the [usage guide](https://github.com/lwsjs/local-web-server/wiki/CLI-usage)). The most simple use case is to run `ws` without any arguments - this will **host the current directory as a static web site**. Navigating to the server will render your `index.html` or show a directory listing, if you don't have one.
+This package installs the `ws` command-line tool (take a look at the [usage guide](https://github.com/lwsjs/local-web-server/wiki/CLI-usage)). The most simple use case is to run `ws` without any arguments - this will **host the current directory as a static web site**. Navigating to the server will render a directory listing or your `index.html`, if that file exists.
 
 ```sh
 $ ws
@@ -115,20 +115,17 @@ $ curl http://127.0.0.1:8000/users
   {
     "id": 1,
     "name": "Lloyd",
-    "age": 40,
-    "nationality": "English"
+    "age": 40
   },
   {
     "id": 2,
     "name": "Mona",
-    "age": 34,
-    "nationality": "Palestinian"
+    "age": 34
   },
   {
     "id": 3,
     "name": "Francesco",
-    "age": 24,
-    "nationality": "Italian"
+    "age": 24
   },
   {
     "id": 4,
