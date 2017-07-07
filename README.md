@@ -13,14 +13,15 @@ The modular web server for productive full-stack development.
 
 Use this tool to:
 
-* Build fast, modern web applications using any tech, framework or architecture.
-* Prototype back-end services (RESTful HTTP API, Microservice, websocket server, Server Sent Events etc.)
+* Build any flavour of web application (static site, dynamic site with client or server-rendered content, Single Page Apps, Progessive Web Apps, Angular or React apps etc.)
+* Prototype any CORS-enabled back-end service (e.g. RESTful HTTP API or Microservice using websockets, Server Sent Events etc.)
 * Monitor activity, analyse performance, experiment with caching strategies etc.
 
 Features:
 
+* Modular, extensible and easy to personalise. Create, share and consume the plugins which match your requirements.
+* Powerful, extensible command-line interface (add your own options)
 * HTTP, HTTPS and HTTP2 support
-* Modular. Create, share and consume middleware, view and server plugins.
 * URL Rewriting to local or remote destinations
 * Single Page Application support
 * Response mocking
@@ -44,7 +45,7 @@ Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:80
 
 ### Single Page Application
 
-Serving a Single Page Application is as trivial as specifying the name of your single page:
+Serving a Single Page Application (e.g. a React or Angular app) is as trivial as specifying the name of your single page:
 
 ```sh
 $ ws --spa index.html
@@ -152,6 +153,15 @@ $ curl http://127.0.0.1:8000/users
     "id": 4,
     "name": "Anthony"
   }
+```
+
+### HTTPS
+
+Launching a secure server is as simple as setting the `--https` flag. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further configuration options and a guide on how to get the "green padlock" in your browser.
+
+```sh
+$ ws --https
+Serving at https://mbp.local:8000, https://127.0.0.1:8000, https://192.168.0.100:8000
 ```
 
 ## Further Documentation
