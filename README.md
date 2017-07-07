@@ -33,7 +33,7 @@ Features:
 
 This package installs the `ws` command-line tool (take a look at the [usage guide](https://github.com/lwsjs/local-web-server/wiki/CLI-usage)).
 
-#### Static web site
+### Static web site
 
 The most simple use case is to run `ws` without any arguments - this will **host the current directory as a static web site**. Navigating to the server will render a directory listing or your `index.html`, if that file exists.
 
@@ -42,7 +42,7 @@ $ ws
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
-#### Single Page Application
+### Single Page Application
 
 Serving a Single Page Application is as trivial as specifying the name of your single page:
 
@@ -55,7 +55,7 @@ By default, requests for typical SPA paths (e.g. `/user/1`, `/login`) would retu
 
 *If a static file at the requested path exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then serve the specified SPA and handle the route client-side.*
 
-#### URL rewriting and proxied requests
+### URL rewriting and proxied requests
 
 Another common use case is to **re-route certain requests to a remote server** if, for example, you'd like to use data from a different environment. The following command would proxy requests with a URL beginning with `http://127.0.0.1:8000/api/` to `https://internal-service.local/api/`:
 
@@ -64,7 +64,7 @@ $ ws --rewrite '/api/* -> https://internal-service.local/api/$1'
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
-#### Mock responses
+### Mock responses
 
 Imagine the network is down or you're working offline, proxied requests to `https://internal-service.local/api/users/1` would fail. In this case, Mock Responses can fill the gap. Export your mock responses from a module.
 
@@ -108,7 +108,7 @@ module.exports = MockBase => class MockUsers extends MockBase {
 }
 ```
 
-Next, launch `ws` passing in your mock response file:
+Next, launch `ws` passing in your mocks module:
 
 ```sh
 $ ws --mocks example-mocks.js
