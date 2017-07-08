@@ -69,7 +69,62 @@ Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:80
 
 ### Mock responses
 
-Imagine the network is down or you're working offline, proxied requests to `https://internal-service.local/api/users/1` would fail. In this case, Mock Responses can fill the gap. Export your mock responses from a module.
+Imagine the network is down or you're working offline, proxied requests to `https://internal-service.local/api/users/1` would fail. In this case, Mock Responses can fill the gap. Mocks are defined in a module which can be reused between projects.
+
+Trivial example - respond to a request for `/rivers` with some JSON. Save the following Javascript in a file named `example-mocks.js`.
+
+```js
+module.exports = MockBase => class MockRivers extends MockBase {
+  mocks () {
+    return {
+      route: '/rivers',
+      responses: [
+        {
+          response: { type: 'json', body: [
+            { name: 'Volga', drainsInto: 'Caspian Sea' },
+            { name: 'Danube', drainsInto: 'Black Sea' },
+            { name: 'Ural', drainsInto: 'Caspian Sea' },
+            { name: 'Dnieper', drainsInto: 'Black Sea' }
+          ]}
+        }
+      ]
+    }
+  }
+}
+```
+
+Launch `ws` passing in your mocks module.
+
+```sh
+$ ws --mocks example-mocks.js
+Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
+```
+
+GET your rivers.
+
+```sh
+$ curl http://127.0.0.1:8000/rivers
+[
+  {
+    "name": "Volga",
+    "drainsInto": "Caspian Sea"
+  },
+  {
+    "name": "Danube",
+    "drainsInto": "Black Sea"
+  },
+  {
+    "name": "Ural",
+    "drainsInto": "Caspian Sea"
+  },
+  {
+    "name": "Dnieper",
+    "drainsInto": "Black Sea"
+  }
+]
+```
+
+More detail can be added to mocks. This example, a RESTful `/users` API, adds responses handling `PUT`, `DELETE` and `POST`.
 
 ```js
 const users = [
@@ -91,7 +146,7 @@ module.exports = MockBase => class MockUsers extends MockBase {
           {
             /* for GET requests return the collection */
             request: { method: 'GET' },
-            response: { type: 'application/json', body: users }
+            response: { type: 'json', body: users }
           },
           {
             /* for POST requests, create a new user and return its location */
@@ -111,14 +166,14 @@ module.exports = MockBase => class MockUsers extends MockBase {
 }
 ```
 
-Next, launch `ws` passing in your mocks module:
+Launch `ws` passing in your mocks module:
 
 ```sh
 $ ws --mocks example-mocks.js
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
-Test your mock responses. A `POST` request should return a `201` with a `Location` header and empty body.
+Test your mock responses. A `POST` request should return a `201` with an empty body and the `Location` of the new resource.
 
 ```sh
 $ curl http://127.0.0.1:8000/users -H 'Content-type: application/json' -d '{ "name": "Anthony" }' -i
@@ -129,6 +184,8 @@ Content-Type: text/plain; charset=utf-8
 Content-Length: 7
 Date: Wed, 28 Jun 2017 20:31:19 GMT
 Connection: keep-alive
+
+Created
 ```
 
 A `GET` to `/users` should return our mock user data, including the record just added.
