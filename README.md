@@ -10,7 +10,7 @@
 
 # local-web-server
 
-The modular web server for productive full-stack development.
+The modular web server for productive full-stack development, powered by [lws](https://github.com/lwsjs/lws).
 
 Use this tool to:
 
