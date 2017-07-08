@@ -11,7 +11,7 @@ const runner = new TestRunner()
 runner.test('basic', async function () {
   const port = 9000 + this.index
   const localWebServer = new LocalWebServer()
-  const server = localWebServer.create({
+  const server = localWebServer.listen({
     port: port,
     directory: 'test/fixture'
   })
