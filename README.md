@@ -17,10 +17,11 @@ Use this tool to:
 * Build any flavour of web application (static site, dynamic site with client or server-rendered content, Single Page App, Progessive Web App, Angular or React app etc.)
 * Prototype any CORS-enabled back-end service (e.g. RESTful HTTP API or Microservice using websockets, Server Sent Events etc.)
 * Monitor activity, analyse performance, experiment with caching strategies etc.
+* Build your own, personalised CLI web server tool
 
 Features:
 
-* Modular, extensible and easy to personalise. Create, share and consume the plugins which match your requirements.
+* Modular, extensible and easy to personalise. Create, share and consume only plugins which match your requirements.
 * Powerful, extensible command-line interface (add your own commands and options)
 * HTTP, HTTPS and experimental HTTP2 support
 * URL Rewriting to local or remote destinations
@@ -46,14 +47,14 @@ Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:80
 
 ### Single Page Application
 
-Serving a Single Page Application (e.g. a React or Angular app) is as trivial as specifying the name of your single page:
+Serving a Single Page Application (an app with client-side routing, e.g. a React or Angular app) is as trivial as specifying the name of your single page:
 
 ```sh
 $ ws --spa index.html
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
-By default, requests for typical SPA paths (e.g. `/user/1`, `/login`) would return `404 Not Found` as a file at that locaiton does not exist. By marking `index.html` as the SPA you create this rule:
+By default, requests for typical SPA paths (e.g. `/user/1`, `/login`) return `404 Not Found` as a file at that location does not exist. By marking `index.html` as the SPA you create this rule:
 
 *If a static file at the requested path exists (e.g. `/css/style.css`) then serve it, if it does not (e.g. `/login`) then serve the specified SPA and handle the route client-side.*
 
@@ -72,9 +73,9 @@ Imagine the network is down or you're working offline, proxied requests to `http
 
 ```js
 const users = [
-  { "id": 1, "name": "Lloyd", "age": 40 },
-  { "id": 2, "name": "Mona", "age": 34 },
-  { "id": 3, "name": "Francesco", "age": 24 }
+  { id: 1, name: 'Lloyd', age: 40 },
+  { id: 2, name: 'Mona', age: 34 },
+  { id: 3, name: 'Francesco', age: 24 }
 ]
 
 module.exports = MockBase => class MockUsers extends MockBase {
