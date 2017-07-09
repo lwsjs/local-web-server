@@ -219,6 +219,8 @@ $ curl http://127.0.0.1:8000/users
   }
 ```
 
+See [the tutorials](https://github.com/lwsjs/local-web-server/wiki#tutorials) for more information and examples about mock responses.
+
 ### HTTPS
 
 Launching a secure server is as simple as setting the `--https` flag. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further configuration options and a guide on how to get the "green padlock" in your browser.
