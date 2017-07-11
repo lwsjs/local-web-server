@@ -3,7 +3,6 @@ function validNodeVersion () {
   var valid = false
   try {
     const semver = require('semver')
-    debugger
     valid = semver.gte(require('process').version, '7.6.0')
   } catch (err) {}
   return valid
