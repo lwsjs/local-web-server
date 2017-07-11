@@ -6,6 +6,8 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 [![Join the chat at https://gitter.im/lwsjs/local-web-server](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/lwsjs/local-web-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+**Requires node v7.6 or above. Upgraders, please read the [release notes](https://github.com/lwsjs/local-web-server/releases)**.
+
 # local-web-server
 
 The modular web server for productive full-stack development, powered by [lws](https://github.com/lwsjs/lws).
@@ -234,7 +236,7 @@ Serving at https://mbp.local:8000, https://127.0.0.1:8000, https://192.168.0.100
 
 ## Install
 
-Requires node v7.6 or higher. Install the [previous release](https://github.com/lwsjs/local-web-server/tree/v1.x) for node >= v4.0.0.
+**Requires node v7.6 or above**. Install the [previous release](https://github.com/lwsjs/local-web-server/tree/v1.x) for node >= v4.0.0.
 
 ```sh
 $ npm install -g local-web-server
