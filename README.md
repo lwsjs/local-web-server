@@ -30,7 +30,7 @@ Features:
 * Configurable access log
 * Route blacklisting
 * HTTP Conditional Request support
-* Gzip response compression and much more
+* Gzip response compression, HTTP Basic Authentication and much more
 
 ## Synopsis
 
