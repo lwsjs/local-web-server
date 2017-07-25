@@ -32,7 +32,7 @@
   "repository": "https://github.com/lwsjs/local-web-server",
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "dependencies": {
-    "lws": "^1.1.2",
+    "lws": "^1.1.3",
     "lws-basic-auth": "^0.1.1",
     "lws-blacklist": "^0.2.3",
     "lws-body-parser": "^0.2.4",
@@ -48,7 +48,7 @@
     "lws-rewrite": "^0.3.6",
     "lws-spa": "^0.2.4",
     "lws-static": "^0.4.1",
-    "semver": "^5.3.0"
+    "semver": "^5.4.1"
   },
   "devDependencies": {
     "coveralls": "^2.13.1",
