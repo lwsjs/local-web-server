@@ -45,7 +45,7 @@
     "lws-mime": "^0.2.2",
     "lws-mock-response": "^0.4.6",
     "lws-request-monitor": "^0.1.5",
-    "lws-rewrite": "^0.3.6",
+    "lws-rewrite": "^0.3.7",
     "lws-spa": "^0.2.4",
     "lws-static": "^0.4.1",
     "semver": "^5.4.1"
