@@ -38,7 +38,7 @@
     "lws-body-parser": "^0.2.4",
     "lws-compress": "^0.2.1",
     "lws-conditional-get": "^0.3.4",
-    "lws-cors": "^0.3.5",
+    "lws-cors": "^1.0.0",
     "lws-index": "^0.3.3",
     "lws-json": "^0.3.2",
     "lws-log": "^0.3.2",
@@ -51,7 +51,7 @@
     "semver": "^5.4.1"
   },
   "devDependencies": {
-    "coveralls": "^2.13.1",
+    "coveralls": "^3.0.0",
     "req-then": "^0.6.4",
     "test-runner": "^0.4.1"
   }
