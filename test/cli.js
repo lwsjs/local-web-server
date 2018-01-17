@@ -22,7 +22,9 @@ runner.test('cli.run: bad option', async function () {
   const port = 7500 + this.index
   const origArgv = process.argv.slice()
   process.argv = [ 'node', 'something', '--should-fail' ]
+  const exitCode = process.exitCode
   const server = CliApp.run()
+  if (!exitCode) process.exitCode = 0
   process.argv = origArgv
   a.strictEqual(server, undefined)
 })
