@@ -26,7 +26,7 @@
   },
   "scripts": {
     "test": "test-runner test/*.js",
-    "docs": "jsdoc2md -t jsdoc2md/api.hbs -p list lib/*.js > doc/api.md; echo",
+    "docs": "jsdoc2md -p list lib/*.js > doc/api.md; echo",
     "cover": "istanbul cover ./node_modules/.bin/test-runner test/*.js && cat coverage/lcov.info | coveralls"
   },
   "repository": "https://github.com/lwsjs/local-web-server",
@@ -44,6 +44,7 @@
     "lws-log": "^0.3.2",
     "lws-mime": "^0.2.2",
     "lws-mock-response": "^0.4.6",
+    "lws-range": "^1.1.0",
     "lws-request-monitor": "^0.1.5",
     "lws-rewrite": "^0.3.7",
     "lws-spa": "^0.2.4",
@@ -52,6 +53,7 @@
   },
   "devDependencies": {
     "coveralls": "^3.0.0",
+    "jsdoc-to-markdown": "^4.0.1",
     "req-then": "^0.6.4",
     "test-runner": "^0.5.0"
   }
