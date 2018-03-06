@@ -23,7 +23,7 @@ Features:
 
 * Modular, extensible and easy to personalise. Create, share and consume only plugins which match your requirements.
 * Powerful, extensible command-line interface (add your own commands and options)
-* HTTP, HTTPS and experimental HTTP2 support
+* HTTP, HTTPS and HTTP2 support (HTTP2 requires node v8.4.0 or above)
 * URL Rewriting to local or remote destinations
 * Single Page Application support
 * Response mocking
@@ -227,6 +227,15 @@ Launching a secure server is as simple as setting the `--https` flag. [See the w
 
 ```sh
 $ ws --https
+Serving at https://mbp.local:8000, https://127.0.0.1:8000, https://192.168.0.100:8000
+```
+
+### HTTP2
+
+Uses node's built-in HTTP2 support. HTTP2 servers are always secure using local-web-server's built-in SSL certificates (by default) or those supplied by `--cert`, `--key` or `--pfx`. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further info about HTTPS options and a guide on how to get the "green padlock" in your browser.
+
+```sh
+$ ws --http2
 Serving at https://mbp.local:8000, https://127.0.0.1:8000, https://192.168.0.100:8000
 ```
 
