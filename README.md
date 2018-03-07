@@ -69,6 +69,24 @@ $ ws --rewrite '/api/* -> https://internal-service.local/api/$1'
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
+### HTTPS
+
+Launching a secure server is as simple as setting the `--https` flag. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further configuration options and a guide on how to get the "green padlock" in your browser.
+
+```sh
+$ ws --https
+Serving at https://mbp.local:8000, https://127.0.0.1:8000, https://192.168.0.100:8000
+```
+
+### HTTP2
+
+Uses node's built-in HTTP2 support. HTTP2 servers are always secure using local-web-server's built-in SSL certificates (by default) or those supplied by `--cert`, `--key` or `--pfx`. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further info about HTTPS options and a guide on how to get the "green padlock" in your browser.
+
+```sh
+$ ws --http2
+Serving at https://mbp.local:8000, https://127.0.0.1:8000, https://192.168.0.100:8000
+```
+
 ### Mock responses
 
 Imagine the network is down or you're working offline, proxied requests to `https://internal-service.local/api/users/1` would fail. In this case, Mock Responses can fill the gap. Mocks are defined in a module which can be reused between projects.
@@ -129,115 +147,7 @@ $ curl http://127.0.0.1:8000/rivers
 ]
 ```
 
-More detail can be added to mocks. This example, a RESTful `/users` API, adds responses handling `PUT`, `DELETE` and `POST`.
-
-```js
-const users = [
-  { id: 1, name: 'Lloyd', age: 40 },
-  { id: 2, name: 'Mona', age: 34 },
-  { id: 3, name: 'Francesco', age: 24 }
-]
-
-module.exports = MockBase => class MockUsers extends MockBase {
-  mocks () {
-    /* response mocks for /users */
-    return [
-      {
-        route: '/users',
-        responses: [
-          /* Respond with 400 Bad Request for PUT and DELETE requests (inappropriate on a collection) */
-          { request: { method: 'PUT' }, response: { status: 400 } },
-          { request: { method: 'DELETE' }, response: { status: 400 } },
-          {
-            /* for GET requests return the collection */
-            request: { method: 'GET' },
-            response: { type: 'json', body: users }
-          },
-          {
-            /* for POST requests, create a new user and return its location */
-            request: { method: 'POST' },
-            response: function (ctx) {
-              const newUser = ctx.request.body
-              users.push(newUser)
-              newUser.id = users.length
-              ctx.status = 201
-              ctx.response.set('Location', `/users/${newUser.id}`)
-            }
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-Launch `ws` passing in your mocks module:
-
-```sh
-$ ws --mocks example-mocks.js
-Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
-```
-
-Test your mock responses. A `POST` request should return a `201` with an empty body and the `Location` of the new resource.
-
-```sh
-$ curl http://127.0.0.1:8000/users -H 'Content-type: application/json' -d '{ "name": "Anthony" }' -i
-HTTP/1.1 201 Created
-Vary: Origin
-Location: /users/4
-Content-Type: text/plain; charset=utf-8
-Content-Length: 7
-Date: Wed, 28 Jun 2017 20:31:19 GMT
-Connection: keep-alive
-
-Created
-```
-
-A `GET` to `/users` should return our mock user data, including the record just added.
-
-```sh
-$ curl http://127.0.0.1:8000/users
-[
-  {
-    "id": 1,
-    "name": "Lloyd",
-    "age": 40
-  },
-  {
-    "id": 2,
-    "name": "Mona",
-    "age": 34
-  },
-  {
-    "id": 3,
-    "name": "Francesco",
-    "age": 24
-  },
-  {
-    "id": 4,
-    "name": "Anthony"
-  }
-```
-
 See [the tutorials](https://github.com/lwsjs/local-web-server/wiki#tutorials) for more information and examples about mock responses.
-
-### HTTPS
-
-Launching a secure server is as simple as setting the `--https` flag. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further configuration options and a guide on how to get the "green padlock" in your browser.
-
-```sh
-$ ws --https
-Serving at https://mbp.local:8000, https://127.0.0.1:8000, https://192.168.0.100:8000
-```
-
-### HTTP2
-
-Uses node's built-in HTTP2 support. HTTP2 servers are always secure using local-web-server's built-in SSL certificates (by default) or those supplied by `--cert`, `--key` or `--pfx`. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further info about HTTPS options and a guide on how to get the "green padlock" in your browser.
-
-```sh
-$ ws --http2
-Serving at https://mbp.local:8000, https://127.0.0.1:8000, https://192.168.0.100:8000
-```
 
 ## Further Documentation
 
