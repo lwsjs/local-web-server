@@ -17,7 +17,7 @@ const path = require('path')
  * // secure, SPA server with listening websocket now ready on port 8050
  */
 
- /**
+/**
   * @alias module:local-web-server
   */
 class LocalWebServer extends Lws {
@@ -45,12 +45,12 @@ class LocalWebServer extends Lws {
     const usage = require('lws/lib/usage')
     usage.defaults
       .set('an', 'ws')
-      .set('av', require('../package').version)
+      .set('av', require('./package').version)
       .set('cd4', 'api')
     options = Object.assign({
-      moduleDir: path.resolve(__dirname, `../node_modules`),
+      moduleDir: path.resolve(__dirname, `./node_modules`),
       modulePrefix: 'lws-',
-      stack: require('./default-stack')
+      stack: require('./lib/default-stack')
     }, options)
     return super.listen(options)
 

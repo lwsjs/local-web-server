@@ -5,7 +5,6 @@
   "bin": {
     "ws": "./bin/cli.js"
   },
-  "main": "lib/local-web-server.js",
   "license": "MIT",
   "keywords": [
     "dev",
@@ -31,6 +30,9 @@
   },
   "repository": "https://github.com/lwsjs/local-web-server",
   "author": "Lloyd Brookes <75pound@gmail.com>",
+  "files": [
+    "bin", "lib", "index.js"
+  ],
   "dependencies": {
     "lws": "^1.2.3",
     "lws-basic-auth": "^0.1.1",
