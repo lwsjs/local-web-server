@@ -27,7 +27,7 @@
   "scripts": {
     "test": "test-runner test/*.js",
     "docs": "jsdoc2md -p list lib/*.js > doc/api.md; echo",
-    "cover": "istanbul cover ./node_modules/.bin/test-runner test/*.js && cat coverage/lcov.info | coveralls"
+    "cover": "nyc --reporter=text-lcov test-runner test/*.js | coveralls"
   },
   "repository": "https://github.com/lwsjs/local-web-server",
   "author": "Lloyd Brookes <75pound@gmail.com>",
@@ -49,7 +49,7 @@
     "lws-rewrite": "^0.4.0",
     "lws-spa": "^0.3.0",
     "lws-static": "^0.5.0",
-    "semver": "^5.5.0"
+    "node-version-matches": "^1.0.0"
   },
   "devDependencies": {
     "coveralls": "^3.0.0",
