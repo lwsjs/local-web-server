@@ -2,8 +2,6 @@ const TestRunner = require('test-runner')
 const a = require('assert')
 const CliApp = require('../lib/cli-app')
 const request = require('req-then')
-const usage = require('lws/lib/usage')
-usage.disable()
 
 const runner = new TestRunner()
 

@@ -3,8 +3,6 @@ const TestRunner = require('test-runner')
 const request = require('req-then')
 const LocalWebServer = require('../')
 const a = require('assert')
-const usage = require('lws/lib/usage')
-usage.disable()
 
 const runner = new TestRunner()
 

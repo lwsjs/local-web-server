@@ -42,11 +42,6 @@ class LocalWebServer extends Lws {
    * @returns {Server}
    */
   listen (options) {
-    const usage = require('lws/lib/usage')
-    usage.defaults
-      .set('an', 'ws')
-      .set('av', require('./package').version)
-      .set('cd4', 'api')
     options = Object.assign({
       moduleDir: path.resolve(__dirname, `./node_modules`),
       modulePrefix: 'lws-',
