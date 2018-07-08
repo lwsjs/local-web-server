@@ -25,7 +25,7 @@
   },
   "scripts": {
     "test": "test-runner test/*.js",
-    "docs": "jsdoc2md -p list lib/*.js > doc/api.md; echo",
+    "docs": "jsdoc2md -p list index.js lib/*.js > doc/api.md; echo",
     "cover": "nyc --reporter=text-lcov test-runner test/*.js | coveralls"
   },
   "repository": "https://github.com/lwsjs/local-web-server",

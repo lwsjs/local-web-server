@@ -1,3 +1,6 @@
 node_modules
 tmp
 *bundle.js
+.coveralls.yml
+.nyc_output
+coverage
