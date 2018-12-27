@@ -1,4 +1,3 @@
-'use strict'
 const TestRunner = require('test-runner')
 const request = require('req-then')
 const LocalWebServer = require('../')
