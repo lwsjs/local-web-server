@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+
+//enable proxy
+require('global-tunnel-ng').initialize()
+
 const nodeVersionMatches = require('node-version-matches')
 
 if (nodeVersionMatches('>=7.6.0')) {
