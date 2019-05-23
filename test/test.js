@@ -1,18 +1,19 @@
-const TestRunner = require('test-runner')
-const request = require('req-then')
+const Tom = require('test-runner').Tom
+const fetch = require('node-fetch')
 const LocalWebServer = require('../')
 const a = require('assert')
 
-const runner = new TestRunner()
+const tom = module.exports = new Tom('test')
 
-runner.test('basic', async function () {
+tom.test('basic', async function () {
   const port = 9000 + this.index
   const localWebServer = new LocalWebServer()
   const server = localWebServer.listen({
     port: port,
     directory: 'test/fixture'
   })
-  const response = await request(`http://localhost:${port}/one.txt`)
+  const response = await fetch(`http://localhost:${port}/one.txt`)
   server.close()
-  a.strictEqual(response.data.toString(), 'one\n')
+  const body = await response.text()
+  a.strictEqual(body, 'one\n')
 })

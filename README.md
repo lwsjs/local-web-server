@@ -1,12 +1,12 @@
-[![npm (tag)](https://img.shields.io/npm/v/local-web-server.svg)](https://www.npmjs.org/package/local-web-server)
+[![view on npm](https://img.shields.io/npm/v/local-web-server.svg)](https://www.npmjs.org/package/local-web-server)
 [![npm module downloads](https://img.shields.io/npm/dt/local-web-server.svg)](https://www.npmjs.org/package/local-web-server)
 [![Build Status](https://travis-ci.org/lwsjs/local-web-server.svg?branch=master)](https://travis-ci.org/lwsjs/local-web-server)
 [![Coverage Status](https://coveralls.io/repos/github/lwsjs/local-web-server/badge.svg?branch=master)](https://coveralls.io/github/lwsjs/local-web-server?branch=master)
-[![dependencies Status](https://david-dm.org/lwsjs/local-web-server/master/status.svg)](https://david-dm.org/lwsjs/local-web-server/master)
+[![Dependency Status](https://badgen.net/david/dep/lwsjs/local-web-server)](https://david-dm.org/lwsjs/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 [![Join the chat at https://gitter.im/lwsjs/local-web-server](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/lwsjs/local-web-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-**Requires node v7.6 or above. Upgraders, please read the [release notes](https://github.com/lwsjs/local-web-server/releases)**.
+**Requires node v8 or above. Upgraders, please read the [release notes](https://github.com/lwsjs/local-web-server/releases)**.
 
 # local-web-server
 
@@ -155,11 +155,12 @@ See [the tutorials](https://github.com/lwsjs/local-web-server/wiki#tutorials) fo
 
 ## Install
 
-**Requires node v7.6 or above**. Install the [previous release](https://github.com/lwsjs/local-web-server/tree/v1.x) for node >= v4.0.0.
+**Requires node v8 or above**. Install the [previous release](https://github.com/lwsjs/local-web-server/tree/v1.x) for node >= v4.0.0.
 
 ```sh
 $ npm install -g local-web-server
 ```
 * * *
 
-&copy; 2013-18 Lloyd Brookes <75pound@gmail.com>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
+&copy; 2013-19
+ Lloyd Brookes <75pound@gmail.com>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).

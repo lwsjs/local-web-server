@@ -21,12 +21,12 @@
     "proxy"
   ],
   "engines": {
-    "node": ">=7.6"
+    "node": ">=8"
   },
   "scripts": {
     "test": "test-runner test/*.js",
     "docs": "jsdoc2md -p list index.js lib/*.js > doc/api.md; echo",
-    "cover": "nyc --reporter=text-lcov test-runner test/*.js | coveralls"
+    "cover": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": "https://github.com/lwsjs/local-web-server",
   "author": "Lloyd Brookes <75pound@gmail.com>",
@@ -36,9 +36,9 @@
     "index.js"
   ],
   "dependencies": {
-    "lws": "^1.3.0",
+    "lws": "^1.3.2",
     "lws-basic-auth": "^0.1.1",
-    "lws-blacklist": "^0.3.0",
+    "lws-blacklist": "^1.0.0",
     "lws-body-parser": "^0.2.4",
     "lws-compress": "^0.2.1",
     "lws-conditional-get": "^0.3.4",
@@ -47,18 +47,17 @@
     "lws-json": "^0.3.2",
     "lws-log": "^0.3.2",
     "lws-mime": "^0.2.2",
-    "lws-mock-response": "^0.5.1",
-    "lws-range": "^1.1.0",
+    "lws-range": "^1.1.1",
     "lws-request-monitor": "^0.1.5",
-    "lws-rewrite": "^0.4.1",
-    "lws-spa": "^0.3.0",
+    "lws-rewrite": "^1.0.1",
+    "lws-spa": "^1.0.1",
     "lws-static": "^0.5.0",
-    "node-version-matches": "^1.0.0"
+    "node-version-matches": "^1.0.1"
   },
   "devDependencies": {
-    "coveralls": "^3.0.2",
-    "jsdoc-to-markdown": "^4.0.1",
-    "req-then": "^0.6.4",
-    "test-runner": "^0.5.0"
+    "coveralls": "^3.0.3",
+    "jsdoc-to-markdown": "^5.0.0",
+    "node-fetch": "^2.6.0",
+    "test-runner": "^0.6.0"
   }
 }

@@ -1,22 +1,22 @@
-const TestRunner = require('test-runner')
+const Tom = require('test-runner').Tom
 const a = require('assert')
 const CliApp = require('../lib/cli-app')
-const request = require('req-then')
+const fetch = require('node-fetch')
 
-const runner = new TestRunner()
+const tom = module.exports = new Tom('cli')
 
-runner.test('cli.run', async function () {
+tom.test('cli.run', async function () {
   const port = 7500 + this.index
   const origArgv = process.argv.slice()
   process.argv = [ 'node', 'something', '--port', `${port}` ]
   const server = CliApp.run()
   process.argv = origArgv
-  const response = await request(`http://127.0.0.1:${port}/`)
+  const response = await fetch(`http://127.0.0.1:${port}/`)
   server.close()
-  a.strictEqual(response.res.statusCode, 200)
+  a.strictEqual(response.status, 200)
 })
 
-runner.test('cli.run: bad option', async function () {
+tom.test('cli.run: bad option', async function () {
   const origArgv = process.argv.slice()
   process.argv = [ 'node', 'something', '--should-fail' ]
   const exitCode = process.exitCode
@@ -26,21 +26,21 @@ runner.test('cli.run: bad option', async function () {
   a.strictEqual(server, undefined)
 })
 
-runner.test('cli.run: --help', async function () {
+tom.test('cli.run: --help', async function () {
   const origArgv = process.argv.slice()
   process.argv = [ 'node', 'something', '--help' ]
   CliApp.run()
   process.argv = origArgv
 })
 
-runner.test('cli.run: --version', async function () {
+tom.test('cli.run: --version', async function () {
   const origArgv = process.argv.slice()
   process.argv = [ 'node', 'something', '--version' ]
   CliApp.run()
   process.argv = origArgv
 })
 
-runner.test('cli.run: middleware-list', async function () {
+tom.test('cli.run: middleware-list', async function () {
   const origArgv = process.argv.slice()
   process.argv = [ 'node', 'something', 'middleware-list' ]
   CliApp.run()
