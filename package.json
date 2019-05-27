@@ -36,7 +36,7 @@
     "index.js"
   ],
   "dependencies": {
-    "lws": "^2.0.0-3",
+    "lws": "2.0.0-3",
     "lws-basic-auth": "^0.1.1",
     "lws-blacklist": "^1.0.0",
     "lws-body-parser": "^0.2.4",
