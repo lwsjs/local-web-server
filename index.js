@@ -15,6 +15,9 @@ const path = require('path')
  *   websocket: 'src/websocket-server.js'
  * })
  * // secure, SPA server with listening websocket now ready on port 8050
+ *
+ * // shut down the server
+ * server.close()
  */
 
 /**

@@ -160,7 +160,7 @@ See [the tutorials](https://github.com/lwsjs/local-web-server/wiki#tutorials) fo
 ```sh
 $ npm install -g local-web-server
 ```
+
 * * *
 
-&copy; 2013-19
- Lloyd Brookes <75pound@gmail.com>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
+&copy; 2013-19 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
