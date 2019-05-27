@@ -1,6 +1,6 @@
 {
   "name": "local-web-server",
-  "version": "3.0.0-0",
+  "version": "3.0.0-1",
   "description": "The modular web server for productive full-stack development",
   "bin": {
     "ws": "./bin/cli.js"
