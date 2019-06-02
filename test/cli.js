@@ -12,7 +12,7 @@ tom.test('cli.run', async function () {
   const cli = new WsCli({ logError: function () {} })
   const server = cli.start()
   process.argv = origArgv
-  const response = await fetch(`http://127.0.0.1:${port}/`)
+  const response = await fetch(`http://127.0.0.1:${port}/package.json`)
   server.close()
   a.strictEqual(response.status, 200)
 })
@@ -53,6 +53,6 @@ tom.test('cli.run: default-stack', async function () {
   let logMsg = ''
   const cli = new WsCli({ log: function (msg) { logMsg = msg } })
   cli.start()
-  a.ok(/lws-rewrite/.test(logMsg))
+  a.ok(/lws-static/.test(logMsg))
   process.argv = origArgv
 })

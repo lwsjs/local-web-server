@@ -2,6 +2,8 @@
   "name": "local-web-server",
   "version": "3.0.0-1",
   "description": "The modular web server for productive full-stack development",
+  "repository": "https://github.com/lwsjs/local-web-server",
+  "author": "Lloyd Brookes <75pound@gmail.com>",
   "bin": {
     "ws": "./bin/cli.js"
   },
@@ -28,30 +30,28 @@
     "docs": "jsdoc2md -p list index.js lib/*.js > doc/api.md; echo",
     "cover": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
-  "repository": "https://github.com/lwsjs/local-web-server",
-  "author": "Lloyd Brookes <75pound@gmail.com>",
   "files": [
-    "bin",
-    "lib",
+    "bin/*.js",
+    "lib/*.js",
     "index.js"
   ],
   "dependencies": {
-    "lws": "2.0.0-3",
-    "lws-basic-auth": "^0.1.1",
-    "lws-blacklist": "^1.0.0",
-    "lws-body-parser": "^0.2.4",
-    "lws-compress": "^0.2.1",
+    "lws": "2.0.0-6",
+    "lws-basic-auth": "^1.0.1",
+    "lws-blacklist": "^2.0.0",
+    "lws-body-parser": "^1.0.0",
+    "lws-compress": "^1.0.0",
     "lws-conditional-get": "^0.3.4",
     "lws-cors": "^1.0.0",
-    "lws-index": "^0.4.0",
+    "lws-index": "^1.0.0",
     "lws-json": "^0.3.2",
     "lws-log": "^0.3.2",
     "lws-mime": "^0.2.2",
     "lws-range": "^1.1.1",
-    "lws-request-monitor": "^0.1.5",
+    "lws-request-monitor": "^1.0.0",
     "lws-rewrite": "^1.0.1",
     "lws-spa": "^1.0.1",
-    "lws-static": "^0.5.0",
+    "lws-static": "^1.0.0",
     "node-version-matches": "^1.0.1"
   },
   "devDependencies": {

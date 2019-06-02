@@ -1,5 +1,4 @@
 const Lws = require('lws')
-const path = require('path')
 
 /**
  * @module local-web-server
@@ -39,27 +38,24 @@ class LocalWebServer extends Lws {
    * @param [options.ciphers] {string} - Optional cipher suite specification, replacing the default.
    * @param [options.secureProtocol] {string} - Optional SSL method to use, default is "SSLv23_method".
    * @param [options.stack] {string[]|Middlewares[]} - Array of feature classes, or filenames of modules exporting a feature class.
-   * @param [options.server] {string|ServerFactory} - Custom server factory, e.g. lws-http2.
-   * @param [options.websocket] {string|Websocket} - Path to a websocket module
    * @param [options.moduleDir] {string[]} - One or more directories to search for modules.
    * @returns {Server}
    */
-  listen (options) {
-    options = Object.assign({
-      moduleDir: path.resolve(__dirname, `./node_modules`),
-      modulePrefix: 'lws-',
-      stack: require('./lib/default-stack')
-    }, options)
-    return super.listen(options)
 
-    /**
-     * Highly-verbose debug information event stream.
-     *
-     * @event module:local-web-server#verbose
-     * @param key {string} - An identifying string, e.g. `server.socket.data`.
-     * @param value {*} - The value, e.g. `{ socketId: 1, bytesRead: '3 Kb' }`.
-     */
+  getDefaultConfig () {
+    return Object.assign(super.getDefaultConfig(), {
+      moduleDir: [ __dirname, '.' ],
+      stack: require('./lib/default-stack')
+    })
   }
 }
+
+/**
+ * Highly-verbose debug information event stream.
+ *
+ * @event module:local-web-server#verbose
+ * @param key {string} - An identifying string, e.g. `server.socket.data`.
+ * @param value {*} - The value, e.g. `{ socketId: 1, bytesRead: '3 Kb' }`.
+ */
 
 module.exports = LocalWebServer

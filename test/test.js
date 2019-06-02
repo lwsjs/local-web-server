@@ -7,13 +7,12 @@ const tom = module.exports = new Tom('test')
 
 tom.test('basic', async function () {
   const port = 9000 + this.index
-  const localWebServer = new LocalWebServer()
-  const server = localWebServer.listen({
+  const ws = LocalWebServer.create({
     port: port,
     directory: 'test/fixture'
   })
   const response = await fetch(`http://localhost:${port}/one.txt`)
-  server.close()
+  ws.server.close()
   const body = await response.text()
   a.strictEqual(body, 'one\n')
 })
