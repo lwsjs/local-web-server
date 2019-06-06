@@ -23,8 +23,8 @@ const Lws = require('lws')
   * @alias module:local-web-server
   */
 class LocalWebServer extends Lws {
-  getDefaultConfig () {
-    return Object.assign(super.getDefaultConfig(), {
+  _getDefaultConfig () {
+    return Object.assign(super._getDefaultConfig(), {
       moduleDir: [ __dirname, '.' ],
       stack: require('./lib/default-stack')
     })
