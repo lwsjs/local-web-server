@@ -4,7 +4,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/lwsjs/local-web-server/badge.svg?branch=master)](https://coveralls.io/github/lwsjs/local-web-server?branch=master)
 [![Dependency Status](https://badgen.net/david/dep/lwsjs/local-web-server)](https://david-dm.org/lwsjs/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
-[![Join the chat at https://gitter.im/lwsjs/local-web-server](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/lwsjs/local-web-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 **Requires node v8 or above. Upgraders, please read the [release notes](https://github.com/lwsjs/local-web-server/releases)**.
 
@@ -86,68 +85,6 @@ Uses node's built-in HTTP2 support. HTTP2 servers are always secure using local-
 $ ws --http2
 Serving at https://mbp.local:8000, https://127.0.0.1:8000, https://192.168.0.100:8000
 ```
-
-### Mock responses
-
-Imagine the network is down or you're working offline, proxied requests to `https://internal-service.local/api/users/1` would fail. In this case, Mock Responses can fill the gap. Mocks are defined in a module which can be reused between projects.
-
-Trivial example - respond to a request for `/rivers` with some JSON. Save the following Javascript in a file named `example-mocks.js`.
-
-```js
-module.exports = MockBase => class MockRivers extends MockBase {
-  mocks () {
-    return {
-      route: '/rivers',
-      responses: [
-        {
-          response: {
-            type: 'json',
-            body: [
-              { name: 'Volga', drainsInto: 'Caspian Sea' },
-              { name: 'Danube', drainsInto: 'Black Sea' },
-              { name: 'Ural', drainsInto: 'Caspian Sea' },
-              { name: 'Dnieper', drainsInto: 'Black Sea' }
-            ]
-          }
-        }
-      ]
-    }
-  }
-}
-```
-
-Launch `ws` passing in your mocks module.
-
-```sh
-$ ws --mocks example-mocks.js
-Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
-```
-
-GET your rivers.
-
-```sh
-$ curl http://127.0.0.1:8000/rivers
-[
-  {
-    "name": "Volga",
-    "drainsInto": "Caspian Sea"
-  },
-  {
-    "name": "Danube",
-    "drainsInto": "Black Sea"
-  },
-  {
-    "name": "Ural",
-    "drainsInto": "Caspian Sea"
-  },
-  {
-    "name": "Dnieper",
-    "drainsInto": "Black Sea"
-  }
-]
-```
-
-See [the tutorials](https://github.com/lwsjs/local-web-server/wiki#tutorials) for more information and examples about mock responses.
 
 ## Further Documentation
 
