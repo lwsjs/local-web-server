@@ -9,27 +9,28 @@
 
 # local-web-server
 
-The modular web server for productive full-stack development.
+A modular HTTP, HTTPS and HTTP2 command-line web server for productive full-stack development. Local-web-server is a distribution of [lws](https://github.com/lwsjs/lws) bundled with a "starter pack" of useful middleware.
 
 Use this tool to:
 
-* Build any flavour of web application (static site, dynamic site with client or server-rendered content, Single Page App, Progessive Web App, Angular or React app etc.)
-* Prototype any CORS-enabled back-end service (e.g. RESTful HTTP API or Microservice using websockets, Server Sent Events etc.)
-* Monitor activity, analyse performance, experiment with caching strategies etc.
-* Build your own, personalised CLI web server tool
+* Help build any flavour of front-end web application
+    * *Static site, dynamic site with client or server-rendered content, Single Page App, Progessive Web App, Angular or React app etc.*
+* Prototype a CORS-enabled back-end service
+    * *RESTful HTTP API, microservice, websocket server, Server Sent Events service etc.*
+* Monitor activity, analyse performance, fine-tune caching strategy etc.
 
 Features:
 
-* Modular, extensible and easy to personalise. Create, share and consume only plugins which match your requirements.
-* Powerful, extensible command-line interface (add your own commands and options)
-* HTTP, HTTPS and HTTP2 support (HTTP2 requires node v8.4.0 or above)
-* URL Rewriting to local or remote destinations
-* Single Page Application support
-* Response mocking
+* Full control over the middleware stack
+* Single Page Application (SPA) support
+* URL Rewriting
+* Proxy requests to remote resources
+* HTTP Conditional Request support
+* Range request support
+* Gzip response compression
+* HTTP Basic Authentication
 * Configurable access log
-* Route blacklisting
-* HTTP Conditional and Range request support
-* Gzip response compression, HTTP Basic Authentication and much more
+* Route blacklisting and more
 
 ## Synopsis
 
@@ -37,7 +38,7 @@ This package installs the `ws` command-line tool (take a look at the [usage guid
 
 ### Static web site
 
-The most simple use case is to run `ws` without any arguments - this will **host the current directory as a static web site**. Navigating to the server will render a directory listing or your `index.html`, if that file exists.
+Running `ws` without any arguments will host the current directory as a static web site. Navigating to the server will render a directory listing or your `index.html`, if that file exists.
 
 ```sh
 $ ws
@@ -53,15 +54,15 @@ $ ws --spa index.html
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
-By default, requests for typical SPA paths (e.g. `/user/1`, `/login`) return `404 Not Found` as a file at that location does not exist. By marking `index.html` as the SPA you create this rule:
+With a static site, requests for typical SPA paths (e.g. `/user/1`, `/login`) would return `404 Not Found` as a file at that location does not exist. However, by marking `index.html` as the SPA you create this rule:
 
 *If a static file is requested (e.g. `/css/style.css`) then serve it, if not (e.g. `/login`) then serve the specified SPA and handle the route client-side.*
 
-[Read more](https://github.com/lwsjs/local-web-server/wiki/How-to-serve-a-Single-Page-Application-(SPA)).
+[SPA tutorial](https://github.com/lwsjs/local-web-server/wiki/How-to-serve-a-Single-Page-Application-(SPA)).
 
 ### URL rewriting and proxied requests
 
-Another common use case is to **re-route certain requests to a remote server** if, for example, you'd like to use data from a different environment. The following command would proxy requests with a URL beginning with `http://127.0.0.1:8000/api/` to `https://internal-service.local/api/`:
+Another common use case is to forward certain requests to a remote server. The following command would proxy requests from any URL beginning with `/api/` to `https://internal-service.local/api/`. For example, a request to `/api/posts/1` would be proxied to `https://internal-service.local/api/posts/1`.
 
 ```sh
 $ ws --rewrite '/api/* -> https://internal-service.local/api/$1'
@@ -70,7 +71,7 @@ Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:80
 
 ### HTTPS
 
-Launching a secure server is as simple as setting the `--https` flag. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further configuration options and a guide on how to get the "green padlock" in your browser.
+Launch a secure server by setting the `--https` flag. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further configuration options and a guide on how to get the "green padlock" in your browser.
 
 ```sh
 $ ws --https
@@ -79,7 +80,7 @@ Serving at https://mbp.local:8000, https://127.0.0.1:8000, https://192.168.0.100
 
 ### HTTP2
 
-Uses node's built-in HTTP2 support. HTTP2 servers are always secure using local-web-server's built-in SSL certificates (by default) or those supplied by `--cert`, `--key` or `--pfx`. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further info about HTTPS options and a guide on how to get the "green padlock" in your browser.
+Uses node's built-in HTTP2 support. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further info about HTTPS options and a guide on how to get the "green padlock" in your browser.
 
 ```sh
 $ ws --http2
