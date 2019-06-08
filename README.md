@@ -19,19 +19,6 @@ Use this tool to:
     * *RESTful HTTP API, microservice, websocket server, Server Sent Events service etc.*
 * Monitor activity, analyse performance, fine-tune caching strategy etc.
 
-Features:
-
-* Full control over the middleware stack
-* Single Page Application (SPA) support
-* URL Rewriting
-* Proxy requests to remote resources
-* HTTP Conditional Request support
-* Range request support
-* Gzip response compression
-* HTTP Basic Authentication
-* Configurable access log
-* Route blacklisting and more
-
 Local-web-server is a distribution of [lws](https://github.com/lwsjs/lws) bundled with a "starter pack" of useful middleware.
 
 ## Synopsis
@@ -56,7 +43,6 @@ Serving a Single Page Application (an app with client-side routing, e.g. a React
 
 ```sh
 $ ws --spa index.html
-Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
 With a static site, requests for typical SPA paths (e.g. `/user/1`, `/login`) would return `404 Not Found` as a file at that location does not exist. However, by marking `index.html` as the SPA you create this rule:
@@ -67,12 +53,15 @@ With a static site, requests for typical SPA paths (e.g. `/user/1`, `/login`) wo
 
 ### URL rewriting and proxied requests
 
-Another common use case is to forward certain requests to a remote server. The following command would proxy requests from any URL beginning with `/api/` to `https://internal-service.local/api/`. For example, a request to `/api/posts/1` would be proxied to `https://internal-service.local/api/posts/1`.
+Another common use case is to forward certain requests to a remote server.
+
+The following command proxies blog post requests from any path beginning with `/posts/` to `https://jsonplaceholder.typicode.com/posts/`. For example, a request for `/posts/1` would be proxied to `https://jsonplaceholder.typicode.com/posts/1`.
 
 ```sh
-$ ws --rewrite '/api/* -> https://internal-service.local/api/$1'
-Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
+$ ws --rewrite '/posts/(.*) -> https://jsonplaceholder.typicode.com/posts/$1'
 ```
+
+This clip demonstrates the above plus use of `--static.extensions` to specify a default file extension and `--verbose` to monitor activity.
 
 <img src="https://imgur.com/download/3flcbJn" width="618px" title="Proxy json requests to remote resource">
 
@@ -82,7 +71,6 @@ Launch a secure server by setting the `--https` flag. [See the wiki](https://git
 
 ```sh
 $ ws --https
-Serving at https://mbp.local:8000, https://127.0.0.1:8000, https://192.168.0.100:8000
 ```
 
 ### HTTP2
@@ -91,8 +79,21 @@ Uses node's built-in HTTP2 support. [See the wiki](https://github.com/lwsjs/loca
 
 ```sh
 $ ws --http2
-Serving at https://mbp.local:8000, https://127.0.0.1:8000, https://192.168.0.100:8000
 ```
+
+## Features
+
+* Full control over request handling. The middleware stack is personalisable - use one or more custom or pre-built middleware plugins.
+* Single Page Application (SPA) support
+* URL Rewriting
+* Proxy requests to remote resources
+* HTTP Conditional Request support
+* Range request support
+* Gzip response compression
+* HTTP Basic Authentication
+* Configurable access log
+* Route blacklisting and more
+
 
 ## Further Documentation
 
