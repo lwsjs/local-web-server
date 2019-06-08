@@ -5,17 +5,17 @@
 [![Dependency Status](https://badgen.net/david/dep/lwsjs/local-web-server)](https://david-dm.org/lwsjs/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
-**Requires node v8 or above. Upgraders, please read the [release notes](https://github.com/lwsjs/local-web-server/releases)**.
+*Requires node v8 or above. Upgraders, please read the [release notes](https://github.com/lwsjs/local-web-server/releases)*.
 
 # local-web-server
 
-A modular HTTP, HTTPS and HTTP2 command-line web server for productive full-stack development. Local-web-server is a distribution of [lws](https://github.com/lwsjs/lws) bundled with a "starter pack" of useful middleware.
+A modular HTTP, HTTPS and HTTP2 command-line web server for productive full-stack development.
 
 Use this tool to:
 
-* Help build any flavour of front-end web application
+* Help build any flavour of front-end web application.
     * *Static site, dynamic site with client or server-rendered content, Single Page App, Progessive Web App, Angular or React app etc.*
-* Prototype a CORS-enabled back-end service
+* Prototype a CORS-enabled back-end service.
     * *RESTful HTTP API, microservice, websocket server, Server Sent Events service etc.*
 * Monitor activity, analyse performance, fine-tune caching strategy etc.
 
@@ -32,6 +32,8 @@ Features:
 * Configurable access log
 * Route blacklisting and more
 
+Local-web-server is a distribution of [lws](https://github.com/lwsjs/lws) bundled with a "starter pack" of useful middleware.
+
 ## Synopsis
 
 This package installs the `ws` command-line tool (take a look at the [usage guide](https://github.com/lwsjs/local-web-server/wiki/CLI-usage)).
@@ -45,7 +47,8 @@ $ ws
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
-![Static static log output](https://imgur.com/download/NJC3POY)
+<img src="https://imgur.com/download/NJC3POY" width="618px" title="Static static log output">
+
 
 ### Single Page Application
 
@@ -71,7 +74,7 @@ $ ws --rewrite '/api/* -> https://internal-service.local/api/$1'
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
-![Proxy json requests to remote resource](https://imgur.com/download/3flcbJn)
+<img src="https://imgur.com/download/3flcbJn" width="618px" title="Proxy json requests to remote resource">
 
 ### HTTPS
 
