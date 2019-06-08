@@ -79,7 +79,7 @@ $ ws --https
 
 ### HTTP2
 
-Uses node's built-in HTTP2 support. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further info about HTTPS options and a guide on how to get the "green padlock" in your browser.
+Launch a secure HTTP2 server. Follow the same instructions as `--https` to use certs, get the "green padlock" etc.
 
 ```sh
 $ ws --http2
