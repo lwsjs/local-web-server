@@ -45,6 +45,8 @@ $ ws
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
 
+![Static static log output](https://imgur.com/download/NJC3POY)
+
 ### Single Page Application
 
 Serving a Single Page Application (an app with client-side routing, e.g. a React or Angular app) is as trivial as specifying the name of your single page:
@@ -68,6 +70,8 @@ Another common use case is to forward certain requests to a remote server. The f
 $ ws --rewrite '/api/* -> https://internal-service.local/api/$1'
 Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
+
+![Proxy json requests to remote resource](https://imgur.com/download/3flcbJn)
 
 ### HTTPS
 
