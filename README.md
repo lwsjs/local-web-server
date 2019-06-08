@@ -31,8 +31,10 @@ Running `ws` without any arguments will host the current directory as a static w
 
 ```sh
 $ ws
-Serving at http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
+Listening on http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
+
+This clip demonstrates static hosting plus a couple of log output formats - `dev` and `stats`.
 
 <img src="https://imgur.com/download/NJC3POY" width="618px" title="Static static log output">
 
@@ -50,6 +52,8 @@ With a static site, requests for typical SPA paths (e.g. `/user/1`, `/login`) wo
 *If a static file is requested (e.g. `/css/style.css`) then serve it, if not (e.g. `/login`) then serve the specified SPA and handle the route client-side.*
 
 [SPA tutorial](https://github.com/lwsjs/local-web-server/wiki/How-to-serve-a-Single-Page-Application-(SPA)).
+
+<img src="https://imgur.com/download/IQVmi8v" title="SPA">
 
 ### URL rewriting and proxied requests
 
