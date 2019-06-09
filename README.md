@@ -9,14 +9,12 @@
 
 # local-web-server
 
-A modular HTTP, HTTPS and HTTP2 command-line web server for productive full-stack development.
+A modular, personalisable HTTP, HTTPS and HTTP2 command-line web server.
 
 Use this tool to:
 
-* Help build any flavour of front-end web application.
-    * *Static site, dynamic site with client or server-rendered content, Single Page App, Progessive Web App, Angular or React app etc.*
-* Prototype a CORS-enabled back-end service.
-    * *RESTful HTTP API, microservice, websocket server, Server Sent Events service etc.*
+* Build any type of front-end web application (static, dynamic, Single Page App, Progessive Web App, React etc).
+* Prototype a back-end service (REST API, microservice, websocket or Server Sent Events service etc).
 * Monitor activity, analyse performance, fine-tune caching strategy etc.
 
 Local-web-server is a distribution of [lws](https://github.com/lwsjs/lws) bundled with a "starter pack" of useful middleware.
