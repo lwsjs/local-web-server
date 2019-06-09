@@ -9,13 +9,18 @@
 
 # local-web-server
 
-A modular, personalisable HTTP, HTTPS and HTTP2 command-line web server.
+A lean, modular web server for rapid full-stack development.
+
+* Supports HTTP, HTTPS and HTTP2.
+* Small and 100% personalisable. Load and use only the behaviour required by your project.
+* Attach a custom view to personalise how activity is visualised.
+* Programmatic and command-line APIs.
 
 Use this tool to:
 
 * Build any type of front-end web application (static, dynamic, Single Page App, Progessive Web App, React etc).
-* Prototype a back-end service (REST API, microservice, websocket or Server Sent Events service etc).
-* Monitor activity, analyse performance, fine-tune caching strategy etc.
+* Prototype a back-end service (REST API, microservice, websocket, Server Sent Events service etc).
+* Monitor activity, analyse performance, experiment with caching strategy etc.
 
 Local-web-server is a distribution of [lws](https://github.com/lwsjs/lws) bundled with a "starter pack" of useful middleware.
 
@@ -67,35 +72,35 @@ This clip demonstrates the above plus use of `--static.extensions` to specify a 
 
 <img src="https://imgur.com/download/3flcbJn" width="618px" title="Proxy json requests to remote resource">
 
-### HTTPS
+### HTTPS and HTTP2
 
-Launch a secure server by setting the `--https` flag. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further configuration options and a guide on how to get the "green padlock" in your browser.
+For HTTPS or HTTP2, pass the `--https` or `--http2` flags respectively. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further configuration options and a guide on how to get the "green padlock" in your browser.
 
-```sh
-$ ws --https
+```
+$ lws --http2
+Listening at https://mba4.local:8000, https://127.0.0.1:8000, https://192.168.0.200:8000
 ```
 
-### HTTP2
+## Built-in middleware stack
 
-Launch a secure HTTP2 server. Follow the same instructions as `--https` to use certs, get the "green padlock" etc.
+If you do *not* supply a custom middleware stack via the `--stack` option the following default stack will be used. It's designed to cover most typical web development scenarios.
 
-```sh
-$ ws --http2
-```
-
-## Features
-
-* Full control over request handling. The middleware stack is personalisable - use one or more custom or pre-built middleware plugins.
-* Single Page Application (SPA) support
-* URL Rewriting
-* Proxy requests to remote resources
-* HTTP Conditional Request support
-* Range request support
-* Gzip response compression
-* HTTP Basic Authentication
-* Configurable access log
-* Route blacklisting and more
-
+| Name               | Description |
+| ------------------ | ---- |
+| ↓ [Basic Auth](https://github.com/lwsjs/basic-auth) | Password-protect a server using Basic Authentication |
+| ↓ [Body Parser](https://github.com/lwsjs/body-parser) | Parses the request body, making `ctx.request.body` available to downstream middleware.|
+| ↓ [Request Monitor](https://github.com/lwsjs/request-monitor) | Feeds traffic information to the `--verbose` output.|
+| ↓ [Log](https://github.com/lwsjs/log) | Outputs an access log or stats view to the console.|
+| ↓ [Cors](https://github.com/lwsjs/cors) | Support for setting Cross-Origin Resource Sharing (CORS) headers |
+| ↓ [Json](https://github.com/lwsjs/json) | Pretty-prints JSON responses. |
+| ↓ [Rewrite](https://github.com/lwsjs/rewrite) | URL Rewriting. Use to re-route requests to local or remote destinations.|
+| ↓ [Blacklist](https://github.com/lwsjs/blacklist) | Forbid access to sensitive or private resources|
+| ↓ [Conditional Get](https://github.com/lwsjs/conditional-get) | Support for HTTP Conditional requests.|
+| ↓ [Mime](https://github.com/lwsjs/mime) | Customise the mime-type returned with any static resource.|
+| ↓ [Compress](https://github.com/lwsjs/compress) | Compress responses using gzip.|
+| ↓ [SPA](https://github.com/lwsjs/spa) | Support for Single Page Applications.|
+| ↓ [Static](https://github.com/lwsjs/static) | Serves static files.|
+| ↓ [Index](https://github.com/lwsjs/index) | Serves directory listings.|
 
 ## Further Documentation
 
@@ -103,7 +108,7 @@ $ ws --http2
 
 ## Install
 
-**Requires node v8 or above**. Install the [previous release](https://github.com/lwsjs/local-web-server/tree/v1.x) for node >= v4.0.0.
+**Requires node v8 or above**.
 
 ```sh
 $ npm install -g local-web-server
