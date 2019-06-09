@@ -68,6 +68,8 @@ The following command proxies blog post requests from any path beginning with `/
 $ ws --rewrite '/posts/(.*) -> https://jsonplaceholder.typicode.com/posts/$1'
 ```
 
+[Rewrite tutorial](https://github.com/lwsjs/local-web-server/wiki/How-to-rewrite-URLs-to-local-or-remote-destinations).
+
 This clip demonstrates the above plus use of `--static.extensions` to specify a default file extension and `--verbose` to monitor activity.
 
 <img src="https://imgur.com/download/3flcbJn" width="618px" title="Proxy json requests to remote resource">
