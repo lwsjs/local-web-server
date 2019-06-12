@@ -14,7 +14,7 @@ A lean, modular web server for rapid full-stack development.
 * Supports HTTP, HTTPS and HTTP2.
 * Small and 100% personalisable. Load and use only the behaviour required by your project.
 * Attach a custom view to personalise how activity is visualised.
-* Programmatic and command-line APIs.
+* Programmatic and command-line interfaces.
 
 Use this tool to:
 
@@ -36,6 +36,8 @@ Running `ws` without any arguments will host the current directory as a static w
 $ ws
 Listening on http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
+
+[Static files tutorial](https://github.com/lwsjs/local-web-server/wiki/How-to-serve-static-files).
 
 This clip demonstrates static hosting plus a couple of log output formats - `dev` and `stats`.
 
