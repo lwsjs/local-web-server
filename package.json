@@ -39,7 +39,7 @@
     "index.js"
   ],
   "dependencies": {
-    "lws": "2.0.0",
+    "lws": "^2.0.1",
     "lws-basic-auth": "^1.0.3",
     "lws-blacklist": "^2.0.2",
     "lws-body-parser": "^1.0.2",
@@ -48,7 +48,7 @@
     "lws-cors": "^2.0.1",
     "lws-index": "^1.0.4",
     "lws-json": "^1.0.1",
-    "lws-log": "^1.0.2",
+    "lws-log": "^1.0.3",
     "lws-mime": "^1.0.1",
     "lws-range": "^2.0.1",
     "lws-request-monitor": "^1.0.4",
