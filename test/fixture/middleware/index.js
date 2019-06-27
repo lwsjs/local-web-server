@@ -1,3 +1,5 @@
-class TestMiddleware {}
+class TestMiddleware {
+  middleware () {}
+}
 
 module.exports = TestMiddleware

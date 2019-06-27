@@ -39,7 +39,7 @@
     "index.js"
   ],
   "dependencies": {
-    "lws": "^2.0.1",
+    "lws": "^2.0.2",
     "lws-basic-auth": "^1.0.3",
     "lws-blacklist": "^2.0.2",
     "lws-body-parser": "^1.0.2",
@@ -52,7 +52,7 @@
     "lws-mime": "^1.0.1",
     "lws-range": "^2.0.1",
     "lws-request-monitor": "^1.0.4",
-    "lws-rewrite": "^2.0.4",
+    "lws-rewrite": "^2.0.5",
     "lws-spa": "^2.0.1",
     "lws-static": "^1.1.3",
     "node-version-matches": "^1.0.1"
