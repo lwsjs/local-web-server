@@ -3,7 +3,7 @@ const a = require('assert')
 const WsCli = require('../lib/cli-app')
 const fetch = require('node-fetch')
 
-const tom = module.exports = new Tom('cli', { concurrency: 1 })
+const tom = module.exports = new Tom({ maxConcurrency: 1 })
 
 tom.test('simple', async function () {
   const port = 7500 + this.index

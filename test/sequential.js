@@ -4,7 +4,7 @@ const LocalWebServer = require('../')
 const WsCli = require('../lib/cli-app')
 const a = require('assert')
 
-const tom = module.exports = new Tom('sequential', { concurrency: 1 })
+const tom = module.exports = new Tom({ maxConcurrency: 1 })
 
 let origCwd = ''
 

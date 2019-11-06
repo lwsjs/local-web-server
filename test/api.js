@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const LocalWebServer = require('../')
 const a = require('assert')
 
-const tom = module.exports = new Tom('api')
+const tom = module.exports = new Tom()
 
 tom.test('basic', async function () {
   const port = 9000 + this.index
