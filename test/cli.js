@@ -1,5 +1,5 @@
 const Tom = require('test-runner').Tom
-const a = require('assert')
+const a = require('assert').strict
 const WsCli = require('../lib/cli-app')
 const fetch = require('node-fetch')
 
@@ -11,7 +11,7 @@ tom.test('simple', async function () {
   const server = cli.start([ '--port', `${port}` ])
   const response = await fetch(`http://127.0.0.1:${port}/package.json`)
   server.close()
-  a.strictEqual(response.status, 200)
+  a.equal(response.status, 200)
 })
 
 tom.test('bad option', async function () {
@@ -19,7 +19,7 @@ tom.test('bad option', async function () {
   const cli = new WsCli({ logError: function () {} })
   const server = cli.start([ '--should-fail' ])
   if (!exitCode) process.exitCode = 0
-  a.strictEqual(server, undefined)
+  a.equal(server, undefined)
 })
 
 tom.test('--help', async function () {
@@ -32,7 +32,7 @@ tom.test('--version', async function () {
   const cli = new WsCli({ log: function (msg) { logMsg = msg } })
   cli.start([ '--version' ])
   const pkg = require('../package.json')
-  a.strictEqual(logMsg.trim(), pkg.version)
+  a.equal(logMsg.trim(), pkg.version)
 })
 
 tom.test('default-stack', async function () {
