@@ -5,7 +5,7 @@
 [![Dependency Status](https://badgen.net/david/dep/lwsjs/local-web-server)](https://david-dm.org/lwsjs/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
-*Requires node v8 or above. Upgraders, please read the [release notes](https://github.com/lwsjs/local-web-server/releases)*.
+*Upgraders, please read the [release notes](https://github.com/lwsjs/local-web-server/releases)*.
 
 # local-web-server
 
