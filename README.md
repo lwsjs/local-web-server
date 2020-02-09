@@ -112,8 +112,6 @@ If you do *not* supply a custom middleware stack via the `--stack` option the fo
 
 ## Install
 
-**Requires node v8 or above**.
-
 ```sh
 $ npm install -g local-web-server
 ```
