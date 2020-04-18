@@ -5,7 +5,7 @@
 [![Dependency Status](https://badgen.net/david/dep/lwsjs/local-web-server)](https://david-dm.org/lwsjs/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
-*Requires node v8 or above. Upgraders, please read the [release notes](https://github.com/lwsjs/local-web-server/releases)*.
+*Upgraders, please read the [release notes](https://github.com/lwsjs/local-web-server/releases)*.
 
 # local-web-server
 
@@ -14,7 +14,7 @@ A lean, modular web server for rapid full-stack development.
 * Supports HTTP, HTTPS and HTTP2.
 * Small and 100% personalisable. Load and use only the behaviour required by your project.
 * Attach a custom view to personalise how activity is visualised.
-* Programmatic and command-line APIs.
+* Programmatic and command-line interfaces.
 
 Use this tool to:
 
@@ -36,6 +36,8 @@ Running `ws` without any arguments will host the current directory as a static w
 $ ws
 Listening on http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:8000
 ```
+
+[Static files tutorial](https://github.com/lwsjs/local-web-server/wiki/How-to-serve-static-files).
 
 This clip demonstrates static hosting plus a couple of log output formats - `dev` and `stats`.
 
@@ -67,6 +69,8 @@ The following command proxies blog post requests from any path beginning with `/
 ```sh
 $ ws --rewrite '/posts/(.*) -> https://jsonplaceholder.typicode.com/posts/$1'
 ```
+
+[Rewrite tutorial](https://github.com/lwsjs/local-web-server/wiki/How-to-rewrite-URLs-to-local-or-remote-destinations).
 
 This clip demonstrates the above plus use of `--static.extensions` to specify a default file extension and `--verbose` to monitor activity.
 
@@ -108,12 +112,10 @@ If you do *not* supply a custom middleware stack via the `--stack` option the fo
 
 ## Install
 
-**Requires node v8 or above**.
-
 ```sh
 $ npm install -g local-web-server
 ```
 
 * * *
 
-&copy; 2013-19 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
+&copy; 2013-20 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
