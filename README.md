@@ -81,7 +81,7 @@ This clip demonstrates the above plus use of `--static.extensions` to specify a 
 For HTTPS or HTTP2, pass the `--https` or `--http2` flags respectively. [See the wiki](https://github.com/lwsjs/local-web-server/wiki) for further configuration options and a guide on how to get the "green padlock" in your browser.
 
 ```
-$ lws --http2
+$ ws --http2
 Listening at https://mba4.local:8000, https://127.0.0.1:8000, https://192.168.0.200:8000
 ```
 
