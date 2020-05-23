@@ -52,7 +52,7 @@
     "lws-mime": "^2.0.0",
     "lws-range": "^3.0.0",
     "lws-request-monitor": "^2.0.0",
-    "lws-rewrite": "^3.0.1",
+    "lws-rewrite": "^3.1.0",
     "lws-spa": "^3.0.0",
     "lws-static": "^2.0.0",
     "node-version-matches": "^2.0.1"
