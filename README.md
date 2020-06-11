@@ -1,8 +1,9 @@
-[![view on npm](https://img.shields.io/npm/v/local-web-server.svg)](https://www.npmjs.org/package/local-web-server)
-[![npm module downloads](https://img.shields.io/npm/dt/local-web-server.svg)](https://www.npmjs.org/package/local-web-server)
+[![view on npm](https://badgen.net/npm/v/local-web-server)](https://www.npmjs.org/package/local-web-server)
+[![npm module downloads](https://badgen.net/npm/dt/local-web-server)](https://www.npmjs.org/package/local-web-server)
+[![Gihub repo dependents](https://badgen.net/github/dependents-repo/lwsjs/local-web-server)](https://github.com/lwsjs/local-web-server/network/dependents?dependent_type=REPOSITORY)
+[![Gihub package dependents](https://badgen.net/github/dependents-pkg/lwsjs/local-web-server)](https://github.com/lwsjs/local-web-server/network/dependents?dependent_type=PACKAGE)
 [![Build Status](https://travis-ci.org/lwsjs/local-web-server.svg?branch=master)](https://travis-ci.org/lwsjs/local-web-server)
-[![Coverage Status](https://coveralls.io/repos/github/lwsjs/local-web-server/badge.svg?branch=master)](https://coveralls.io/github/lwsjs/local-web-server?branch=master)
-[![Dependency Status](https://badgen.net/david/dep/lwsjs/local-web-server)](https://david-dm.org/lwsjs/local-web-server)
+[![Coverage Status](https://coveralls.io/repos/github/lwsjs/local-web-server/badge.svg)](https://coveralls.io/github/lwsjs/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 *Upgraders, please read the [release notes](https://github.com/lwsjs/local-web-server/releases)*.
