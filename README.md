@@ -6,7 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/lwsjs/local-web-server/badge.svg)](https://coveralls.io/github/lwsjs/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
-*Upgraders, please read the [release notes](https://github.com/lwsjs/local-web-server/releases)*.
+*Upgraders, please read the [release notes](https://github.com/lwsjs/local-web-server/releases). For feedback, discussion and support see [here](https://github.com/lwsjs/local-web-server/discussions).*
 
 # local-web-server
 
