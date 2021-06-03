@@ -2,4 +2,4 @@ class TestMiddleware {
   middleware () {}
 }
 
-module.exports = TestMiddleware
+export default TestMiddleware

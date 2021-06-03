@@ -5,8 +5,10 @@
   "repository": "https://github.com/lwsjs/local-web-server",
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "bin": {
-    "ws": "./bin/cli.js"
+    "ws": "./bin/cli.mjs"
   },
+  "main": "./index.mjs",
+  "exports": "./index.mjs",
   "license": "MIT",
   "keywords": [
     "dev",
@@ -24,26 +26,31 @@
     "lws",
     "backend",
     "frontend",
-    "full-stack"
+    "full-stack",
+    "http-server",
+    "http",
+    "http2",
+    "https"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "scripts": {
-    "test": "test-runner test/*.js",
+    "test": "test-runner test/*.mjs",
     "cover": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "files": [
-    "bin/*.js",
-    "lib/*.js",
-    "index.js"
+    "bin",
+    "lib",
+    "index.mjs"
   ],
   "dependencies": {
-    "lws": "^3.1.0",
+    "current-module-paths": "^0.1.0",
+    "lws": "^4.0.0-1",
     "lws-basic-auth": "^2.0.0",
     "lws-blacklist": "^3.0.0",
     "lws-body-parser": "^2.0.0",
-    "lws-compress": "^2.0.0",
+    "lws-compress": "^3.0.0",
     "lws-conditional-get": "^2.0.0",
     "lws-cors": "^3.0.0",
     "lws-index": "^2.0.0",
@@ -54,14 +61,11 @@
     "lws-request-monitor": "^2.0.0",
     "lws-rewrite": "^3.1.1",
     "lws-spa": "^3.0.0",
-    "lws-static": "^2.0.0",
-    "node-version-matches": "^2.0.1"
+    "lws-static": "^2.0.0"
   },
   "devDependencies": {
     "coveralls": "^3.1.0",
-    "jsdoc-to-markdown": "^6.0.1",
-    "node-fetch": "^2.6.0",
-    "nyc": "^15.1.0",
-    "test-runner": "^0.8.13"
+    "node-fetch": "^2.6.1",
+    "test-runner": "^0.9.2"
   }
 }

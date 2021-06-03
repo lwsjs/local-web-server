@@ -1,10 +1,10 @@
-const Tom = require('test-runner').Tom
-const fetch = require('node-fetch')
-const LocalWebServer = require('../')
-const WsCli = require('../lib/cli-app')
-const a = require('assert')
+import TestRunner from 'test-runner'
+import LocalWebServer from 'local-web-server'
+import assert from 'assert'
+import WsCli from '../lib/cli-app.mjs'
 
-const tom = module.exports = new Tom({ maxConcurrency: 1 })
+const a = assert.strict
+const tom = new TestRunner.Tom({ maxConcurrency: 1 })
 
 let origCwd = ''
 
@@ -13,18 +13,18 @@ tom.test('before', async function () {
   process.chdir('test/fixture/middleware')
 })
 
-tom.test('cli: middleware named "index.js"', async function () {
+tom.test('cli: middleware named "index.mjs"', async function () {
   let logMsg = ''
   const cli = new WsCli({ log: function (msg) { logMsg = msg } })
-  const lws = cli.start([ '--stack', 'index.js', '--config' ])
+  await cli.start(['--stack', 'index.mjs', '--config'])
   a.ok(/TestMiddleware/.test(logMsg))
 })
 
 tom.test('basic', async function () {
   const port = 9100 + this.index
-  const ws = LocalWebServer.create({
+  const ws = await LocalWebServer.create({
     port: port,
-    stack: 'index.js'
+    stack: 'index.mjs'
   })
   ws.server.close()
   a.strictEqual(ws.stack[0].constructor.name, 'TestMiddleware')
@@ -33,3 +33,5 @@ tom.test('basic', async function () {
 tom.test('after', async function () {
   process.chdir(origCwd)
 })
+
+export default tom

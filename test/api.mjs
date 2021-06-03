@@ -1,13 +1,14 @@
-const Tom = require('test-runner').Tom
-const fetch = require('node-fetch')
-const LocalWebServer = require('../')
-const a = require('assert').strict
+import TestRunner from 'test-runner'
+import fetch from 'node-fetch'
+import LocalWebServer from 'local-web-server'
+import assert from 'assert'
 
-const tom = module.exports = new Tom()
+const a = assert.strict
+const tom = new TestRunner.Tom()
 
 tom.test('basic', async function () {
   const port = 9000 + this.index
-  const ws = LocalWebServer.create({
+  const ws = await LocalWebServer.create({
     port: port,
     directory: 'test/fixture'
   })
@@ -16,3 +17,5 @@ tom.test('basic', async function () {
   const body = await response.text()
   a.equal(body, 'one\n')
 })
+
+export default tom
