@@ -46,7 +46,7 @@
   ],
   "dependencies": {
     "current-module-paths": "^0.1.0",
-    "lws": "^4.0.0-1",
+    "lws": "^4.0.0-2",
     "lws-basic-auth": "^2.0.0",
     "lws-blacklist": "^3.0.0",
     "lws-body-parser": "^2.0.0",
