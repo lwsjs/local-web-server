@@ -2,7 +2,7 @@
 [![npm module downloads](https://badgen.net/npm/dt/local-web-server)](https://www.npmjs.org/package/local-web-server)
 [![Gihub repo dependents](https://badgen.net/github/dependents-repo/lwsjs/local-web-server)](https://github.com/lwsjs/local-web-server/network/dependents?dependent_type=REPOSITORY)
 [![Gihub package dependents](https://badgen.net/github/dependents-pkg/lwsjs/local-web-server)](https://github.com/lwsjs/local-web-server/network/dependents?dependent_type=PACKAGE)
-[![Build Status](https://travis-ci.org/lwsjs/local-web-server.svg?branch=master)](https://travis-ci.org/lwsjs/local-web-server)
+[![Node.js CI](https://github.com/lwsjs/local-web-server/actions/workflows/node.js.yml/badge.svg)](https://github.com/lwsjs/local-web-server/actions/workflows/node.js.yml)
 [![Coverage Status](https://coveralls.io/repos/github/lwsjs/local-web-server/badge.svg)](https://coveralls.io/github/lwsjs/local-web-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
@@ -119,4 +119,4 @@ $ npm install -g local-web-server
 
 * * *
 
-&copy; 2013-20 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
+&copy; 2013-21 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
