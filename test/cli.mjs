@@ -2,10 +2,11 @@ import TestRunner from 'test-runner'
 import fetch from 'node-fetch'
 import assert from 'assert'
 import WsCli from '../lib/cli-app.mjs'
-import * as fs from 'fs/promises'
+import * as fsMain from 'fs'
 import path from 'path'
 import currentModulePaths from 'current-module-paths'
 const { __dirname } = currentModulePaths(import.meta.url)
+const fs = fsMain.promises
 
 const a = assert.strict
 const tom = new TestRunner.Tom({ maxConcurrency: 1 })

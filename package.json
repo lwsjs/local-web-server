@@ -32,7 +32,7 @@
     "https"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=12.20"
   },
   "scripts": {
     "test": "test-runner test/*.mjs",
@@ -45,26 +45,26 @@
   ],
   "dependencies": {
     "current-module-paths": "^1.0.0",
-    "lws": "^4.0.1",
+    "lws": "^4.1.0",
     "lws-basic-auth": "^2.0.0",
     "lws-blacklist": "^3.0.0",
     "lws-body-parser": "^2.0.0",
     "lws-compress": "^3.0.0",
     "lws-conditional-get": "^2.0.0",
     "lws-cors": "^3.0.0",
-    "lws-index": "^2.0.0",
+    "lws-index": "^3.0.2",
     "lws-json": "^2.0.0",
     "lws-log": "^2.0.0",
     "lws-mime": "^2.0.0",
     "lws-range": "^3.0.0",
     "lws-request-monitor": "^2.0.0",
     "lws-rewrite": "^3.1.1",
-    "lws-spa": "^3.0.0",
-    "lws-static": "^2.0.0"
+    "lws-spa": "^4.0.0",
+    "lws-static": "^3.0.1"
   },
   "devDependencies": {
     "coveralls": "^3.1.1",
     "node-fetch": "^2.6.1",
-    "test-runner": "^0.9.6"
+    "test-runner": "^0.9.7"
   }
 }
