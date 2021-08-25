@@ -42,7 +42,7 @@ Listening on http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:
 
 This clip demonstrates static hosting plus a couple of log output formats - `dev` and `stats`.
 
-<img src="https://imgur.com/download/NJC3POY" width="618px" title="Static static log output">
+<img src="https://s9.gifyu.com/images/NJC3POY---Imgur.gif" width="618px" title="Static static log output">
 
 
 ### Single Page Application
@@ -59,7 +59,7 @@ With a static site, requests for typical SPA paths (e.g. `/user/1`, `/login`) wo
 
 [SPA tutorial](https://github.com/lwsjs/local-web-server/wiki/How-to-serve-a-Single-Page-Application-(SPA)).
 
-<img src="https://imgur.com/download/IQVmi8v" title="SPA">
+<img src="https://s9.gifyu.com/images/IQVmi8v---Imgur.gif" width="618px" title="SPA">
 
 ### URL rewriting and proxied requests
 
@@ -75,7 +75,7 @@ $ ws --rewrite '/posts/(.*) -> https://jsonplaceholder.typicode.com/posts/$1'
 
 This clip demonstrates the above plus use of `--static.extensions` to specify a default file extension and `--verbose` to monitor activity.
 
-<img src="https://imgur.com/download/3flcbJn" width="618px" title="Proxy json requests to remote resource">
+<img src="https://s9.gifyu.com/images/3flcbJn---Imgur.gif" width="618px" title="Proxy json requests to remote resource">
 
 ### HTTPS and HTTP2
 
