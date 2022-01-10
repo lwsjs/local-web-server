@@ -45,10 +45,10 @@
   ],
   "dependencies": {
     "current-module-paths": "^1.1.0",
-    "lws": "^4.1.0",
+    "lws": "^4.1.1",
     "lws-basic-auth": "^2.0.0",
     "lws-blacklist": "^3.0.0",
-    "lws-body-parser": "^2.0.0",
+    "lws-body-parser": "^3.0.0",
     "lws-compress": "^3.1.0",
     "lws-conditional-get": "^2.0.0",
     "lws-cors": "^3.0.0",
@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "coveralls": "^3.1.1",
-    "node-fetch": "^2.6.1",
-    "test-runner": "^0.9.8"
+    "node-fetch": "^3.1.0",
+    "test-runner": "^0.10.0"
   }
 }
