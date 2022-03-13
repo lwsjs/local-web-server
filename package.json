@@ -51,12 +51,12 @@
     "lws-body-parser": "^3.0.0",
     "lws-compress": "^3.1.0",
     "lws-conditional-get": "^2.0.0",
-    "lws-cors": "^3.0.0",
+    "lws-cors": "^4.1.1",
     "lws-index": "^3.1.0",
     "lws-json": "^2.0.0",
     "lws-log": "^2.0.0",
     "lws-mime": "^2.0.0",
-    "lws-range": "^3.0.0",
+    "lws-range": "^4.0.1",
     "lws-request-monitor": "^2.0.0",
     "lws-rewrite": "^3.1.1",
     "lws-spa": "^4.1.0",
@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "coveralls": "^3.1.1",
-    "node-fetch": "^3.1.0",
-    "test-runner": "^0.10.0"
+    "node-fetch": "^3.2.3",
+    "test-runner": "^0.10.1"
   }
 }
