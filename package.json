@@ -8,6 +8,8 @@
     "ws": "./bin/cli.mjs"
   },
   "exports": "./index.mjs",
+  "type": "module",
+  "main": "./index.mjs",
   "license": "MIT",
   "keywords": [
     "dev",
