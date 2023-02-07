@@ -51,7 +51,7 @@
     "lws-body-parser": "^3.0.0",
     "lws-compress": "^3.1.0",
     "lws-conditional-get": "^2.0.0",
-    "lws-cors": "^4.1.2",
+    "lws-cors": "^4.2.0",
     "lws-index": "^3.1.1",
     "lws-json": "^2.0.0",
     "lws-log": "^2.0.0",
@@ -63,7 +63,7 @@
     "lws-static": "^3.1.0"
   },
   "devDependencies": {
-    "node-fetch": "^3.2.10",
+    "node-fetch": "^3.3.0",
     "test-runner": "^0.10.1"
   }
 }
