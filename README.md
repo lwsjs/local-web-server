@@ -42,7 +42,7 @@ Listening on http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:
 
 This clip demonstrates static hosting plus a couple of log output formats - `dev` and `stats`.
 
-<img src="https://raw.githubusercontent.com/lwsjs/local-web-server/examples/examples/log-format.gif" width="618px" title="Static static log output">
+<img src="https://raw.githubusercontent.com/lwsjs/local-web-server/master/examples/log-format.gif" width="618px" title="Static static log output">
 
 
 ### Single Page Application
