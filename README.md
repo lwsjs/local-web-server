@@ -59,7 +59,7 @@ With a static site, requests for typical SPA paths (e.g. `/user/1`, `/login`) wo
 
 [SPA tutorial](https://github.com/lwsjs/local-web-server/wiki/How-to-serve-a-Single-Page-Application-(SPA)).
 
-<img src="https://github.com/lwsjs/local-web-server/blob/examples/examples/spa.gif?raw=true" width="618px" title="SPA">
+<img src="https://raw.githubusercontent.com/lwsjs/local-web-server/master/examples/spa.gif" width="618px" title="SPA">
 
 ### URL rewriting and proxied requests
 
@@ -75,7 +75,7 @@ $ ws --rewrite '/posts/(.*) -> https://jsonplaceholder.typicode.com/posts/$1'
 
 This clip demonstrates the above plus use of `--static.extensions` to specify a default file extension and `--verbose` to monitor activity.
 
-<img src="https://github.com/lwsjs/local-web-server/blob/examples/examples/verbose.gif?raw=true" width="618px" title="Proxy json requests to remote resource">
+<img src="https://raw.githubusercontent.com/lwsjs/local-web-server/master/examples/verbose.gif" width="618px" title="Proxy json requests to remote resource">
 
 ### HTTPS and HTTP2
 
