@@ -2,12 +2,16 @@
   "name": "local-web-server",
   "version": "5.3.3",
   "description": "A lean, modular web server for rapid full-stack development",
-  "repository": "https://github.com/lwsjs/local-web-server",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lwsjs/local-web-server.git"
+  },
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "bin": {
-    "ws": "./bin/cli.mjs"
+    "ws": "bin/cli.js"
   },
-  "exports": "./index.mjs",
+  "type": "module",
+  "exports": "./index.js",
   "license": "MIT",
   "keywords": [
     "dev",
@@ -35,17 +39,17 @@
     "node": ">=12.20"
   },
   "scripts": {
-    "test": "test-runner test/*.mjs",
+    "test": "test-runner test/*.js",
     "cover": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "files": [
     "bin",
     "lib",
-    "index.mjs"
+    "index.js"
   ],
   "dependencies": {
     "current-module-paths": "^1.1.1",
-    "lws": "^4.1.2",
+    "lws": "^4.1.4",
     "lws-basic-auth": "^2.0.0",
     "lws-blacklist": "^3.0.0",
     "lws-body-parser": "^3.0.0",
@@ -64,6 +68,6 @@
   },
   "devDependencies": {
     "node-fetch": "^3.3.2",
-    "test-runner": "^0.10.1"
+    "test-runner": "^0.11.0"
   }
 }

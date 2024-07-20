@@ -1,5 +1,5 @@
 import Lws from 'lws'
-import defaultStack from './lib/default-stack.mjs'
+import defaultStack from './lib/default-stack.js'
 import currentModulePaths from 'current-module-paths'
 const { __dirname } = currentModulePaths(import.meta.url)
 
