@@ -1,6 +1,6 @@
 {
   "name": "local-web-server",
-  "version": "5.3.4",
+  "version": "5.4.0",
   "description": "A lean, modular web server for rapid full-stack development",
   "repository": {
     "type": "git",
