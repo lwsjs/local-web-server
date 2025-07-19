@@ -9,7 +9,7 @@ const tom = new TestRunner.Tom()
 tom.test('basic', async function () {
   const port = 9000 + this.index
   const ws = await LocalWebServer.create({
-    port: port,
+    port,
     directory: 'test/fixture'
   })
   const response = await fetch(`http://localhost:${port}/one.txt`)

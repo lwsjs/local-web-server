@@ -3,7 +3,6 @@
 [![Gihub repo dependents](https://badgen.net/github/dependents-repo/lwsjs/local-web-server)](https://github.com/lwsjs/local-web-server/network/dependents?dependent_type=REPOSITORY)
 [![Gihub package dependents](https://badgen.net/github/dependents-pkg/lwsjs/local-web-server)](https://github.com/lwsjs/local-web-server/network/dependents?dependent_type=PACKAGE)
 [![Node.js CI](https://github.com/lwsjs/local-web-server/actions/workflows/node.js.yml/badge.svg)](https://github.com/lwsjs/local-web-server/actions/workflows/node.js.yml)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 *Upgraders, please read the [release notes](https://github.com/lwsjs/local-web-server/releases). For feedback, discussion and support see [here](https://github.com/lwsjs/local-web-server/discussions).*
 
@@ -118,4 +117,4 @@ $ npm install -g local-web-server
 
 * * *
 
-&copy; 2013-24 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
+&copy; 2013-25 Lloyd Brookes \<opensource@75lb.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).

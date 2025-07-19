@@ -23,7 +23,7 @@ tom.test('cli: middleware named "index.js"', async function () {
 tom.test('basic', async function () {
   const port = 9100 + this.index
   const ws = await LocalWebServer.create({
-    port: port,
+    port,
     stack: 'index.js'
   })
   ws.server.close()
