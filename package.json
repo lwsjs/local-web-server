@@ -54,7 +54,7 @@
     "lws-body-parser": "^3.0.1",
     "lws-compress": "^3.1.0",
     "lws-conditional-get": "^3.0.0",
-    "lws-cors": "^4.2.1",
+    "lws-cors": "^4.2.2",
     "lws-index": "^3.1.1",
     "lws-json": "^2.0.0",
     "lws-log": "^3.0.0",
