@@ -32,8 +32,8 @@
     "serve-index-75lb": "^2.0.1"
   },
   "devDependencies": {
-    "lws": "^4.1.2",
-    "node-fetch": "^3.2.6",
+    "lws": "^4.2.1",
+    "node-fetch": "^3.3.2",
     "test-runner": "^0.10.1"
   },
   "engines": {

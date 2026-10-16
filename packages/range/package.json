@@ -31,8 +31,8 @@
     "koa-range": "^0.3.0"
   },
   "devDependencies": {
-    "lws": "^4.1.1",
-    "node-fetch": "^3.2.0",
+    "lws": "^4.2.1",
+    "node-fetch": "^3.3.2",
     "test-runner": "^0.10.1"
   },
   "engines": {

@@ -4,7 +4,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main, next, monorepo ]
+    branches: [ master, next ]
   pull_request:
     branches: [ master ]
 
@@ -32,6 +32,3 @@ jobs:
         cache: 'npm'
     - run: npm install
     - run: npm test
-    # - run: npm install
-    # - run: npm i -g @75lb/nature
-    # - run: npm run test:ci
