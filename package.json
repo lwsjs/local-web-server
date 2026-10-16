@@ -63,7 +63,7 @@
     "lws-request-monitor": "^2.0.0",
     "lws-rewrite": "^4.0.0",
     "lws-spa": "^4.1.1",
-    "lws-static": "^3.1.1"
+    "lws-static": "^3.1.2"
   },
   "devDependencies": {
     "node-fetch": "^3.3.2",

@@ -38,14 +38,6 @@ Listening on http://mbp.local:8000, http://127.0.0.1:8000, http://192.168.0.100:
 
 [Static files tutorial](https://github.com/lwsjs/local-web-server/wiki/How-to-serve-static-files).
 
-To set default file extensions in `lws.config.js`, use the camel-case `staticExtensions` option with an array, even when setting one extension:
-
-```js
-module.exports = {
-  staticExtensions: ['html']
-}
-```
-
 This clip demonstrates static hosting plus a couple of log output formats - `dev` and `stats`.
 
 <img src="https://raw.githubusercontent.com/lwsjs/local-web-server/master/examples/log-format.gif" width="618px" title="Static static log output">
