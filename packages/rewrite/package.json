@@ -1,0 +1,65 @@
+{
+  "name": "lws-rewrite",
+  "version": "4.0.0",
+  "description": "lws middleware plugin adding URL rewriting support",
+  "keywords": [
+    "lws",
+    "lws-middleware",
+    "url",
+    "rewriting",
+    "rewrite",
+    "proxy"
+  ],
+  "homepage": "https://github.com/lwsjs/rewrite#readme",
+  "bugs": {
+    "url": "https://github.com/lwsjs/rewrite/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lwsjs/rewrite.git"
+  },
+  "license": "MIT",
+  "author": "Lloyd Brookes <opensource@75lb.com>",
+  "type": "module",
+  "exports": "./index.js",
+  "main": "index.js",
+  "bin": {
+    "lws-rewrite": "bin/cli.js"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "bin"
+  ],
+  "scripts": {
+    "test": "test-runner --max-file-concurrency 1 test/*"
+  },
+  "dependencies": {
+    "array-back": "^6.2.3",
+    "http-proxy-agent": "^5.0.0",
+    "https-proxy-agent": "^5.0.1",
+    "koa-route": "^4.0.1",
+    "path-to-regexp": "^6.3.0"
+  },
+  "devDependencies": {
+    "lws": "^4.2.1",
+    "lws-body-parser": "^3.0.1",
+    "lws-cors": "^4.2.2",
+    "lws-err-detail": "^2.0.0",
+    "lws-static": "^3.1.2",
+    "node-fetch": "^3.3.2",
+    "test-runner": "^0.11.1"
+  },
+  "engines": {
+    "node": ">=12.17"
+  },
+  "standard": {
+    "ignore": [
+      "tmp"
+    ]
+  }
+}

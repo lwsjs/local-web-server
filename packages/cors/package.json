@@ -1,0 +1,40 @@
+{
+  "name": "lws-cors",
+  "version": "4.2.2",
+  "description": "Support for setting Cross-Origin Resource Sharing (CORS) headers to lws",
+  "keywords": [
+    "lws",
+    "lws-middleware",
+    "cors"
+  ],
+  "homepage": "https://github.com/lwsjs/cors#readme",
+  "bugs": {
+    "url": "https://github.com/lwsjs/cors/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lwsjs/cors.git"
+  },
+  "license": "MIT",
+  "author": "Lloyd Brookes <opensource@75lb.com>",
+  "type": "module",
+  "exports": "./index.js",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "test-runner test.js"
+  },
+  "dependencies": {
+    "@koa/cors": "^5.0.0"
+  },
+  "devDependencies": {
+    "lws": "^4.2.1",
+    "node-fetch": "^3.3.2",
+    "test-runner": "^0.10.1"
+  },
+  "engines": {
+    "node": ">=12.17"
+  }
+}

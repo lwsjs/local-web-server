@@ -1,0 +1,38 @@
+{
+  "name": "lws-json",
+  "version": "2.0.0",
+  "description": "json",
+  "keywords": [
+    "lws",
+    "lws-middleware"
+  ],
+  "homepage": "https://github.com/lwsjs/json#readme",
+  "bugs": {
+    "url": "https://github.com/lwsjs/json/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lwsjs/json.git"
+  },
+  "license": "MIT",
+  "author": "Lloyd Brookes <opensource@75lb.com>",
+  "type": "commonjs",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "test-runner test.js"
+  },
+  "dependencies": {
+    "koa-json": "^2.0.2"
+  },
+  "devDependencies": {
+    "lws": "^2.0.8",
+    "node-fetch": "^2.6.0",
+    "test-runner": "^0.10.1"
+  },
+  "engines": {
+    "node": ">=10"
+  }
+}

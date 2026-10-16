@@ -1,0 +1,40 @@
+{
+  "name": "lws-conditional-get",
+  "version": "3.0.0",
+  "description": "Conditional-get middleware for lws",
+  "keywords": [
+    "lws",
+    "lws-middleware"
+  ],
+  "homepage": "https://github.com/lwsjs/conditional-get#readme",
+  "bugs": {
+    "url": "https://github.com/lwsjs/conditional-get/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lwsjs/conditional-get.git"
+  },
+  "license": "MIT",
+  "author": "Lloyd Brookes <opensource@75lb.com>",
+  "type": "module",
+  "exports": "./index.js",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "test-runner test.js"
+  },
+  "dependencies": {
+    "koa-conditional-get": "^2.0.0",
+    "koa-etag": "^4.0.0"
+  },
+  "devDependencies": {
+    "lws": "^4.1.4",
+    "node-fetch": "^3.3.2",
+    "test-runner": "^0.11.0"
+  },
+  "engines": {
+    "node": ">=12.17"
+  }
+}

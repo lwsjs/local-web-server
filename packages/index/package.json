@@ -1,0 +1,42 @@
+{
+  "name": "lws-index",
+  "version": "3.1.1",
+  "description": "Serve-index middleware plugin for lws",
+  "keywords": [
+    "lws",
+    "lws-middleware",
+    "index",
+    "server",
+    "backend"
+  ],
+  "homepage": "https://github.com/lwsjs/index#readme",
+  "bugs": {
+    "url": "https://github.com/lwsjs/index/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lwsjs/index.git"
+  },
+  "license": "MIT",
+  "author": "Lloyd Brookes <opensource@75lb.com>",
+  "type": "module",
+  "exports": "./index.js",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "test-runner test.js"
+  },
+  "dependencies": {
+    "serve-index-75lb": "^2.0.1"
+  },
+  "devDependencies": {
+    "lws": "^4.1.2",
+    "node-fetch": "^3.2.6",
+    "test-runner": "^0.10.1"
+  },
+  "engines": {
+    "node": ">=12.17"
+  }
+}
