@@ -1,7 +1,6 @@
 import TestRunner from 'test-runner'
 import Blacklist from 'lws-blacklist'
 import Lws from 'lws'
-import fetch from 'node-fetch'
 import { strict as a } from 'assert'
 
 const tom = new TestRunner.Tom()

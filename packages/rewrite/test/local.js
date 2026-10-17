@@ -4,7 +4,6 @@ import Rewrite from 'lws-rewrite'
 import Static from 'lws-static'
 import ErrDetail from 'lws-err-detail'
 import Lws from 'lws'
-import fetch from 'node-fetch'
 
 const tom = new TestRunner.Tom()
 

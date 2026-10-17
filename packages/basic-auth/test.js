@@ -1,6 +1,5 @@
 import TestRunner from 'test-runner'
 import Lws from 'lws'
-import fetch from 'node-fetch'
 import { strict as a } from 'assert'
 import BasicAuth from 'lws-basic-auth'
 

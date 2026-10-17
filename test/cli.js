@@ -1,5 +1,4 @@
 import TestRunner from 'test-runner'
-import fetch from 'node-fetch'
 import assert from 'assert'
 import WsCli from '../lib/cli-app.js'
 import * as fsMain from 'fs'

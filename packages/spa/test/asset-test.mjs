@@ -1,6 +1,5 @@
 import TestRunner from 'test-runner'
 import assert from 'assert'
-import fetch from 'node-fetch'
 import Spa from 'lws-spa'
 import Static from 'lws-static'
 import Lws from 'lws'

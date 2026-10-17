@@ -1,5 +1,4 @@
 import TestRunner from 'test-runner'
-import fetch from 'node-fetch'
 import LocalWebServer from 'local-web-server'
 import assert from 'assert'
 

@@ -2,7 +2,6 @@ import TestRunner from 'test-runner'
 import { strict as a } from 'assert'
 import Range from 'lws-range'
 import Lws from 'lws'
-import fetch from 'node-fetch'
 
 const tom = new TestRunner.Tom()
 

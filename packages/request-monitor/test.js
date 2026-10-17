@@ -1,7 +1,6 @@
 import TestRunner from 'test-runner'
 import RequestMonitor from './index.js'
 import Lws from 'lws'
-import fetch from 'node-fetch'
 import LwsBodyParser from 'lws-body-parser'
 import { strict as a } from 'assert'
 

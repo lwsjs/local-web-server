@@ -1,7 +1,6 @@
 import TestRunner from 'test-runner'
 import Compress from 'lws-compress'
 import Lws from 'lws'
-import fetch from 'node-fetch'
 import { strict as a } from 'assert'
 import { promises as fs } from 'fs'
 

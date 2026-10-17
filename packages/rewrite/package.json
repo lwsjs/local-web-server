@@ -51,7 +51,6 @@
     "lws-cors": "^4.2.2",
     "lws-err-detail": "^2.0.0",
     "lws-static": "^3.1.2",
-    "node-fetch": "^3.3.2",
     "test-runner": "^0.11.1"
   },
   "engines": {

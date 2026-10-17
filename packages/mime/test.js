@@ -1,7 +1,6 @@
 import TestRunner from 'test-runner'
 import Mime from './index.js'
 import Lws from 'lws'
-import fetch from 'node-fetch'
 import a from 'assert'
 
 const tom = new TestRunner.Tom()

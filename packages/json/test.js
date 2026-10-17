@@ -1,7 +1,6 @@
 import TestRunner from 'test-runner'
 import Json from './index.js'
 import Lws from 'lws'
-import fetch from 'node-fetch'
 
 const tom = new TestRunner.Tom()
 

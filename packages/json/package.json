@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "lws": "^4.2.1",
-    "node-fetch": "^3",
     "test-runner": "^0.11.1"
   },
   "engines": {

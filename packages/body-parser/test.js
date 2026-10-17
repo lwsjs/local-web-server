@@ -2,7 +2,6 @@ import TestRunner from 'test-runner'
 import BodyParser from 'lws-body-parser'
 import Lws from 'lws'
 import { strict as a } from 'assert'
-import fetch from 'node-fetch'
 
 const tom = new TestRunner.Tom()
 

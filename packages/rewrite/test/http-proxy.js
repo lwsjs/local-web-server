@@ -2,7 +2,6 @@ import TestRunner from 'test-runner'
 import Rewrite from 'lws-rewrite'
 import Static from 'lws-static'
 import Lws from 'lws'
-import fetch from 'node-fetch'
 import a from 'assert'
 import net from 'net'
 
