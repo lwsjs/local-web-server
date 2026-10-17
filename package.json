@@ -36,10 +36,11 @@
     "https"
   ],
   "engines": {
-    "node": ">=16.15"
+    "node": ">=22"
   },
   "scripts": {
-    "test": "test-runner test/*.js"
+    "test": "test-runner test/*.js",
+    "ncu": "for DIR in packages/*; do cd $DIR; ncu; cd ..; done"
   },
   "files": [
     "bin",

@@ -25,11 +25,11 @@
     "test": "test-runner test.js"
   },
   "dependencies": {
-    "byte-size": "^6.2.0"
+    "byte-size": "^9.0.2"
   },
   "devDependencies": {
     "lws": "^4.2.1",
-    "lws-body-parser": "^2.0.0",
+    "lws-body-parser": "^3.0.1",
     "test-runner": "^0.11.1"
   },
   "engines": {

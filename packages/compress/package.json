@@ -29,7 +29,7 @@
     "test": "test-runner test/test.mjs"
   },
   "dependencies": {
-    "koa-compress": "5.1.1"
+    "koa-compress": "5.2.2"
   },
   "devDependencies": {
     "lws": "^4.2.1",

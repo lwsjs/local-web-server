@@ -40,8 +40,8 @@
   },
   "dependencies": {
     "array-back": "^6.2.3",
-    "http-proxy-agent": "^5.0.0",
-    "https-proxy-agent": "^5.0.1",
+    "http-proxy-agent": "^9.1.0",
+    "https-proxy-agent": "^9.1.0",
     "koa-route": "^4.0.1",
     "path-to-regexp": "^6.3.0"
   },
