@@ -16,7 +16,7 @@ packages=(
   "packages/spa"
   "packages/static"
 )
-npm test
+test-runner test/*.js # Parent tests
 for PACKAGE in ${packages[@]}; do
   cd $PACKAGE
   echo -e "\nRUNNING $PACKAGE\n\n"

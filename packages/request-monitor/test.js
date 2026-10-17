@@ -10,7 +10,7 @@ const tom = new TestRunner.Tom('request-monitor')
 tom.test('GET', async function () {
   const port = 8000 + this.index
   const actuals = []
-  const lws = Lws.create({ port, stack: [ LwsBodyParser, RequestMonitor] })
+  const lws = await Lws.create({ port, stack: [ LwsBodyParser, RequestMonitor] })
   lws.on('verbose', (key, value) => {
     if (key === 'server.request' || key === 'server.response') {
       actuals.push(key)
@@ -24,7 +24,7 @@ tom.test('GET', async function () {
 tom.test('POST with form body', async function () {
   const port = 8000 + this.index
   const actuals = []
-  const lws = Lws.create({ port, stack: [ LwsBodyParser, RequestMonitor] })
+  const lws = await Lws.create({ port, stack: [ LwsBodyParser, RequestMonitor] })
   lws.on('verbose', (key, value) => {
     if (key === 'server.request' || key === 'server.response') {
       actuals.push(key)
@@ -45,7 +45,7 @@ tom.test('POST with form body', async function () {
 tom.test('POST with json body', async function () {
   const port = 8000 + this.index
   const actuals = []
-  const lws = Lws.create({ port, stack: [ LwsBodyParser, RequestMonitor] })
+  const lws = await Lws.create({ port, stack: [ LwsBodyParser, RequestMonitor] })
   lws.on('verbose', (key, value) => {
     if (key === 'server.request' || key === 'server.response') {
       actuals.push(key)

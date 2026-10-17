@@ -39,7 +39,7 @@
     "node": ">=12.20"
   },
   "scripts": {
-    "test": "test-runner test/*.js"
+    "test": "./test/no-workspaces-support.sh"
   },
   "files": [
     "bin",

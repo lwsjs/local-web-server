@@ -7,7 +7,7 @@ const tom = new TestRunner.Tom()
 
 tom.test('simple', async function () {
   const port = 8000 + this.index
-  const lws = Lws.create({ port, stack: Json })
+  const lws = await Lws.create({ port, stack: Json })
   const response = await fetch(`http://localhost:${port}/`)
   lws.server.close()
 })

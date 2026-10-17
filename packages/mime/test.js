@@ -15,7 +15,7 @@ tom.test('simple', async function () {
       }
     }
   }
-  const lws = Lws.create({
+  const lws = await Lws.create({
     port,
     stack: [ Mime, One ],
     mime: {

@@ -28,9 +28,9 @@
     "byte-size": "^6.2.0"
   },
   "devDependencies": {
-    "lws": "^2.0.8",
+    "lws": "^4.2.1",
     "lws-body-parser": "^2.0.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3",
     "test-runner": "^0.11.1"
   },
   "engines": {

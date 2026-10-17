@@ -30,8 +30,8 @@
     "basic-auth": "^2.0.1"
   },
   "devDependencies": {
-    "lws": "^2.0.8",
-    "node-fetch": "^2.6.0",
+    "lws": "^4.2.1",
+    "node-fetch": "^3",
     "test-runner": "^0.11.1"
   },
   "engines": {
