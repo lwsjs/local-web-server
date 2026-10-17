@@ -1,3 +1,6 @@
+import util from 'util'
+import stream from 'stream'
+
 class RequestMonitor {
   description () {
     return 'Feeds traffic information to the `--verbose` output.'
@@ -10,7 +13,6 @@ class RequestMonitor {
     })
 
     return async (ctx, next) => {
-      const util = require('util')
 
       /* first, inspect the request */
       const reqInfo = {
@@ -50,7 +52,6 @@ class RequestMonitor {
         } catch (err) {}
       }
 
-      const stream = require('stream')
       if (resInfo.body instanceof stream.Readable) {
         if (/text\/event-stream/.test(ctx.response.type)) {
           resInfo.body[util.inspect.custom] = function (depth, options) {
@@ -71,4 +72,4 @@ class RequestMonitor {
   }
 }
 
-module.exports = RequestMonitor
+export default RequestMonitor

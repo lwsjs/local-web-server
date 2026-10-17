@@ -1,4 +1,5 @@
-const EventEmitter = require('events')
+import EventEmitter from 'events'
+import path from 'path'
 
 class Mime extends EventEmitter {
   description () {
@@ -11,7 +12,6 @@ class Mime extends EventEmitter {
       this.emit('verbose', 'middleware.mime.config', { mime: mimeTypes })
       return async function (ctx, next) {
         await next()
-        const path = require('path')
         const reqPathExtension = path.extname(ctx.path).slice(1)
         Object.keys(mimeTypes).forEach(mimeType => {
           const extsToOverride = mimeTypes[mimeType]
@@ -22,4 +22,4 @@ class Mime extends EventEmitter {
   }
 }
 
-module.exports = Mime
+export default Mime

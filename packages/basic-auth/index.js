@@ -1,4 +1,5 @@
-const EventEmitter = require('events')
+import EventEmitter from 'events'
+import auth from 'basic-auth'
 
 class BasicAuth extends EventEmitter {
   description () {
@@ -26,7 +27,6 @@ class BasicAuth extends EventEmitter {
     }
     return (ctx, next) => {
       if (options.authUser && options.authPass) {
-        const auth = require('basic-auth')
         const credentials = auth(ctx)
         if (!(credentials && credentials.name === options.authUser && credentials.pass === options.authPass)) {
           ctx.status = 401
@@ -42,4 +42,4 @@ class BasicAuth extends EventEmitter {
   }
 }
 
-module.exports = BasicAuth
+export default BasicAuth

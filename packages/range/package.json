@@ -33,7 +33,7 @@
   "devDependencies": {
     "lws": "^4.2.1",
     "node-fetch": "^3.3.2",
-    "test-runner": "^0.10.1"
+    "test-runner": "^0.11.1"
   },
   "engines": {
     "node": ">=12.17"

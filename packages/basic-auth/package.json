@@ -18,8 +18,8 @@
   },
   "license": "MIT",
   "author": "Lloyd Brookes <opensource@75lb.com>",
-  "type": "commonjs",
-  "main": "index.js",
+  "type": "module",
+  "exports": "./index.js",
   "files": [
     "index.js"
   ],
@@ -32,9 +32,9 @@
   "devDependencies": {
     "lws": "^2.0.8",
     "node-fetch": "^2.6.0",
-    "test-runner": "^0.10.1"
+    "test-runner": "^0.11.1"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=12.17"
   }
 }

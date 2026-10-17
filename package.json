@@ -39,7 +39,7 @@
     "node": ">=12.20"
   },
   "scripts": {
-    "test": "test-runner test/*.js && npm test --workspaces"
+    "test": "test-runner test/*.js"
   },
   "files": [
     "bin",

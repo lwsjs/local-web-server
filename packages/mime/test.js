@@ -1,10 +1,10 @@
-const Tom = require('test-runner').Tom
-const Mime = require('./')
-const Lws = require('lws')
-const fetch = require('node-fetch')
-const a = require('assert')
+import TestRunner from 'test-runner'
+import Mime from './index.js'
+import Lws from 'lws'
+import fetch from 'node-fetch'
+import a from 'assert'
 
-const tom = module.exports = new Tom()
+const tom = new TestRunner.Tom()
 
 tom.test('simple', async function () {
   const port = 8000 + this.index
@@ -26,3 +26,5 @@ tom.test('simple', async function () {
   lws.server.close()
   a.ok(/yeah/.test(response.headers.get('content-type')))
 })
+
+export default tom

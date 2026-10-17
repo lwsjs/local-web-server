@@ -31,4 +31,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install
+    - run: npm i -g test-runner@^0.11.1
     - run: npm test

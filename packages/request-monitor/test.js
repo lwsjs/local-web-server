@@ -1,11 +1,11 @@
-const Tom = require('test-runner').Tom
-const RequestMonitor = require('./')
-const Lws = require('lws')
-const fetch = require('node-fetch')
-const a = require('assert').strict
-const LwsBodyParser = require('lws-body-parser')
+import TestRunner from 'test-runner'
+import RequestMonitor from './index.js'
+import Lws from 'lws'
+import fetch from 'node-fetch'
+import LwsBodyParser from 'lws-body-parser'
+import { strict as a } from 'assert'
 
-const tom = module.exports = new Tom('request-monitor')
+const tom = new TestRunner.Tom('request-monitor')
 
 tom.test('GET', async function () {
   const port = 8000 + this.index
@@ -61,3 +61,5 @@ tom.test('POST with json body', async function () {
   lws.server.close()
   a.deepEqual(actuals, [ 'server.request', 'server.response' ])
 })
+
+export default tom

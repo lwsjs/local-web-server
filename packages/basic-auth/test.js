@@ -1,10 +1,10 @@
-const Tom = require('test-runner').Tom
-const a = require('assert').strict
-const fetch = require('node-fetch')
-const Lws = require('lws')
-const BasicAuth = require('./')
+import TestRunner from 'test-runner'
+import Lws from 'lws'
+import fetch from 'node-fetch'
+import { strict as a } from 'assert'
+import BasicAuth from 'lws-basic-auth'
 
-const tom = module.exports = new Tom()
+const tom = new TestRunner.Tom()
 
 tom.test('no config', async function () {
   const port = 9000 + this.index
@@ -16,6 +16,7 @@ tom.test('no config', async function () {
       }
     }
   }
+  throw new Error('broken')
   const lws = Lws.create({
     port,
     stack: [ BasicAuth, One ]
@@ -76,3 +77,5 @@ tom.test('description and optionDefinitions', function () {
   plugin.description()
   plugin.optionDefinitions()
 })
+
+export default tom
