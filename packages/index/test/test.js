@@ -29,7 +29,7 @@ tom.test('directory links have trailing slash', async function () {
   const response = await fetch(`http://localhost:${port}/`)
   const body = await response.text()
   lws.server.close()
-  a.ok(/href="\/node_modules\/"/.test(body))
+  a.ok(/href="\/test\/"/.test(body))
   a.ok(/href="\/index.js"/.test(body))
 })
 

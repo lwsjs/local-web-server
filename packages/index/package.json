@@ -26,7 +26,7 @@
     "index.js"
   ],
   "scripts": {
-    "test": "test-runner test.js"
+    "test": "test-runner test/test.js"
   },
   "dependencies": {
     "serve-index-75lb": "^2.0.1"
